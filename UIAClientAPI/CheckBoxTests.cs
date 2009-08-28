@@ -2,7 +2,7 @@
 // CheckBoxTests.cs: CheckBox tests using UIA Client API.
 //
 // Author:
-//   Ray Wang (rawang@novell.com)
+//   Ray Wang  (rawang@novell.com)
 //
 // Copyright (c) 2009 Novell, Inc (http://www.novell.com)
 //
