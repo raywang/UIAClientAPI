@@ -33,6 +33,9 @@ namespace UIAClientAPI {
 		static Core.UIItems.CheckBox check5 = null;
 		static Core.UIItems.CheckBox check6 = null;
 
+		// init logger: 
+		static ILog logger = LogManager.GetLogger ("UIAClientAPI");
+
 		static void Main (string [] args)
 		{
 			InitSample ();
@@ -92,9 +95,8 @@ namespace UIAClientAPI {
 			}
 
 			// check the results.         
-			Console.WriteLine ("Success.");
+			logger.Info("Success.");
 			Console.ReadKey ();
-
 		}
 
 		public static void CommonChecks (CheckBox checkBox)
