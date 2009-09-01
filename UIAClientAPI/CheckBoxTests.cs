@@ -24,6 +24,11 @@ using log4net;
 
 namespace UIAClientAPI {
 	class CheckBoxTests {
+
+		// define variables
+		static string ipy = @"ipy.exe";
+		static string sample = @"D:\Accessibility\uia2atk\samples\winforms\checkbox.py";
+
 		// declare the controls.
 		static Application application = null;
 		static Core.UIItems.CheckBox check1 = null;
@@ -41,13 +46,11 @@ namespace UIAClientAPI {
 			InitSample ();
 			RunTests ();
 			application.Kill ();
+			Console.ReadKey ();
 		}
 
 		public static void InitSample ()
 		{
-			string ipy = @"C:\Program Files\IronPython 2.0.2\ipy.exe";
-			string sample = @"D:\Accessibility\uia2atk\samples\winforms\checkbox.py";
-
 			// start sample.
 			ProcessStartInfo processInfo = new ProcessStartInfo (ipy, sample);
 			application = Application.Launch (processInfo);
@@ -79,24 +82,22 @@ namespace UIAClientAPI {
 				CommonChecks (checkBox);
 			}
 
-			// check the control respectively
-			checkbox1Test ();
-			checkbox2Test ();
-			checkbox3Test ();
-			checkbox4Test ();
-			checkbox5Test ();
-			checkbox6Test ();
-
 			// check all the Enabled CheckBoxes
 			checkBoxList.Remove (check4);
 			foreach (CheckBox checkBox in checkBoxList) {
-				Assert.IsNotNull (checkBox);
 				EnabledCheckBoxTests (checkBox);
 			}
 
+			// check focus
+			foreach (CheckBox checkBox in checkBoxList) {
+				SwitchFocusTests (checkBox);
+			}
+
+			// check checkBox4 respectively
+			checkBox4Test ();
+
 			// check the results.         
 			logger.Info("Success.");
-			Console.ReadKey ();
 		}
 
 		public static void CommonChecks (CheckBox checkBox)
@@ -148,36 +149,20 @@ namespace UIAClientAPI {
 		}
 
 
-		public static void checkbox1Test ()
+		public static void SwitchFocusTests (CheckBox checkBox)
 		{
 			// check Focus property.
-			Assert.IsTrue ((bool) check1.AutomationElement.Current.HasKeyboardFocus);
-
+			AutomationElement check_AE = checkBox.AutomationElement;
+			if (check_AE.Current.HasKeyboardFocus != true) {
+				check_AE.SetFocus ();
+				Thread.Sleep (1000);
+				Assert.IsTrue ((bool) check_AE.Current.HasKeyboardFocus);
+			} else {
+				Assert.IsTrue ((bool) check_AE.Current.HasKeyboardFocus);
+			}
 		}
 
-		public static void checkbox2Test ()
-		{
-			// check Focus property.
-			Assert.IsFalse ((bool) check2.AutomationElement.Current.HasKeyboardFocus);
-
-			// trying to setFocus and check its results
-			check2.AutomationElement.SetFocus ();
-			Thread.Sleep (1000);
-			Assert.IsTrue ((bool) check2.AutomationElement.Current.HasKeyboardFocus);
-		}
-
-		public static void checkbox3Test ()
-		{
-			// check Name and Focus properties.
-			Assert.IsFalse ((bool) check3.AutomationElement.Current.HasKeyboardFocus);
-
-			// trying to setFocus and check its results
-			check3.AutomationElement.SetFocus ();
-			Thread.Sleep (1000);
-			Assert.IsTrue ((bool) check3.AutomationElement.Current.HasKeyboardFocus);
-		}
-
-		public static void checkbox4Test ()
+		public static void checkBox4Test ()
 		{
 			// check Name and Focus properties.
 			Assert.AreEqual ("Beef", check4.AutomationElement.Current.Name);
@@ -197,28 +182,6 @@ namespace UIAClientAPI {
 				check4_TP.Toggle ();
 				Assert.Fail ("Expected Exception: ElementNotEnabledException");
 			} catch (ElementNotEnabledException) {}
-		}
-
-		public static void checkbox5Test ()
-		{
-			// check Focus properties.
-			Assert.IsFalse ((bool) check5.AutomationElement.Current.HasKeyboardFocus);
-
-			// trying to setFocus and check its results
-			check5.AutomationElement.SetFocus ();
-			Thread.Sleep (1000);
-			Assert.IsTrue ((bool) check5.AutomationElement.Current.HasKeyboardFocus);
-		}
-
-		public static void checkbox6Test ()
-		{
-			// check Focus properties.
-			Assert.IsFalse ((bool) check6.AutomationElement.Current.HasKeyboardFocus);
-
-			// trying to setFocus and check its results
-			check6.AutomationElement.SetFocus ();
-			Thread.Sleep (1000);
-			Assert.IsTrue ((bool) check6.AutomationElement.Current.HasKeyboardFocus);
 		}
 	}
 }
