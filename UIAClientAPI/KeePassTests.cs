@@ -44,34 +44,87 @@ namespace UIAClientAPI
 			//TODO implement a logger class to log the action of each process
 
 			//101.1 Click "new" button on the toolstripbar
-			// var toolbar = window.Find (ControlType.ToolBar, "");
-			// window.findButton("New...").click()
-			// toolbar.findButton ("New...").Click ();
 			// procedureLogger.expectedResult ("The \"Create New Password Database\" window opens");
 			var toolBar = window.Find (ControlType .ToolBar , "");
 			toolBar.FindButton ("New...").Click();
 			Thread.Sleep (1000);
 
 			//101.2 Enter a new filename on the "filename" combo box of the dailog
-
-			// var newPassDialog = window.FindWindow ("Create New Password Database");
-			// var fileNameEdit = newPassDialog.FindEdit ("File name:");
-			// fileNameEdit.Value = "TestCase101";
-
+			// procedureLogger.expectedResult ("");
 			var newPassDialog = window.FindWindow ("Create New Password Database");
-			Edit fileNameEdit = newPassDialog.FindEdit ("File name:");
+			var fileNameEdit = newPassDialog.FindEdit ("File name:");
 			fileNameEdit.Value = "TestCase101";
 			Thread.Sleep (1000);
 
 			//101.3 Click "Save" button on the dialog
-
-			// newPassDialog.Save ();
-
+			// procedureLogger.expectedResult ("");
 			newPassDialog.Save ();
 			Thread.Sleep (1000);
 
-			//101.4 Enter a password “hello brad” into "Password" text box
+			//101.4 Enter a password “mono-a11y” into "Password" text box
+			var createMasterKeyWindow = window.FindWindow ("Create Composite Master Key");
+			var edits = createMasterKeyWindow.FindAll<Edit> (ControlType.Edit);
+			var masterPasswdEdit = edits [1];
+			masterPasswdEdit.Value = "mono-a11y";
+			Thread.Sleep (1000);
 
+			//101.5  Re-Enter the password "mono-a11y" into "Password" repeat text box
+			var repeatPasswdEdit = edits [0];
+			repeatPasswdEdit.Value = "mono-a11y";
+			Thread.Sleep (1000);
+
+			//101.6 Check "Key file/option" CheckBox
+			createMasterKeyWindow.FindCheckBox ("Key file / provider:").Toggle();
+			Thread.Sleep (1000);
+
+			//101.7 Click "Create a new key file" button
+			//createMasterKeyWindow.FindButton ("Create...").Click ();
+			createMasterKeyWindow.FindButton (" Create...").Click();
+			Thread.Sleep (1000);
+
+			//101.8  Click "Save" button on the dialog
+			var newKeyFileDialog = window.FindWindow ("Create a new key file");
+			newKeyFileDialog.Save();
+			Thread.Sleep (1000);
+
+			//in case there is a TestCase101 key exist.
+			var comfirmDialog = newKeyFileDialog.FindWindow("Confirm Save As");
+			if (comfirmDialog != null) {
+				comfirmDialog.Yes ();
+				Thread.Sleep (1000);
+			}
+
+			//101.9 Click "OK" button on the dialog
+			createMasterKeyWindow.FindWindow ("Entropy Collection").OK ();
+			Thread.Sleep (1000);
+
+			//101.10 Click "OK" button on the "Create Master Key" Window
+			createMasterKeyWindow.OK ();
+			Thread.Sleep (1000);
+
+			//101.11 Select "Compression" Tab item
+			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
+			var compressionTabItem = newPassDialog2.FindTabItem ("Compression");
+			compressionTabItem.Select ();
+			Thread.Sleep (1000);
+
+			//101.12 Check "None" RadioButton
+			compressionTabItem.FindRadioButton ("None").Select ();
+			Thread.Sleep (1000);
+
+			//101.13 Select "Security" Tab item;
+			var securityTabItem = newPassDialog2.FindTabItem ("Security");
+			securityTabItem.Select ();
+			Thread.Sleep (1000);
+
+			//101.14 Enter a number "3000" in "Key transformation" spinner
+			var keySpinner = newPassDialog2.FindSpinner ("Number of key transformation rounds:");
+			//keySpinner.Value = 1000;
+			Thread.Sleep (1000);
+
+			//101.15 Click "OK" button to close the dialog
+			newPassDialog2.OK ();
+			Thread.Sleep (1000);
 		}
 	}
 }
