@@ -62,16 +62,12 @@ namespace UIAClientAPI
 
 	}
 
-	/// <summary>
-	/// Basic instance which provides Find methods (e.g. FindButton, FindEdit..
-	/// </summary>
+	// Basic instance which provides Find methods (e.g. FindButton, FindEdit..
 	public class Element
 	{
 		protected AutomationElement element;
 
-		/// <summary>
-		/// AutomationElement Name property.
-		/// </summary>
+		// AutomationElement Name property.>
 		public string Name
 		{
 			get { return element.Current.Name; }
@@ -86,7 +82,6 @@ namespace UIAClientAPI
 			this.element = element;
 		}
 
-		// window.Find (ControlType.Button, "OK")
 		/// <summary>
 		/// Find Element from a AutomationElement.
 		/// </summary>
@@ -212,9 +207,7 @@ namespace UIAClientAPI
 		}
 	}
 
-	/// <summary>
-	/// Utils class runs until it gets True.
-	/// </summary>
+	// Utils class runs until it gets True.
 	public static class Utils
 	{
 		public const int RETRY_TIMES = 20;
@@ -233,6 +226,7 @@ namespace UIAClientAPI
 		}
 	}
 
+	// Logger class which provides Actions logger and ExpectedResults logger.
 	public class ProcedureLogger
 	{
 		public void Action (string action)
@@ -248,9 +242,7 @@ namespace UIAClientAPI
 		}
 	}
 
-	/// <summary>
-	/// Window wrapper class.
-	/// </summary>
+	// The wrapper class of Window class.
 	public class Window : Element
 	{
 		public Window (Core.UIItems.WindowItems.Window elm)
@@ -263,65 +255,53 @@ namespace UIAClientAPI
 		{
 		}
 
-		/// <summary>
-		/// Click "OK" button of the window.
-		/// </summary>
+		// Click "OK" button of the window.
 		public void OK ()
 		{
 			ClickButton ("OK");
 		}
 
-		/// <summary>
-		/// Click "Cancel" button of the window.
-		/// </summary>
+		// Click "Cancel" button of the window.
 		public void Cancel ()
 		{
 			ClickButton ("Cancel");
 		}
 
-		/// <summary>
-		///  Click "Save" button of the window.
-		/// </summary>
+		// Click "Save" button of the window.
 		public void Save ()
 		{
 			ClickButton ("Save");
 		}
 
+		// Click "Yes" button of the window
 		public void Yes ()
 		{
 			ClickButton ("Yes");
 		}
 
+		// Click "No" button of the window
 		public void No ()
 		{
 			ClickButton ("No");
 		}
 
-		/// <summary>
-		///  Click button by its name.
-		/// </summary>
+		// Click button by its name.
 		public void ClickButton (string name)
 		{
-            //using find method to find a button
-            try
-            {
-                Button button = FindButton(name);
-                button.Click();
-            }
-
-            //if the button does not exist, throw an exception
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine(e);
-            }
-
-			// ProcedureLogger.Action ("Click the "{0}" button in the {1}", button.Name, ...?);
+			try
+			{
+				Button button = FindButton(name);
+				// ProcedureLogger.Action ("Click the "{0}" button in the {1}", button.Name, ...?);
+				button.Click();
+			}
+			catch (NullReferenceException e)
+			{
+				Console.WriteLine(e);
+			}			
 		}
 	}
 
-	/// <summary>
-	/// Button wrapper class
-	/// </summary>
+	// The wrapper class of Button class.
 	public class Button : Element
 	{
 		public Button (AutomationElement elm)
@@ -339,9 +319,6 @@ namespace UIAClientAPI
 		}
 	}
 
-	/// <summary>
-	/// Edit wrapper class.
-	/// </summary>
 	public class Edit : Element
 	{
 		public Edit (AutomationElement elm)
@@ -367,9 +344,6 @@ namespace UIAClientAPI
 		}
 	}
 
-	/// <summary>
-	/// CheckBox wrapper class.
-	/// </summary>
 	public class CheckBox : Element
 	{
 		public CheckBox (AutomationElement elm)
