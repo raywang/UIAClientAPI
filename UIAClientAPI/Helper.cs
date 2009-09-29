@@ -153,14 +153,22 @@ namespace UIAClientAPI
 
 		public void ClickButton (string name)
 		{
-			Button button = FindButton (name);
-			if (button == null) {
-				// throw some assertion error
-			}
+            //using find method to find a button
+            try
+            {
+                Button button = FindButton(name);
+                button.Click();
+            }
+
+            //if the button does not exist, throw an exception
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e);
+            }
 
 			// ProcedureLogger.Action ("Click the "{0}" button in the {1}", button.Name, ...?);
 
-			button.Click ();
+			
 		}
 	}
 
