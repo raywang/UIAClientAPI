@@ -22,6 +22,7 @@ using System.Windows.Automation;
 namespace UIAClientAPI
 {
 	[TestFixture]
+	/// TestBase class helps to launch sample, initiation etc.
 	public class TestBase
 	{
 		// You could donwload our KeePass sampe from http://downloads.sourceforge.net/keepass/KeePass-2.09.zip
@@ -61,10 +62,16 @@ namespace UIAClientAPI
 
 	}
 
+	/// <summary>
+	/// Basic instance which provides Find methods (e.g. FindButton, FindEdit..
+	/// </summary>
 	public class Element
 	{
 		protected AutomationElement element;
 
+		/// <summary>
+		/// AutomationElement Name property.
+		/// </summary>
 		public string Name
 		{
 			get { return element.Current.Name; }
@@ -78,24 +85,14 @@ namespace UIAClientAPI
 		{
 			this.element = element;
 		}
-		
+
 		// window.Find (ControlType.Button, "OK")
-		public Button FindButton (string name)
-		{
-			return (Button) Find (ControlType.Button, name);
-		}
-
-		public Edit FindEdit (string name)
-		{
-			return (Edit) Find (ControlType.Edit, name);
-		}
-
-		public Window FindWindow (string name)
-		{
-			// use Client API to find window named name
-			return (Window) Find (ControlType.Window, name);
-		}
-
+		/// <summary>
+		/// Find Element from a AutomationElement.
+		/// </summary>
+		/// <param name="type">the ControlType of the AutomationElement.</param>
+		/// <param name="name">the AutomationId of the AutomationElement.</param>
+		/// <returns></returns>
 		public Element Find (ControlType type, string name)
 		{
 			for (int i = 0; i < Utils.RETRY_TIMES; i++) {
@@ -111,104 +108,113 @@ namespace UIAClientAPI
 			return null;
 		}
 
+		public T[] FindAll<T> (ControlType type) where T : Element
+		{
+			for (int i = 0; i < Utils.RETRY_TIMES; i++) {
+				var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
+				AutomationElementCollection controls = element.FindAll (TreeScope.Descendants, cond);
+				if (controls != null)
+					return Promote<T> (controls);
+
+				Thread.Sleep (Utils.RETRY_INTERVAL);
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// To promote a AutomationElement to a certain instance of a class,
+		/// in order to get more specific mothods.
+		/// </summary>
+		/// <param name="elm">the element which will be promoted</param>
+		/// <returns>a certain instance of a class</returns>
 		protected Element Promote (AutomationElement elm)
 		{
-			if (elm.Current.ControlType == ControlType.Button)
-				return new Button (elm);
-			else if (elm.Current.ControlType == ControlType.Window)
+			if (elm.Current.ControlType == ControlType.Window)
 				return new Window (elm);
+			else if (elm.Current.ControlType == ControlType.Button)
+				return new Button (elm);
 			else if (elm.Current.ControlType == ControlType.Edit)
 				return new Edit (elm);
+			else if (elm.Current.ControlType == ControlType.CheckBox)
+				return new CheckBox (elm);
+			else if (elm.Current.ControlType == ControlType.RadioButton)
+				return new RadioButton  (elm);
+			else if (elm.Current.ControlType == ControlType.TabItem)
+				return new TabItem (elm);
+			else if (elm.Current.ControlType == ControlType.Spinner)
+				return new Spinner (elm);
 
 			return new Element (elm);
 		}
-	}
 
-	public class Window : Element
-	{
-		public Window (Core.UIItems.WindowItems.Window elm)
-			: base (elm)
+		protected T [] Promote<T> (AutomationElementCollection elm) where T : Element
 		{
+			T [] ret = new T [elm.Count];
+			for (int i = 0; i < elm.Count; i++)
+				ret [i] = Promote (elm [i]) as T;
+			return ret;
 		}
 
-		public Window (AutomationElement elm)
-			: base (elm)
+		/// <summary>
+		/// Find a Window object by its name.
+		/// </summary>
+		/// <param name="name">the title of the window.</param>
+		/// <returns>a Window instance of UIAClientAPI namespace.</returns>
+		public Window FindWindow (string name)
 		{
+			// use Client API to find window named name
+			return (Window) Find (ControlType.Window, name);
 		}
 
-		public void Ok ()
+		/// <summary>
+		/// Find a Button object by its name.
+		/// </summary>
+		/// <param name="name">the AutomationId of the button</param>
+		/// <returns>a Button instance of UIAClientAPI namespace.</returns>
+		public Button FindButton (string name)
 		{
-			ClickButton ("Ok");
+			return (Button) Find (ControlType.Button, name);
 		}
 
-		public void Cancel ()
+		/// <summary>
+		/// Find a Edit object by its name.
+		/// </summary>
+		/// <param name="name">>the AutomationId of the Edit</param>
+		/// <returns>a Edit instance of UIAClientAPI namespace.</returns>
+		public Edit FindEdit (string name)
 		{
-			ClickButton ("Cancel");
+			return (Edit) Find (ControlType.Edit, name);
 		}
 
-		public void Save ()
+		/// <summary>
+		/// Find a CheckBox object by its name.
+		/// </summary>
+		/// <param name="name">the AutomationId of the CheckBox</param>
+		/// <returns>a CheckBox instance of UIAClientAPI namespace</returns>
+		public CheckBox FindCheckBox (string name)
 		{
-			ClickButton ("Save");
+			return (CheckBox) Find (ControlType.CheckBox, name);
 		}
 
-		public void ClickButton (string name)
+		public RadioButton FindRadioButton (string name)
 		{
-            //using find method to find a button
-            try
-            {
-                Button button = FindButton(name);
-                button.Click();
-            }
-
-            //if the button does not exist, throw an exception
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine(e);
-            }
-
-			// ProcedureLogger.Action ("Click the "{0}" button in the {1}", button.Name, ...?);
-
-			
-		}
-	}
-
-	public class Button : Element
-	{
-		public Button (AutomationElement elm)
-			: base (elm)
-		{
+			return (RadioButton) Find (ControlType.RadioButton, name);
 		}
 
-		public void Click ()
+		public TabItem FindTabItem (string name)
 		{
-			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
-			ip.Invoke ();
-		}
-	}
-
-	public class Edit : Element
-	{
-		public Edit (AutomationElement elm)
-			: base (elm)
-		{
+			return (TabItem) Find (ControlType.TabItem, name);
 		}
 
-		public string Value
+		public Spinner FindSpinner (string name)
 		{
-			get
-			{
-				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
-				return vp.Current.Value;
-			}
-			set
-			{
-				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
-				vp.SetValue (value);
-			}
+			return (Spinner) Find (ControlType.Spinner, name);
 		}
 	}
 
-
+	/// <summary>
+	/// Utils class runs until it gets True.
+	/// </summary>
 	public static class Utils
 	{
 		public const int RETRY_TIMES = 20;
@@ -242,72 +248,192 @@ namespace UIAClientAPI
 		}
 	}
 
-	/*
-	public class KeePassToolBar
+	/// <summary>
+	/// Window wrapper class.
+	/// </summary>
+	public class Window : Element
 	{
-		private Window window = null;
-
-		public KeePassToolBar (Window win)
+		public Window (Core.UIItems.WindowItems.Window elm)
+			: base (elm)
 		{
-			this.window = win;
 		}
 
-		public void ClickButton (string primaryIdentification)
+		public Window (AutomationElement elm)
+			: base (elm)
 		{
-			AutomationElement button = GetToolBarButton (primaryIdentification);
-			InvokePattern ip = (InvokePattern) button.GetCurrentPattern (InvokePattern.Pattern);
-			ip.Invoke ();
 		}
 
-		public AutomationElement GetToolBarButton (string primaryIdentification)
+		/// <summary>
+		/// Click "OK" button of the window.
+		/// </summary>
+		public void OK ()
 		{
-			ToolStrip toolBar = window.ToolStrip;
-			Assert.IsNotNull (toolBar, "ToolBar item is null");
+			ClickButton ("OK");
+		}
 
-			AutomationElement button = toolBar.Get<Button> (SearchCriteria.ByText (primaryIdentification)).AutomationElement;
-			Assert.IsNotNull (button, "%s button item is null", primaryIdentification);
+		/// <summary>
+		/// Click "Cancel" button of the window.
+		/// </summary>
+		public void Cancel ()
+		{
+			ClickButton ("Cancel");
+		}
 
-			return button;
+		/// <summary>
+		///  Click "Save" button of the window.
+		/// </summary>
+		public void Save ()
+		{
+			ClickButton ("Save");
+		}
+
+		public void Yes ()
+		{
+			ClickButton ("Yes");
+		}
+
+		public void No ()
+		{
+			ClickButton ("No");
+		}
+
+		/// <summary>
+		///  Click button by its name.
+		/// </summary>
+		public void ClickButton (string name)
+		{
+            //using find method to find a button
+            try
+            {
+                Button button = FindButton(name);
+                button.Click();
+            }
+
+            //if the button does not exist, throw an exception
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e);
+            }
+
+			// ProcedureLogger.Action ("Click the "{0}" button in the {1}", button.Name, ...?);
 		}
 	}
 
-	public class KeePassNewPasswdDialog
+	/// <summary>
+	/// Button wrapper class
+	/// </summary>
+	public class Button : Element
 	{
-		private Window window = null;
-
-		public KeePassNewPasswdDialog (Window win)
+		public Button (AutomationElement elm)
+			: base (elm)
 		{
-			this.window = win;
 		}
 
-		public AutomationElement GetElement (ControlType controlType, string primaryIdentification)
+		/// <summary>
+		/// Perform "Click" action.
+		/// </summary>
+		public void Click ()
 		{
-			Window dialog = window.ModalWindow ("Create New Password Database");
-			Assert.IsNotNull (dialog, "new password dailog item is null");
-
-			AutomationElement control = dialog.Get
-				(SearchCriteria.ByControlType (controlType).AndByText (primaryIdentification)).AutomationElement;
-			//var cond = new AndCondition (new PropertyCondition(AutomationElementIdentifiers.ControlTypeProperty, controlType),
-			//        new PropertyCondition(AutomationElementIdentifiers.NameProperty, primaryIdentification));
-			//var control = dialog.AutomationElement.FindFirst (TreeScope.Descendants, cond);
-
-			return control;
-		}
-
-
-		public void ClickButton (string primaryIdentification)
-		{
-			AutomationElement button = GetElement (ControlType.Button, primaryIdentification);
-			InvokePattern ip = (InvokePattern) button.GetCurrentPattern (InvokePattern.Pattern);
+			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
 			ip.Invoke ();
 		}
+	}
 
-		public void SetValue (AutomationElement edit, string text)
+	/// <summary>
+	/// Edit wrapper class.
+	/// </summary>
+	public class Edit : Element
+	{
+		public Edit (AutomationElement elm)
+			: base (elm)
 		{
-			ValuePattern vp = (ValuePattern) edit.GetCurrentPattern (ValuePattern.Pattern);
-			vp.SetValue (text);
+		}
+
+		/// <summary>
+		/// wrapper SetValue method as a property to set value to the Edit control.
+		/// </summary>
+		public string Value
+		{
+			get
+			{
+				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
+				return vp.Current.Value;
+			}
+			set
+			{
+				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
+				vp.SetValue (value);
+			}
 		}
 	}
-	 */
 
+	/// <summary>
+	/// CheckBox wrapper class.
+	/// </summary>
+	public class CheckBox : Element
+	{
+		public CheckBox (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		/// <summary>
+		/// Perform "Toggle" action.
+		/// </summary>
+		public void Toggle ()
+		{
+			TogglePattern tp = (TogglePattern) element.GetCurrentPattern (TogglePattern.Pattern);
+			tp.Toggle ();
+		}
+	}
+
+	public class RadioButton : Element
+	{
+		public RadioButton (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void Select ()
+		{
+			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
+			sp.Select ();
+		}
+	}
+
+	public class TabItem : Element
+	{
+		public TabItem (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void Select ()
+		{
+			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
+			sp.Select ();
+		}
+	}
+
+	public class Spinner : Element
+	{
+		public Spinner (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public double Value
+		{
+			get
+			{
+				RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
+				return rp.Current.Value;
+			}
+			set
+			{
+				RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
+				rp.SetValue (value);
+			}
+		}
+	}
 }
