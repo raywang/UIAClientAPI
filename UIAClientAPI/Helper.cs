@@ -47,7 +47,8 @@ namespace UIAClientAPI
 			procedureLogger.Save ();
 		}
 
-		private void LaunchSample () {
+		private void LaunchSample ()
+		{
 			// start sample.
 			application = Application.Launch (sample);
 		}
@@ -73,7 +74,8 @@ namespace UIAClientAPI
 			get { return element.Current.Name; }
 		}
 
-		public Element (Core.UIItems.IUIItem item) : this (item.AutomationElement)
+		public Element (Core.UIItems.IUIItem item)
+			: this (item.AutomationElement)
 		{
 		}
 
@@ -82,28 +84,37 @@ namespace UIAClientAPI
 			this.element = element;
 		}
 
-		/// <summary>
-		/// Find Element from a AutomationElement.
-		/// </summary>
-		/// <param name="type">the ControlType of the AutomationElement.</param>
-		/// <param name="name">the AutomationId of the AutomationElement.</param>
-		/// <returns></returns>
+		// Find a Element by name.
 		public Element Find (ControlType type, string name)
 		{
-			for (int i = 0; i < Utils.RETRY_TIMES; i++) {
-				var cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
-					new PropertyCondition (AutomationElementIdentifiers.NameProperty, name));
+			return Find (type, name, string.Empty);
+		}
 
+		public Element Find (ControlType type, string name, string automationId)
+		{
+			AndCondition cond;
+
+			if (automationId == string.Empty) {
+				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
+					new PropertyCondition (AutomationElementIdentifiers.NameProperty, name));
+			} else {
+				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
+					new PropertyCondition (AutomationElementIdentifiers.NameProperty, name),
+					new PropertyCondition (AutomationElementIdentifiers.AutomationIdProperty, automationId));
+			}
+
+			for (int i = 0; i < Utils.RETRY_TIMES; i++) {
 				AutomationElement control = element.FindFirst (TreeScope.Descendants, cond);
 				if (control != null)
 					return Promote (control);
 
 				Thread.Sleep (Utils.RETRY_INTERVAL);
 			}
+
 			return null;
 		}
 
-		public T[] FindAll<T> (ControlType type) where T : Element
+		public T [] FindAll<T> (ControlType type) where T : Element
 		{
 			for (int i = 0; i < Utils.RETRY_TIMES; i++) {
 				var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
@@ -133,11 +144,21 @@ namespace UIAClientAPI
 			else if (elm.Current.ControlType == ControlType.CheckBox)
 				return new CheckBox (elm);
 			else if (elm.Current.ControlType == ControlType.RadioButton)
-				return new RadioButton  (elm);
+				return new RadioButton (elm);
 			else if (elm.Current.ControlType == ControlType.TabItem)
 				return new TabItem (elm);
 			else if (elm.Current.ControlType == ControlType.Spinner)
 				return new Spinner (elm);
+			else if (elm.Current.ControlType == ControlType.ComboBox)
+				return new ComboBox (elm);
+			else if (elm.Current.ControlType == ControlType.MenuBar)
+				return new MenuBar (elm);
+			else if (elm.Current.ControlType == ControlType.MenuItem)
+				return new MenuItem (elm);
+			else if (elm.Current.ControlType == ControlType.List)
+				return new List (elm);
+			else if (elm.Current.ControlType == ControlType.ListItem)
+				return new ListItem (elm);
 
 			return new Element (elm);
 		}
@@ -204,6 +225,36 @@ namespace UIAClientAPI
 		public Spinner FindSpinner (string name)
 		{
 			return (Spinner) Find (ControlType.Spinner, name);
+		}
+
+		public ComboBox FindComboBox (string name)
+		{
+			return (ComboBox) Find (ControlType.ComboBox, name);
+		}
+
+		public MenuBar FindMenuBar ()
+		{
+			return (MenuBar) Find (ControlType.MenuBar, "");
+		}
+
+		public MenuItem FindMenuItem (string name)
+		{
+			return (MenuItem) Find (ControlType.MenuItem, name);
+		}
+
+		public List FindList (string name)
+		{
+			return FindList (name, string.Empty);
+		}
+
+		public List FindList (string name, string automationId)
+		{
+			return (List) Find (ControlType.List, name, automationId);
+		}
+
+		public ListItem FindListItem (string name)
+		{
+			return (ListItem) Find (ControlType.ListItem, name);
 		}
 	}
 
@@ -288,16 +339,13 @@ namespace UIAClientAPI
 		// Click button by its name.
 		public void ClickButton (string name)
 		{
-			try
-			{
-				Button button = FindButton(name);
+			try {
+				Button button = FindButton (name);
 				// ProcedureLogger.Action ("Click the "{0}" button in the {1}", button.Name, ...?);
-				button.Click();
+				button.Click ();
+			} catch (NullReferenceException e) {
+				Console.WriteLine (e);
 			}
-			catch (NullReferenceException e)
-			{
-				Console.WriteLine(e);
-			}			
 		}
 	}
 
@@ -309,9 +357,7 @@ namespace UIAClientAPI
 		{
 		}
 
-		/// <summary>
-		/// Perform "Click" action.
-		/// </summary>
+		// Perform "Click" action.
 		public void Click ()
 		{
 			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
@@ -326,9 +372,7 @@ namespace UIAClientAPI
 		{
 		}
 
-		/// <summary>
-		/// wrapper SetValue method as a property to set value to the Edit control.
-		/// </summary>
+		// wrapper SetValue method as a property to set value to the Edit control.
 		public string Value
 		{
 			get
@@ -351,9 +395,7 @@ namespace UIAClientAPI
 		{
 		}
 
-		/// <summary>
-		/// Perform "Toggle" action.
-		/// </summary>
+		// Perform "Toggle" action.
 		public void Toggle ()
 		{
 			TogglePattern tp = (TogglePattern) element.GetCurrentPattern (TogglePattern.Pattern);
@@ -408,6 +450,76 @@ namespace UIAClientAPI
 				RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
 				rp.SetValue (value);
 			}
+		}
+	}
+
+	public class ComboBox : Element
+	{
+		public ComboBox (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void Expand ()
+		{
+			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
+			ecp.Expand ();
+		}
+
+		public void Collapse ()
+		{
+			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
+			ecp.Collapse ();
+		}
+	}
+
+	public class MenuBar : Element
+	{
+		public MenuBar (AutomationElement elm)
+			: base (elm)
+		{
+		}
+	}
+
+	public class MenuItem : Element
+	{
+		public MenuItem (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void Click ()
+		{
+			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
+			ip.Invoke ();
+		}
+	}
+
+	public class List : Element
+	{
+		public List (AutomationElement elm)
+			: base (elm)
+		{
+		}
+	}
+
+	public class ListItem : Element
+	{
+		public ListItem (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void Show ()
+		{
+			ScrollItemPattern sip = (ScrollItemPattern) element.GetCurrentPattern (ScrollItemPattern.Pattern);
+			sip.ScrollIntoView ();
+		}
+
+		public void Select ()
+		{
+			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
+			sip.Select ();
 		}
 	}
 }

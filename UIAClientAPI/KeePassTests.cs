@@ -38,7 +38,7 @@ namespace UIAClientAPI
 		}
 
 		[Test]
-		//TestCase101  Init Sample, create a new account
+		//TestCase101 Init Sample, create a new account
 		public void TestCase101 ()
 		{
 			//TODO implement a logger class to log the action of each process
@@ -124,6 +124,29 @@ namespace UIAClientAPI
 
 			//101.15 Click "OK" button to close the dialog
 			newPassDialog2.OK ();
+			Thread.Sleep (1000);
+		}
+
+		[Test]
+		//TestCase102 Organize the group
+		public void TestCase102 ()
+		{
+			//102.1 Click "Edit" menu item on the menu bar
+			var menuBar = window.FindMenuBar ();
+			var editMenuItem = menuBar.FindMenuItem ("Edit");
+			editMenuItem.FindMenuItem ("Edit Group").Click ();
+			Thread.Sleep (1000);
+
+			//102.2 Click "Icon" button on the "Edit Group" window
+			var editGroupWindow = window.FindWindow ("Edit Group");
+			var generalTabItem = editGroupWindow.FindTabItem ("General");
+			generalTabItem.FindButton ("Icon:").Click ();
+			Thread.Sleep (1000);
+
+			//102.3 Select list item "30" on the "Icon Picker" window
+			var iconPickerWindow = editGroupWindow.FindWindow ("Icon Picker");
+			var standardIconList = iconPickerWindow.FindList ("", "m_lvIcons");
+			standardIconList.FindListItem ("30").Select ();
 			Thread.Sleep (1000);
 		}
 	}
