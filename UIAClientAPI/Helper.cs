@@ -39,7 +39,7 @@ namespace UIAClientAPI
 			OnSetup ();
 		}
 
-		[TestFixtureTearDown]
+		//[TestFixtureTearDown]
 		public void Quit ()
 		{
 			OnQuit ();
@@ -274,22 +274,6 @@ namespace UIAClientAPI
 			}
 
 			return false;
-		}
-	}
-
-	// Logger class which provides Actions logger and ExpectedResults logger.
-	public class ProcedureLogger
-	{
-		public void Action (string action)
-		{
-		}
-
-		public void ExpectedResult (string expectedResult)
-		{
-		}
-
-		public void Save ()
-		{
 		}
 	}
 
