@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text; 
+using System.Text;
 using System.Windows.Automation;
 
 namespace UIAClientAPI
@@ -20,6 +20,8 @@ namespace UIAClientAPI
 		{
 			KeePassTests test = new KeePassTests ();
 			test.Init ();
+			ProcedureLogger procedureLogger = new ProcedureLogger ();
+			procedureLogger.Save();
 			test.TestCase101 ();
 			test.TestCase102 ();
 		}

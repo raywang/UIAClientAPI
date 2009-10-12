@@ -35,16 +35,17 @@ namespace UIAClientAPI
 		public void Init ()
 		{
 			//procedureLogger.Init ();
-			LaunchSample ();
-			OnSetup ();
+			procedureLogger.Save ();
+			//LaunchSample ();
+			//OnSetup ();
 		}
 
 		//[TestFixtureTearDown]
 		public void Quit ()
 		{
 			OnQuit ();
-			//application.Kill ();
-			procedureLogger.Save ();
+			application.Kill ();
+			//procedureLogger.Save ();
 		}
 
 		private void LaunchSample ()

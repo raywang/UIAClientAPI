@@ -112,15 +112,19 @@ namespace UIAClientAPI
 			compressionTabItem.FindRadioButton ("None").Select ();
 			Thread.Sleep (1000);
 
-			//101.13 Select "Security" Tab item;
-			var securityTabItem = newPassDialog2.FindTabItem ("Security");
-			securityTabItem.Select ();
-			Thread.Sleep (1000);
+			//TODO: We can't change the value of Spinner by using
+			// RangeValuePattern.SetValue, since the maximum 
+			// and mininum value are all 0, seems like the Spinner 
+			// did not well provides proper provider here.
+			////101.13 Select "Security" Tab item;
+			//var securityTabItem = newPassDialog2.FindTabItem ("Security");
+			//securityTabItem.Select ();
+			//Thread.Sleep (1000);
 
-			//101.14 Enter a number "3000" in "Key transformation" spinner
-			var keySpinner = newPassDialog2.FindSpinner ("Number of key transformation rounds:");
-			//keySpinner.Value = 1000;
-			Thread.Sleep (1000);
+			////101.14 Enter a number "3000" in "Key transformation" spinner
+			//var keySpinner = newPassDialog2.FindSpinner ("Number of key transformation rounds:");
+			////keySpinner.Value = 1000;
+			//Thread.Sleep (1000);
 
 			//101.15 Click "OK" button to close the dialog
 			newPassDialog2.OK ();

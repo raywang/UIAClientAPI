@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using System.IO;
 
 namespace UIAClientAPI
 {
@@ -20,18 +19,7 @@ namespace UIAClientAPI
 	{
 		static string actionBuffer = string.Empty;
 		static string expectedResultButter = string.Empty;
-		static XmlDocument xmldoc;
-		static XmlNode xmlnode;
-		static XmlText xmltext;
-		static XmlElement xmlelem;
-		static XmlElement xmlelem2;
-		static XmlElement xmlelem3;
-		static XmlElement xmlelem4;
-		static XmlElement xmlelem5;
-		static XmlElement xmlelem5_1;
-		static XmlElement xmlelem5_2;
-		static XmlElement xmlelem5_3;
-		static XmlElement xmlelem5_4;
+		static List<List<string>> _procedures = new List<List<string>>();
 
 		/**
 		 *  Log an action, e.g., Click Cancel
@@ -65,108 +53,82 @@ namespace UIAClientAPI
 		// Save logged actions and expected results to an XML file
 		public void Save ()
 		{
-			xmldoc = new XmlDocument ();
+			XmlDocument xmlDoc = new XmlDocument ();
+
 			//add XML declaration
-			xmlnode = xmldoc.CreateNode (XmlNodeType.XmlDeclaration, "", "");
-			xmldoc.AppendChild (xmlnode);
+			XmlNode xmlDecl = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", "");
+			xmlDoc.AppendChild (xmlDecl);
+			XmlNode xmlStyleSheet = xmlDoc.CreateProcessingInstruction("xml-stylesheet", "type=\"text/xsl\", href=\"procedure.xsl\"");
+			xmlDoc.AppendChild (xmlStyleSheet);
+
 			//add a root element
-			xmlelem = xmldoc.CreateElement ("", "test", "");
-			//xmltext = xmldoc.CreateTextNode ("Root Text");
-			//xmlelem.AppendChild (xmltext);
-			xmldoc.AppendChild (xmlelem);
+			XmlElement rootElm = xmlDoc.CreateElement ("test");
+			xmlDoc.AppendChild (rootElm);
+
 			//add <name> element
-			xmlelem2 = xmldoc.CreateElement ("name");
-			xmltext = xmldoc.CreateTextNode ("button-regression");
-			xmlelem2.AppendChild (xmltext);
-			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem2);
+			XmlElement nameElm = xmlDoc.CreateElement ("name");
+			XmlText nameElmText = xmlDoc.CreateTextNode ("the name of the test");
+			nameElm.AppendChild (nameElmText);
+			rootElm.AppendChild (nameElm);
+
 			//add <description> element
-			xmlelem3 = xmldoc.CreateElement ("description");
-			xmltext = xmldoc.CreateTextNode ("Test accessibility of button widget");
-			xmlelem3.AppendChild (xmltext);
-			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem3);
+			XmlElement descElm = xmlDoc.CreateElement ("description");
+			XmlText descElmText = xmlDoc.CreateTextNode ("the description of the test");
+			descElm.AppendChild (descElmText);
+			rootElm.AppendChild (descElm);
+
 			//add <parameters> element
-			xmlelem4 = xmldoc.CreateElement ("parameters");
-			xmltext = xmldoc.CreateTextNode ("environments");
-			xmlelem4.AppendChild (xmltext);
-			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem4);
+			XmlElement paraElm = xmlDoc.CreateElement ("parameters");
+			//TODO: add if clause to determine whether add <environments> element or not.
+			XmlElement envElm = xmlDoc.CreateElement ("environments");
+			paraElm.AppendChild (envElm);
+			rootElm.AppendChild (paraElm);
 
-			/*add <parameters> subelement, like the following sturcture
-			*<procedures>
-			*	<step>
-			*	<action>.........................</action>
-			*	<expectedResult>.........</expectedResult>
-			*	<screenshot>.................</screenshot>
-			*	</step>
-			*</procedures>
-			*/
-			xmlelem5 = xmldoc.CreateElement ("procedures");
-			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem5);
-	
-			for (int i = 0; i < actionBuffer.Length; i++) {
-				// <step>
-				xmlelem5_1 = xmldoc.CreateElement ("step");
-				xmltext = xmldoc.CreateTextNode (Convert.ToString (i));
-				xmlelem5_1.AppendChild (xmltext);
-				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_1);
+			//add <procedures> element
+			XmlElement procElm = xmlDoc.CreateElement ("procedures");
+			XmlElement stepElm = xmlDoc.CreateElement ("step");
 
-				// <action>
-				xmlelem5_2 = xmldoc.CreateElement ("action");
-				xmltext = xmldoc.CreateTextNode (actionBuffer);
-				xmlelem5_2.AppendChild (xmltext);
-				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_2);
+			foreach (List<string> p in _procedures) {
+				//add <action> element in <step> element
+				XmlElement actionElm = xmlDoc.CreateElement ("action");
+				XmlText actionElmText = xmlDoc.CreateTextNode (p [0]);
+				actionElm.AppendChild (actionElmText);
+				stepElm.AppendChild (actionElm);
 
-				// <expectedResult>
-				xmlelem5_3 = xmldoc.CreateElement ("expectedResult");
-				xmltext = xmldoc.CreateTextNode (expectedResultButter);
-				xmlelem5_3.AppendChild (xmltext);
-				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_3);
+				//add <expectedResult> element in <step> element
+				XmlElement resultElm = xmlDoc.CreateElement ("expectedResult");
+				XmlText resultElmText = xmlDoc.CreateTextNode (p [1]);
+				resultElm.AppendChild (resultElmText);
+				stepElm.AppendChild (resultElm);
 
-				/* add <screenshot>
-				* TODO: add a judge, if config.TAKE_SCREENSHOTS == TRUE
-				* then do the following step
-				*/
-				xmlelem5_4 = xmldoc.CreateElement ("screenshot");
-				xmltext = xmldoc.CreateTextNode ("screenshot");
-				xmlelem5_4.AppendChild (xmltext);
-				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_4);
+				//add <screenshot> element in <step> element
+				XmlElement screenshotElm = xmlDoc.CreateElement ("screenshot");
+				XmlText screenshotElmText = xmlDoc.CreateTextNode (p[2]);
+				//add if clause to determine whether has a screenshot or not.
+				screenshotElm.AppendChild (screenshotElmText);
+				stepElm.AppendChild (screenshotElm);
 			}
-			// add the content for <parameters>
-			xmltext = xmldoc.CreateTextNode ("。。。。。。。");
-			xmlelem5.AppendChild (xmltext);
+			
+			procElm.AppendChild (stepElm);
+			rootElm.AppendChild (procElm);
 
-			//save the created xml 
+			//add <time> element
+			XmlElement timeElm = xmlDoc.CreateElement ("time");
+			//TODO: add calculating time variable here.
+			XmlText timeEleText = xmlDoc.CreateTextNode ("");
+			timeElm.AppendChild (timeEleText);
+			rootElm.AppendChild (timeElm);
+
+			//write the Xml content to a xml file
 			try {
-				xmldoc.Save ("c:\\data.xml");
+				xmlDoc.Save ("procedure.xml");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 			}
-
-			//write the xml comment to the xml file
-			string lines = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type=\"text/xsl\" href=\"procedures.xsl\"?>";
-
-			StreamReader sr = new StreamReader (@"C:\procedures.xml");
-			string s1 = sr.ReadToEnd ();
-			string s2 = s1.Insert (0, lines);
-			sr.Close ();
-			StreamWriter sw = new StreamWriter (@"C:\procedures.xml");
-			sw.Write (s2);
-			sw.Flush ();
-			sw.Close ();
-
-
-
-
-
-			//Console.ReadLine ();
 		}
+
 		public void flushBuffer ()
 		{
 		}
-
 	}
-	
 }
-
-		
-	
-
