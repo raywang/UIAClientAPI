@@ -1,8 +1,17 @@
-﻿using System;
+﻿// procedurelogger.cs: ouput the info to screen and write it into a xml file
+//
+// Author:
+//   Felicia Mu  (fxmu@novell.com)
+//
+// Copyright (c) 2009 Novell, Inc (http://www.novell.com)
+//
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.IO;
 
 namespace UIAClientAPI
 {
@@ -125,21 +134,39 @@ namespace UIAClientAPI
 			xmltext = xmldoc.CreateTextNode ("。。。。。。。");
 			xmlelem5.AppendChild (xmltext);
 
-			//保存创建好的XML文档
+			//save the created xml 
 			try {
 				xmldoc.Save ("c:\\data.xml");
 			} catch (Exception e) {
-				//显示错误信息
 				Console.WriteLine (e.Message);
 			}
-			Console.ReadLine ();
+
+			//write the xml comment to the xml file
+			string lines = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type=\"text/xsl\" href=\"procedures.xsl\"?>";
+
+			StreamReader sr = new StreamReader (@"C:\procedures.xml");
+			string s1 = sr.ReadToEnd ();
+			string s2 = s1.Insert (0, lines);
+			sr.Close ();
+			StreamWriter sw = new StreamWriter (@"C:\procedures.xml");
+			sw.Write (s2);
+			sw.Flush ();
+			sw.Close ();
+
+
+
+
+
+			//Console.ReadLine ();
+		}
+		public void flushBuffer ()
+		{
 		}
 
 	}
+	
 }
 
-		//public void flushBuffer ()
-		//{
-		//}
+		
 	
 
