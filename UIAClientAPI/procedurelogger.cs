@@ -11,6 +11,18 @@ namespace UIAClientAPI
 	{
 		static string actionBuffer = string.Empty;
 		static string expectedResultButter = string.Empty;
+		static XmlDocument xmldoc;
+		static XmlNode xmlnode;
+		static XmlText xmltext;
+		static XmlElement xmlelem;
+		static XmlElement xmlelem2;
+		static XmlElement xmlelem3;
+		static XmlElement xmlelem4;
+		static XmlElement xmlelem5;
+		static XmlElement xmlelem5_1;
+		static XmlElement xmlelem5_2;
+		static XmlElement xmlelem5_3;
+		static XmlElement xmlelem5_4;
 
 		/**
 		 *  Log an action, e.g., Click Cancel
@@ -44,10 +56,90 @@ namespace UIAClientAPI
 		// Save logged actions and expected results to an XML file
 		public void Save ()
 		{
+			xmldoc = new XmlDocument ();
+			//add XML declaration
+			xmlnode = xmldoc.CreateNode (XmlNodeType.XmlDeclaration, "", "");
+			xmldoc.AppendChild (xmlnode);
+			//add a root element
+			xmlelem = xmldoc.CreateElement ("", "test", "");
+			//xmltext = xmldoc.CreateTextNode ("Root Text");
+			//xmlelem.AppendChild (xmltext);
+			xmldoc.AppendChild (xmlelem);
+			//add <name> element
+			xmlelem2 = xmldoc.CreateElement ("name");
+			xmltext = xmldoc.CreateTextNode ("button-regression");
+			xmlelem2.AppendChild (xmltext);
+			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem2);
+			//add <description> element
+			xmlelem3 = xmldoc.CreateElement ("description");
+			xmltext = xmldoc.CreateTextNode ("Test accessibility of button widget");
+			xmlelem3.AppendChild (xmltext);
+			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem3);
+			//add <parameters> element
+			xmlelem4 = xmldoc.CreateElement ("parameters");
+			xmltext = xmldoc.CreateTextNode ("environments");
+			xmlelem4.AppendChild (xmltext);
+			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem4);
+
+			/*add <parameters> subelement, like the following sturcture
+			*<procedures>
+			*	<step>
+			*	<action>.........................</action>
+			*	<expectedResult>.........</expectedResult>
+			*	<screenshot>.................</screenshot>
+			*	</step>
+			*</procedures>
+			*/
+			xmlelem5 = xmldoc.CreateElement ("procedures");
+			xmldoc.ChildNodes.Item (1).AppendChild (xmlelem5);
+	
+			for (int i = 0; i < actionBuffer.Length; i++) {
+				// <step>
+				xmlelem5_1 = xmldoc.CreateElement ("step");
+				xmltext = xmldoc.CreateTextNode (Convert.ToString (i));
+				xmlelem5_1.AppendChild (xmltext);
+				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_1);
+
+				// <action>
+				xmlelem5_2 = xmldoc.CreateElement ("action");
+				xmltext = xmldoc.CreateTextNode (actionBuffer);
+				xmlelem5_2.AppendChild (xmltext);
+				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_2);
+
+				// <expectedResult>
+				xmlelem5_3 = xmldoc.CreateElement ("expectedResult");
+				xmltext = xmldoc.CreateTextNode (expectedResultButter);
+				xmlelem5_3.AppendChild (xmltext);
+				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_3);
+
+				/* add <screenshot>
+				* TODO: add a judge, if config.TAKE_SCREENSHOTS == TRUE
+				* then do the following step
+				*/
+				xmlelem5_4 = xmldoc.CreateElement ("screenshot");
+				xmltext = xmldoc.CreateTextNode ("screenshot");
+				xmlelem5_4.AppendChild (xmltext);
+				xmldoc.ChildNodes.Item (1).ChildNodes [3].AppendChild (xmlelem5_4);
+			}
+			// add the content for <parameters>
+			xmltext = xmldoc.CreateTextNode ("。。。。。。。");
+			xmlelem5.AppendChild (xmltext);
+
+			//保存创建好的XML文档
+			try {
+				xmldoc.Save ("c:\\data.xml");
+			} catch (Exception e) {
+				//显示错误信息
+				Console.WriteLine (e.Message);
+			}
+			Console.ReadLine ();
 		}
 
-		public void flushBuffer ()
-		{
-		}
 	}
 }
+
+		//public void flushBuffer ()
+		//{
+		//}
+	
+
