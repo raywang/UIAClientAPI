@@ -2,6 +2,7 @@
 //
 // Author:
 //   Felicia Mu  (fxmu@novell.com)
+//   Ray Wang  (rawang@novell.com)
 //
 // Copyright (c) 2009 Novell, Inc (http://www.novell.com)
 //
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Timers;
 
 namespace UIAClientAPI
 {
@@ -20,6 +22,13 @@ namespace UIAClientAPI
 		static string actionBuffer = string.Empty;
 		static string expectedResultButter = string.Empty;
 		static List<List<string>> _procedures = new List<List<string>>();
+		static DateTime first_time;
+
+		// the struct function
+		public ProcedureLogger ()
+		{
+			first_time = DateTime.Now;
+		}
 
 		/**
 		 *  Log an action, e.g., Click Cancel
@@ -27,6 +36,7 @@ namespace UIAClientAPI
 		 * Multiple calls to action() (without a call to expectedResult() in between)
 		 * will cause the message from each call to be concatenated to the message from
 		 * previous calls.
+		 * 
 		 */
 		public void Action (string action)
 		{
@@ -53,6 +63,12 @@ namespace UIAClientAPI
 		// Save logged actions and expected results to an XML file
 		public void Save ()
 		{
+			// get the total time the test run
+			DateTime end_time = DateTime.Now;
+			TimeSpan elapsed = end_time - first_time;
+
+
+
 			XmlDocument xmlDoc = new XmlDocument ();
 
 			//add XML declaration
@@ -115,7 +131,7 @@ namespace UIAClientAPI
 			//add <time> element
 			XmlElement timeElm = xmlDoc.CreateElement ("time");
 			//TODO: add calculating time variable here.
-			XmlText timeEleText = xmlDoc.CreateTextNode ("");
+			XmlText timeEleText = xmlDoc.CreateTextNode (Convert.ToString (elapsed.TotalSeconds));
 			timeElm.AppendChild (timeEleText);
 			rootElm.AppendChild (timeElm);
 
