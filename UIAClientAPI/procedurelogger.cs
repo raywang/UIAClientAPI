@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using System.Timers;
 
 namespace UIAClientAPI
 {
@@ -21,30 +20,21 @@ namespace UIAClientAPI
 	{
 		static string actionBuffer = string.Empty;
 		static string expectedResultButter = string.Empty;
-		static List<List<string>> _procedures = new List<List<string>>();
-		static DateTime first_time;
-
-		// the struct function
-		public ProcedureLogger ()
-		{
-			first_time = DateTime.Now;
-		}
+		static List<List<string>> _procedures = new List<List<string>> ();
+		static DateTime _start_time = DateTime.Now;
 
 		/**
-		 *  Log an action, e.g., Click Cancel
+		 * Log an action, e.g., Click Cancel
 		 *  
 		 * Multiple calls to action() (without a call to expectedResult() in between)
 		 * will cause the message from each call to be concatenated to the message from
 		 * previous calls.
-		 * 
 		 */
 		public void Action (string action)
 		{
-			// take a screenshot;
-			//flushBuffer();
-
-			actionBuffer += action + "  ";
-			Console.WriteLine ("Action: %s", action);
+			flushBuffer ();
+			actionBuffer = action;
+			Console.WriteLine ("Action: {0}", action);
 		}
 
 		/**
@@ -56,25 +46,24 @@ namespace UIAClientAPI
 		 */
 		public void ExpectedResult (string expectedResult)
 		{
-			expectedResultButter += expectedResult + "  ";
-			Console.WriteLine ("Expected result: %s", expectedResult);
+			expectedResultButter = expectedResult;
+			Console.WriteLine ("Expected result: {0}", expectedResult);
 		}
 
 		// Save logged actions and expected results to an XML file
 		public void Save ()
 		{
 			// get the total time the test run
-			DateTime end_time = DateTime.Now;
-			TimeSpan elapsed = end_time - first_time;
+			TimeSpan elapsed_time = DateTime.Now - _start_time;
 
-
+			flushBuffer ();
 
 			XmlDocument xmlDoc = new XmlDocument ();
 
 			//add XML declaration
-			XmlNode xmlDecl = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", "");
+			XmlNode xmlDecl = xmlDoc.CreateXmlDeclaration ("1.0", "UTF-8", "");
 			xmlDoc.AppendChild (xmlDecl);
-			XmlNode xmlStyleSheet = xmlDoc.CreateProcessingInstruction("xml-stylesheet", "type=\"text/xsl\", href=\"procedure.xsl\"");
+			XmlNode xmlStyleSheet = xmlDoc.CreateProcessingInstruction ("xml-stylesheet", "type=\"text/xsl\", href=\"procedure.xsl\"");
 			xmlDoc.AppendChild (xmlStyleSheet);
 
 			//add a root element
@@ -119,19 +108,18 @@ namespace UIAClientAPI
 
 				//add <screenshot> element in <step> element
 				XmlElement screenshotElm = xmlDoc.CreateElement ("screenshot");
-				XmlText screenshotElmText = xmlDoc.CreateTextNode (p[2]);
+				XmlText screenshotElmText = xmlDoc.CreateTextNode (p [2]);
 				//add if clause to determine whether has a screenshot or not.
 				screenshotElm.AppendChild (screenshotElmText);
 				stepElm.AppendChild (screenshotElm);
 			}
-			
+
 			procElm.AppendChild (stepElm);
 			rootElm.AppendChild (procElm);
 
 			//add <time> element
 			XmlElement timeElm = xmlDoc.CreateElement ("time");
-			//TODO: add calculating time variable here.
-			XmlText timeEleText = xmlDoc.CreateTextNode (Convert.ToString (elapsed.TotalSeconds));
+			XmlText timeEleText = xmlDoc.CreateTextNode (Convert.ToString (elapsed_time.TotalSeconds));
 			timeElm.AppendChild (timeEleText);
 			rootElm.AppendChild (timeElm);
 
@@ -143,8 +131,22 @@ namespace UIAClientAPI
 			}
 		}
 
+		/**
+		 * flushBuffer, Add (actionBuffer, expectedResultBuffer) to the _procedures list, then reset actionBuffer and expectedResultBuffer
+		 * 
+		 * After a call to expectedResult() and before the next call to action(),
+		 * (after an action/expectedResult pair), we want to append the pair to the
+		 * _procedures list and possibly take a screenshot.
+		 */
 		public void flushBuffer ()
 		{
+			if (actionBuffer != string.Empty && expectedResultButter != string.Empty) {
+				_procedures.Add (new List<string> { actionBuffer, expectedResultButter, "screenshot001.png" });
+			}
+
+			actionBuffer = string.Empty;
+			expectedResultButter = string.Empty;
+			Console.WriteLine ();
 		}
 	}
 }

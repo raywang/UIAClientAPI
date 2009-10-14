@@ -35,22 +35,23 @@ namespace UIAClientAPI
 		public void Init ()
 		{
 			//procedureLogger.Init ();
-			procedureLogger.Save ();
-			//LaunchSample ();
-			//OnSetup ();
+			LaunchSample ();
+			Thread.Sleep (2000);
+			OnSetup ();
 		}
 
-		//[TestFixtureTearDown]
+		[TestFixtureTearDown]
 		public void Quit ()
 		{
 			OnQuit ();
 			application.Kill ();
-			//procedureLogger.Save ();
+			procedureLogger.Save ();
 		}
 
 		private void LaunchSample ()
 		{
 			// start sample.
+			procedureLogger.Action ("Launch " + sample);
 			application = Application.Launch (sample);
 		}
 
@@ -160,6 +161,8 @@ namespace UIAClientAPI
 				return new List (elm);
 			else if (elm.Current.ControlType == ControlType.ListItem)
 				return new ListItem (elm);
+			else if (elm.Current.ControlType == ControlType.ToolBar)
+				return new ToolBar (elm);
 
 			return new Element (elm);
 		}
@@ -172,42 +175,27 @@ namespace UIAClientAPI
 			return ret;
 		}
 
-		/// <summary>
-		/// Find a Window object by its name.
-		/// </summary>
-		/// <param name="name">the title of the window.</param>
-		/// <returns>a Window instance of UIAClientAPI namespace.</returns>
 		public Window FindWindow (string name)
 		{
 			// use Client API to find window named name
 			return (Window) Find (ControlType.Window, name);
 		}
 
-		/// <summary>
-		/// Find a Button object by its name.
-		/// </summary>
-		/// <param name="name">the AutomationId of the button</param>
-		/// <returns>a Button instance of UIAClientAPI namespace.</returns>
 		public Button FindButton (string name)
 		{
 			return (Button) Find (ControlType.Button, name);
 		}
 
-		/// <summary>
-		/// Find a Edit object by its name.
-		/// </summary>
-		/// <param name="name">>the AutomationId of the Edit</param>
-		/// <returns>a Edit instance of UIAClientAPI namespace.</returns>
 		public Edit FindEdit (string name)
 		{
 			return (Edit) Find (ControlType.Edit, name);
 		}
 
-		/// <summary>
-		/// Find a CheckBox object by its name.
-		/// </summary>
-		/// <param name="name">the AutomationId of the CheckBox</param>
-		/// <returns>a CheckBox instance of UIAClientAPI namespace</returns>
+		public Edit FindEdit (string name, string automationId)
+		{
+			return (Edit) Find (ControlType.Edit, name, automationId);
+		}
+
 		public CheckBox FindCheckBox (string name)
 		{
 			return (CheckBox) Find (ControlType.CheckBox, name);
@@ -257,6 +245,11 @@ namespace UIAClientAPI
 		{
 			return (ListItem) Find (ControlType.ListItem, name);
 		}
+
+		public ToolBar FindToolBar (string name)
+		{
+			return (ToolBar) Find (ControlType.ToolBar, name);
+		}
 	}
 
 	// Utils class runs until it gets True.
@@ -281,6 +274,7 @@ namespace UIAClientAPI
 	// The wrapper class of Window class.
 	public class Window : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 		public Window (Core.UIItems.WindowItems.Window elm)
 			: base (elm)
 		{
@@ -326,7 +320,6 @@ namespace UIAClientAPI
 		{
 			try {
 				Button button = FindButton (name);
-				// ProcedureLogger.Action ("Click the "{0}" button in the {1}", button.Name, ...?);
 				button.Click ();
 			} catch (NullReferenceException e) {
 				Console.WriteLine (e);
@@ -337,6 +330,8 @@ namespace UIAClientAPI
 	// The wrapper class of Button class.
 	public class Button : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 		public Button (AutomationElement elm)
 			: base (elm)
 		{
@@ -345,6 +340,7 @@ namespace UIAClientAPI
 		// Perform "Click" action.
 		public void Click ()
 		{
+			procedureLogger.Action ("Click \"" + this.Name + "\" button.");
 			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
 			ip.Invoke ();
 		}
@@ -352,6 +348,8 @@ namespace UIAClientAPI
 
 	public class Edit : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 		public Edit (AutomationElement elm)
 			: base (elm)
 		{
@@ -367,6 +365,7 @@ namespace UIAClientAPI
 			}
 			set
 			{
+				procedureLogger.Action ("Set " + value + " for the \"" + this.Name + "\".");
 				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
 				vp.SetValue (value);
 			}
@@ -390,6 +389,8 @@ namespace UIAClientAPI
 
 	public class RadioButton : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 		public RadioButton (AutomationElement elm)
 			: base (elm)
 		{
@@ -397,6 +398,7 @@ namespace UIAClientAPI
 
 		public void Select ()
 		{
+			procedureLogger.Action ("Select \"" + this.Name+"\"");
 			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sp.Select ();
 		}
@@ -404,6 +406,8 @@ namespace UIAClientAPI
 
 	public class TabItem : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 		public TabItem (AutomationElement elm)
 			: base (elm)
 		{
@@ -411,6 +415,7 @@ namespace UIAClientAPI
 
 		public void Select ()
 		{
+			procedureLogger.Action ("Select \"" + this.Name + "\"");
 			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sp.Select ();
 		}
@@ -440,6 +445,8 @@ namespace UIAClientAPI
 
 	public class ComboBox : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 		public ComboBox (AutomationElement elm)
 			: base (elm)
 		{
@@ -447,12 +454,14 @@ namespace UIAClientAPI
 
 		public void Expand ()
 		{
+			procedureLogger.Action ("Expand \"" + this.Name + "\"");
 			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
 			ecp.Expand ();
 		}
 
 		public void Collapse ()
 		{
+			procedureLogger.Action ("Collapse \"" + this.Name + "\"");
 			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
 			ecp.Collapse ();
 		}
@@ -505,6 +514,14 @@ namespace UIAClientAPI
 		{
 			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sip.Select ();
+		}
+	}
+
+	public class ToolBar : Element
+	{
+		public ToolBar (AutomationElement elm)
+			: base (elm)
+		{
 		}
 	}
 }
