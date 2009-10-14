@@ -28,7 +28,7 @@ namespace UIAClientAPI
 			Config config = new Config ();
 
 			// pause before taking screenshots, otherwise we get half-drawn widgets
-			Thread.Sleep (TimeSpan.Parse (config.shortDelay));
+			//Thread.Sleep (TimeSpan.Parse (config.shortDelay));
 
 			// do the screenshot, and save it to disk
 			int width = Screen.PrimaryScreen.Bounds.Width;
