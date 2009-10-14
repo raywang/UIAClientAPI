@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.IO;
 
 namespace UIAClientAPI
 {
@@ -21,7 +22,7 @@ namespace UIAClientAPI
 		static string actionBuffer = string.Empty;
 		static string expectedResultButter = string.Empty;
 		static List<List<string>> _procedures = new List<List<string>> ();
-		static DateTime _start_time = DateTime.Now;
+		static readonly DateTime _start_time = DateTime.Now;
 
 		/**
 		 * Log an action, e.g., Click Cancel
@@ -32,7 +33,7 @@ namespace UIAClientAPI
 		 */
 		public void Action (string action)
 		{
-			flushBuffer ();
+			_FlushBuffer ();
 			actionBuffer = action;
 			Console.WriteLine ("Action: {0}", action);
 		}
@@ -56,14 +57,14 @@ namespace UIAClientAPI
 			// get the total time the test run
 			TimeSpan elapsed_time = DateTime.Now - _start_time;
 
-			flushBuffer ();
+			_FlushBuffer ();
 
 			XmlDocument xmlDoc = new XmlDocument ();
 
 			//add XML declaration
 			XmlNode xmlDecl = xmlDoc.CreateXmlDeclaration ("1.0", "UTF-8", "");
 			xmlDoc.AppendChild (xmlDecl);
-			XmlNode xmlStyleSheet = xmlDoc.CreateProcessingInstruction ("xml-stylesheet", "type=\"text/xsl\", href=\"procedure.xsl\"");
+			XmlNode xmlStyleSheet = xmlDoc.CreateProcessingInstruction ("xml-stylesheet", "type=\"text/xsl\" href=\"procedures.xsl\"");
 			xmlDoc.AppendChild (xmlStyleSheet);
 
 			//add a root element
@@ -72,13 +73,13 @@ namespace UIAClientAPI
 
 			//add <name> element
 			XmlElement nameElm = xmlDoc.CreateElement ("name");
-			XmlText nameElmText = xmlDoc.CreateTextNode ("the name of the test");
+			XmlText nameElmText = xmlDoc.CreateTextNode ("KeePass");
 			nameElm.AppendChild (nameElmText);
 			rootElm.AppendChild (nameElm);
 
 			//add <description> element
 			XmlElement descElm = xmlDoc.CreateElement ("description");
-			XmlText descElmText = xmlDoc.CreateTextNode ("the description of the test");
+			XmlText descElmText = xmlDoc.CreateTextNode ("Test cases for KeePass");
 			descElm.AppendChild (descElmText);
 			rootElm.AppendChild (descElm);
 
@@ -90,10 +91,12 @@ namespace UIAClientAPI
 			rootElm.AppendChild (paraElm);
 
 			//add <procedures> element
-			XmlElement procElm = xmlDoc.CreateElement ("procedures");
-			XmlElement stepElm = xmlDoc.CreateElement ("step");
+			XmlElement procElm = xmlDoc.CreateElement ("procedures");		
 
 			foreach (List<string> p in _procedures) {
+				//add <action> element in <step> element
+				XmlElement stepElm = xmlDoc.CreateElement ("step");
+
 				//add <action> element in <step> element
 				XmlElement actionElm = xmlDoc.CreateElement ("action");
 				XmlText actionElmText = xmlDoc.CreateTextNode (p [0]);
@@ -112,9 +115,11 @@ namespace UIAClientAPI
 				//add if clause to determine whether has a screenshot or not.
 				screenshotElm.AppendChild (screenshotElmText);
 				stepElm.AppendChild (screenshotElm);
+
+				procElm.AppendChild (stepElm);
 			}
 
-			procElm.AppendChild (stepElm);
+			
 			rootElm.AppendChild (procElm);
 
 			//add <time> element
@@ -125,7 +130,7 @@ namespace UIAClientAPI
 
 			//write the Xml content to a xml file
 			try {
-				xmlDoc.Save ("procedure.xml");
+				xmlDoc.Save ("procedures.xml");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 			}
@@ -138,10 +143,20 @@ namespace UIAClientAPI
 		 * (after an action/expectedResult pair), we want to append the pair to the
 		 * _procedures list and possibly take a screenshot.
 		 */
-		public void flushBuffer ()
+		public void _FlushBuffer ()
 		{
+			Config config = new Config ();
+
 			if (actionBuffer != string.Empty && expectedResultButter != string.Empty) {
-				_procedures.Add (new List<string> { actionBuffer, expectedResultButter, "screenshot001.png" });
+				if (config.takeScreenShots) {
+					string filename = string.Format ("screen{0:00}.png", _procedures.Count + 1);
+					// take screenshot
+					Utils.TakeScreenshot (Path.Combine (config.outputDir, filename));
+					Console.WriteLine ("Screenshot: " + filename);
+					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultButter.TrimEnd (), filename });
+				} else {
+					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultButter.TrimEnd ()});
+				}
 			}
 
 			actionBuffer = string.Empty;

@@ -22,35 +22,35 @@ namespace UIAClientAPI
 {
 	class Utils
 	{
-		//declare an API
-		[System.Runtime.InteropServices.DllImportAttribute ("gdi32.dll")]
-		private static extern bool BitBlt (
-		    IntPtr hdcDest, // the handle of target DC
-		    int nXDest,
-		    int nYDest,
-		    int nWidth,
-		    int nHeight,
-		    IntPtr hdcSrc, // the handle of source DC
-		    int nXSrc,
-		    int nYSrc,
-		    System.Int32 dwRop // the processing data of raster
-		    );
-
 		//Takes a screenshot of the desktop
-		public void takeScreenshot (string path)
+		public static void TakeScreenshot (string path)
 		{
 			Config config = new Config ();
-			// pause before taking screenshots, otherwise we get half-drawn widgets
-			Thread.Sleep (TimeSpan.Parse (config.Short_Delay));//config.Short_Delay.to);
 
-			// do the screen shot, and save it to disk
+			// pause before taking screenshots, otherwise we get half-drawn widgets
+			Thread.Sleep (TimeSpan.Parse (config.shortDelay));
+
+			// do the screenshot, and save it to disk
 			int width = Screen.PrimaryScreen.Bounds.Width;
 			int height = Screen.PrimaryScreen.Bounds.Height;
 			Bitmap bmp = new Bitmap (width, height);
 			using (Graphics g = Graphics.FromImage (bmp)) {
 				g.CopyFromScreen (0, 0, 0, 0, new Size (width, height));
 			}
-			bmp.Save ("c:\\Capture.bmp");
+			bmp.Save (path, ImageFormat.Png);
+		}
+
+		// runs until it gets True.
+		public static bool RetryUntilTrue (Func<bool> d)
+		{
+			for (int i = 0; i < Config.RETRY_TIMES; i++) {
+				if (d ())
+					return true;
+
+				Thread.Sleep (Config.RETRY_INTERVAL);
+			}
+
+			return false;
 		}
 	}
 }

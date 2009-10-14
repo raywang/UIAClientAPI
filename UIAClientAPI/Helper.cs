@@ -105,12 +105,12 @@ namespace UIAClientAPI
 					new PropertyCondition (AutomationElementIdentifiers.AutomationIdProperty, automationId));
 			}
 
-			for (int i = 0; i < Utils.RETRY_TIMES; i++) {
+			for (int i = 0; i < Config.RETRY_TIMES; i++) {
 				AutomationElement control = element.FindFirst (TreeScope.Descendants, cond);
 				if (control != null)
 					return Promote (control);
 
-				Thread.Sleep (Utils.RETRY_INTERVAL);
+				Thread.Sleep (Config.RETRY_INTERVAL);
 			}
 
 			return null;
@@ -118,13 +118,13 @@ namespace UIAClientAPI
 
 		public T [] FindAll<T> (ControlType type) where T : Element
 		{
-			for (int i = 0; i < Utils.RETRY_TIMES; i++) {
+			for (int i = 0; i < Config.RETRY_TIMES; i++) {
 				var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
 				AutomationElementCollection controls = element.FindAll (TreeScope.Descendants, cond);
 				if (controls != null)
 					return Promote<T> (controls);
 
-				Thread.Sleep (Utils.RETRY_INTERVAL);
+				Thread.Sleep (Config.RETRY_INTERVAL);
 			}
 			return null;
 		}
@@ -249,25 +249,6 @@ namespace UIAClientAPI
 		public ToolBar FindToolBar (string name)
 		{
 			return (ToolBar) Find (ControlType.ToolBar, name);
-		}
-	}
-
-	// Utils class runs until it gets True.
-	public static class Utils
-	{
-		public const int RETRY_TIMES = 20;
-		public const int RETRY_INTERVAL = 500;
-
-		public static bool RetryUntilTrue (Func<bool> d)
-		{
-			for (int i = 0; i < RETRY_TIMES; i++) {
-				if (d ())
-					return true;
-
-				Thread.Sleep (RETRY_INTERVAL);
-			}
-
-			return false;
 		}
 	}
 
