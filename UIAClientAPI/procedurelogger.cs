@@ -20,7 +20,7 @@ namespace UIAClientAPI
 	public class ProcedureLogger
 	{
 		static string actionBuffer = string.Empty;
-		static string expectedResultButter = string.Empty;
+		static string expectedResultBuffer = string.Empty;
 		static List<List<string>> _procedures = new List<List<string>> ();
 		static readonly DateTime _start_time = DateTime.Now;
 
@@ -47,7 +47,7 @@ namespace UIAClientAPI
 		 */
 		public void ExpectedResult (string expectedResult)
 		{
-			expectedResultButter = expectedResult;
+			expectedResultBuffer = expectedResult;
 			Console.WriteLine ("Expected result: {0}", expectedResult);
 		}
 
@@ -147,20 +147,20 @@ namespace UIAClientAPI
 		{
 			Config config = new Config ();
 
-			if (actionBuffer != string.Empty && expectedResultButter != string.Empty) {
+			if (actionBuffer != string.Empty && expectedResultBuffer != string.Empty) {
 				if (config.takeScreenShots) {
 					string filename = string.Format ("screen{0:00}.png", _procedures.Count + 1);
 					// take screenshot
 					Utils.TakeScreenshot (Path.Combine (config.outputDir, filename));
 					Console.WriteLine ("Screenshot: " + filename);
-					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultButter.TrimEnd (), filename });
+					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd (), filename });
 				} else {
-					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultButter.TrimEnd ()});
+					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd ()});
 				}
 			}
 
 			actionBuffer = string.Empty;
-			expectedResultButter = string.Empty;
+			expectedResultBuffer = string.Empty;
 			Console.WriteLine ();
 		}
 	}
