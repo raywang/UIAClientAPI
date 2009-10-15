@@ -27,7 +27,8 @@ namespace UIAClientAPI
 	{
 		// You could donwload our KeePass sampe from http://downloads.sourceforge.net/keepass/KeePass-2.09.zip
 		// Note that the vesionm we use is 2.09
-		private const string sample = @"Z:\Accessibility\KeePass-2.09\KeePass.exe";
+		//string systemPath = System.AppDomain.CurrentDomain.BaseDirectory;
+		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "\\keePass-2.09\\KeePass.exe");
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
