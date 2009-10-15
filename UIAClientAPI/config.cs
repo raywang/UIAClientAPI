@@ -35,24 +35,24 @@ namespace UIAClientAPI
 		}
 
 		//  the shotr time to delay
-		private string short_delay = "0.5";
-		public string shortDelay
+		private double short_delay = 0.5;
+		public double shortDelay
 		{
 			get { return this.short_delay; }
 			set { this.short_delay = value; }
 		}
 
 		//  the middle time to delay
-		private string medium_delay = "4";
-		public string mediumDelay
+		private double medium_delay = 4;
+		public double mediumDelay
 		{
 			get { return this.medium_delay; }
 			set { this.medium_delay = value; }
 		}
 
 		//  the long time to delay
-		private string long_delay = "10";
-		public string longDelay
+		private double long_delay = 10;
+		public double longDelay
 		{
 			get { return this.long_delay; }
 			set { this.long_delay = value; }

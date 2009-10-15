@@ -19,10 +19,18 @@ namespace UIAClientAPI
 	// Logger class which provides Actions logger and ExpectedResults logger.
 	public class ProcedureLogger
 	{
-		static string actionBuffer = string.Empty;
-		static string expectedResultBuffer = string.Empty;
-		static List<List<string>> _procedures = new List<List<string>> ();
-		static readonly DateTime _start_time = DateTime.Now;
+		static string actionBuffer;
+		static string expectedResultBuffer;
+		static List<List<string>> _procedures;
+		static DateTime _start_time;
+
+		public static void Init()
+		{
+			actionBuffer = string.Empty;
+			expectedResultBuffer = string.Empty;
+			_procedures = new List<List<string>> ();
+			_start_time = DateTime.Now;
+		}
 
 		/**
 		 * Log an action, e.g., Click Cancel

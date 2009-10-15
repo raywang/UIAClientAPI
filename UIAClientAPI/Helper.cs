@@ -27,15 +27,14 @@ namespace UIAClientAPI
 	{
 		// You could donwload our KeePass sampe from http://downloads.sourceforge.net/keepass/KeePass-2.09.zip
 		// Note that the vesionm we use is 2.09
-		//string systemPath = System.AppDomain.CurrentDomain.BaseDirectory;
-		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "\\keePass-2.09\\KeePass.exe");
+		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "keePass-2.09\\KeePass.exe");
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		[TestFixtureSetUp]
 		public void Init ()
 		{
-			//procedureLogger.Init ();
+			ProcedureLogger.Init ();
 			LaunchSample ();
 			Thread.Sleep (2000);
 			OnSetup ();
@@ -54,6 +53,7 @@ namespace UIAClientAPI
 			// start sample.
 			procedureLogger.Action ("Launch " + sample);
 			application = Application.Launch (sample);
+
 		}
 
 		protected virtual void OnSetup ()
@@ -130,12 +130,8 @@ namespace UIAClientAPI
 			return null;
 		}
 
-		/// <summary>
-		/// To promote a AutomationElement to a certain instance of a class,
-		/// in order to get more specific mothods.
-		/// </summary>
-		/// <param name="elm">the element which will be promoted</param>
-		/// <returns>a certain instance of a class</returns>
+		// To promote a AutomationElement to a certain instance of a class,
+		// in order to get more specific mothods.
 		protected Element Promote (AutomationElement elm)
 		{
 			if (elm.Current.ControlType == ControlType.Window)
