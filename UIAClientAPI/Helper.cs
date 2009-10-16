@@ -174,7 +174,6 @@ namespace UIAClientAPI
 
 		public Window FindWindow (string name)
 		{
-			// use Client API to find window named name
 			return (Window) Find (ControlType.Window, name);
 		}
 
@@ -318,7 +317,7 @@ namespace UIAClientAPI
 		// Perform "Click" action.
 		public void Click ()
 		{
-			procedureLogger.Action ("Click \"" + this.Name + "\" button.");
+			//procedureLogger.Action ("Click \"" + this.Name + "\" button.");
 			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
 			ip.Invoke ();
 		}
@@ -343,7 +342,7 @@ namespace UIAClientAPI
 			}
 			set
 			{
-				procedureLogger.Action ("Set " + value + " for the \"" + this.Name + "\".");
+				//procedureLogger.Action ("Set " + value + " for the \"" + this.Name + "\".");
 				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
 				vp.SetValue (value);
 			}
@@ -376,7 +375,7 @@ namespace UIAClientAPI
 
 		public void Select ()
 		{
-			procedureLogger.Action ("Select \"" + this.Name+"\"");
+			//procedureLogger.Action ("Select \"" + this.Name+"\"");
 			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sp.Select ();
 		}
@@ -393,7 +392,7 @@ namespace UIAClientAPI
 
 		public void Select ()
 		{
-			procedureLogger.Action ("Select \"" + this.Name + "\"");
+			//procedureLogger.Action ("Select \"" + this.Name + "\"");
 			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sp.Select ();
 		}
@@ -432,14 +431,14 @@ namespace UIAClientAPI
 
 		public void Expand ()
 		{
-			procedureLogger.Action ("Expand \"" + this.Name + "\"");
+			//procedureLogger.Action ("Expand \"" + this.Name + "\"");
 			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
 			ecp.Expand ();
 		}
 
 		public void Collapse ()
 		{
-			procedureLogger.Action ("Collapse \"" + this.Name + "\"");
+			//procedureLogger.Action ("Collapse \"" + this.Name + "\"");
 			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
 			ecp.Collapse ();
 		}

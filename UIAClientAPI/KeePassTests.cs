@@ -30,6 +30,7 @@ namespace UIAClientAPI
 
 		protected override void OnSetup ()
 		{
+			procedureLogger.ExpectedResult ("KeePass window appears.");
 			WhiteWindow win = application.GetWindow ("KeePass Password Safe", InitializeOption.NoCache);
 			window = new Window (win);			
 		}

@@ -23,6 +23,7 @@ namespace UIAClientAPI
 		static string expectedResultBuffer;
 		static List<List<string>> _procedures;
 		static DateTime _start_time;
+		Config config = new Config ();
 
 		public static void Init()
 		{
@@ -118,11 +119,13 @@ namespace UIAClientAPI
 				stepElm.AppendChild (resultElm);
 
 				//add <screenshot> element in <step> element
-				XmlElement screenshotElm = xmlDoc.CreateElement ("screenshot");
-				XmlText screenshotElmText = xmlDoc.CreateTextNode (p [2]);
-				//add if clause to determine whether has a screenshot or not.
-				screenshotElm.AppendChild (screenshotElmText);
-				stepElm.AppendChild (screenshotElm);
+				if (config.takeScreenShots) {
+					XmlElement screenshotElm = xmlDoc.CreateElement ("screenshot");
+					XmlText screenshotElmText = xmlDoc.CreateTextNode (p [2]);
+					//add if clause to determine whether has a screenshot or not.
+					screenshotElm.AppendChild (screenshotElmText);
+					stepElm.AppendChild (screenshotElm);
+				}
 
 				procElm.AppendChild (stepElm);
 			}
@@ -165,11 +168,11 @@ namespace UIAClientAPI
 				} else {
 					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd ()});
 				}
-			}
 
-			actionBuffer = string.Empty;
-			expectedResultBuffer = string.Empty;
-			Console.WriteLine ();
+				actionBuffer = string.Empty;
+				expectedResultBuffer = string.Empty;
+				Console.WriteLine ();
+			}			
 		}
 	}
 }
