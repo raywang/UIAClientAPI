@@ -1,71 +1,33 @@
-﻿// Helper.cs: Common use classes, methods.
+﻿// Elements.cs: test framework and the elements which used in the tests.
 //
-// Author:
-//   Ray Wang  (rawang@novell.com)
+// This program is free software; you can redistribute it and/or modify it under
+// the terms of the GNU General Public License version 2 as published by the
+// Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+// details.
+//
+// You should have received a copy of the GNU General Public License along with
+// this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 // Copyright (c) 2009 Novell, Inc (http://www.novell.com)
 //
+// Authors:
+//	Felicia Mu  (fxmu@novell.com)
+//	Ray Wang  (rawang@novell.com)
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core;
-using System.Threading;
-using NUnit.Framework;
-using Core.UIItems.WindowStripControls;
-using Core.UIItems;
-using Core.UIItems.Finders;
-using Core.UIItems.WindowItems;
 using System.Windows.Automation;
+using System.Threading;
 
 namespace UIAClientAPI
 {
-	[TestFixture]
-	/// TestBase class helps to launch sample, initiation etc.
-	public class TestBase
-	{
-		// You could donwload our KeePass sampe from http://downloads.sourceforge.net/keepass/KeePass-2.09.zip
-		// Note that the vesionm we use is 2.09
-		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "keePass-2.09\\KeePass.exe");
-		protected Application application = null;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
-
-		[TestFixtureSetUp]
-		public void Init ()
-		{
-			ProcedureLogger.Init ();
-			LaunchSample ();
-			Thread.Sleep (2000);
-			OnSetup ();
-		}
-
-		[TestFixtureTearDown]
-		public void Quit ()
-		{
-			OnQuit ();
-			application.Kill ();
-			procedureLogger.Save ();
-		}
-
-		private void LaunchSample ()
-		{
-			// start sample.
-			procedureLogger.Action ("Launch " + sample);
-			application = Application.Launch (sample);
-
-		}
-
-		protected virtual void OnSetup ()
-		{
-		}
-
-		protected virtual void OnQuit ()
-		{
-		}
-
-	}
-
 	// Basic instance which provides Find methods (e.g. FindButton, FindEdit..
 	public class Element
 	{

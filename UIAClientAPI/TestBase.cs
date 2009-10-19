@@ -1,4 +1,4 @@
-﻿// Config.cs: save the configuration for UIAClinet test
+﻿// Helper.cs: Common use classes, methods.
 //
 // Permission is hereby granted, free of charge, to any person obtaining 
 // a copy of this software and associated documentation files (the 
@@ -29,54 +29,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Core;
+using System.Threading;
+using NUnit.Framework;
 
 namespace UIAClientAPI
 {
-	class Config
+	[TestFixture]
+	/// TestBase class helps to launch sample, initiation etc.
+	public class TestBase
 	{
-		public const int RETRY_TIMES = 20;
-		public const int RETRY_INTERVAL = 500;
+		// You could donwload our KeePass sampe from http://downloads.sourceforge.net/keepass/KeePass-2.09.zip
+		// Note that the vesionm we use is 2.09
+		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "keePass-2.09\\KeePass.exe");
+		protected Application application = null;
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
-		// whether or not to take screenshots
-		private bool take_screen_shots = true;
-		public bool takeScreenShots
+		[TestFixtureSetUp]
+		public void Init ()
 		{
-			get { return this.take_screen_shots; }
-			set { this.take_screen_shots = value; }
+			ProcedureLogger.Init ();
+			LaunchSample ();
+			Thread.Sleep (2000);
+			OnSetup ();
 		}
 
-		// where to write procedure logger output, screenshots, etc
-		private string output_dir = "";
-		public string outputDir
+		[TestFixtureTearDown]
+		public void Quit ()
 		{
-			get { return this.output_dir; }
-			set { this.output_dir = value; }
+			OnQuit ();
+			application.Kill ();
+			procedureLogger.Save ();
 		}
 
-		//  the shotr time to delay
-		private double short_delay = 0.5;
-		public double shortDelay
+		private void LaunchSample ()
 		{
-			get { return this.short_delay; }
-			set { this.short_delay = value; }
+			// start sample.
+			procedureLogger.Action ("Launch " + sample);
+			application = Application.Launch (sample);
+
 		}
 
-		//  the middle time to delay
-		private double medium_delay = 4;
-		public double mediumDelay
+		protected virtual void OnSetup ()
 		{
-			get { return this.medium_delay; }
-			set { this.medium_delay = value; }
 		}
 
-		//  the long time to delay
-		private double long_delay = 10;
-		public double longDelay
+		protected virtual void OnQuit ()
 		{
-			get { return this.long_delay; }
-			set { this.long_delay = value; }
 		}
-
-
 	}
 }
