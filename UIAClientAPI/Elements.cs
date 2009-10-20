@@ -68,12 +68,12 @@ namespace UIAClientAPI
 					new PropertyCondition (AutomationElementIdentifiers.AutomationIdProperty, automationId));
 			}
 
-			for (int i = 0; i < Config.RETRY_TIMES; i++) {
+			for (int i = 0; i < Config.retryTimes; i++) {
 				AutomationElement control = element.FindFirst (TreeScope.Descendants, cond);
 				if (control != null)
 					return Promote (control);
 
-				Thread.Sleep (Config.RETRY_INTERVAL);
+				Thread.Sleep (Config.retryInterval);
 			}
 
 			return null;
@@ -81,13 +81,13 @@ namespace UIAClientAPI
 
 		public T [] FindAll<T> (ControlType type) where T : Element
 		{
-			for (int i = 0; i < Config.RETRY_TIMES; i++) {
+			for (int i = 0; i < Config.retryTimes; i++) {
 				var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
 				AutomationElementCollection controls = element.FindAll (TreeScope.Descendants, cond);
 				if (controls != null)
 					return Promote<T> (controls);
 
-				Thread.Sleep (Config.RETRY_INTERVAL);
+				Thread.Sleep (Config.retryInterval);
 			}
 			return null;
 		}
@@ -279,7 +279,7 @@ namespace UIAClientAPI
 		// Perform "Click" action.
 		public void Click ()
 		{
-			//procedureLogger.Action ("Click \"" + this.Name + "\" button.");
+			procedureLogger.Action (string.Format("Click the \"{0}\" button.", this.Name));
 			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
 			ip.Invoke ();
 		}
@@ -304,7 +304,7 @@ namespace UIAClientAPI
 			}
 			set
 			{
-				//procedureLogger.Action ("Set " + value + " for the \"" + this.Name + "\".");
+				procedureLogger.Action (string.Format("Set \"{0}\" to the \"{1}\".", value, this.Name));
 				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
 				vp.SetValue (value);
 			}
@@ -337,7 +337,7 @@ namespace UIAClientAPI
 
 		public void Select ()
 		{
-			//procedureLogger.Action ("Select \"" + this.Name+"\"");
+			procedureLogger.Action (string.Format("Select the \"{0}\" radio button.", this.Name));
 			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sp.Select ();
 		}
@@ -354,7 +354,7 @@ namespace UIAClientAPI
 
 		public void Select ()
 		{
-			//procedureLogger.Action ("Select \"" + this.Name + "\"");
+			procedureLogger.Action (string.Format ("Select the \"{0}\" tab item.", this.Name));
 			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sp.Select ();
 		}
@@ -393,14 +393,14 @@ namespace UIAClientAPI
 
 		public void Expand ()
 		{
-			//procedureLogger.Action ("Expand \"" + this.Name + "\"");
+			procedureLogger.Action (string.Format("Expand the \"{0}\".", this.Name));
 			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
 			ecp.Expand ();
 		}
 
 		public void Collapse ()
 		{
-			//procedureLogger.Action ("Collapse \"" + this.Name + "\"");
+			procedureLogger.Action (string.Format ("Collapse the \"{0}\".", this.Name));
 			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
 			ecp.Collapse ();
 		}
@@ -416,6 +416,8 @@ namespace UIAClientAPI
 
 	public class MenuItem : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 		public MenuItem (AutomationElement elm)
 			: base (elm)
 		{
@@ -423,6 +425,7 @@ namespace UIAClientAPI
 
 		public void Click ()
 		{
+			procedureLogger.Action (string.Format ("Click the \"{0}\" menu item.", this.Name));
 			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
 			ip.Invoke ();
 		}

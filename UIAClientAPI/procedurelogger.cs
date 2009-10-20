@@ -55,7 +55,7 @@ namespace UIAClientAPI
 		public void Action (string action)
 		{
 			_FlushBuffer ();
-			actionBuffer = action;
+			actionBuffer += action + " ";
 			Console.WriteLine ("Action: {0}", action);
 		}
 
@@ -68,7 +68,7 @@ namespace UIAClientAPI
 		 */
 		public void ExpectedResult (string expectedResult)
 		{
-			expectedResultBuffer = expectedResult;
+			expectedResultBuffer += expectedResult + " ";
 			Console.WriteLine ("Expected result: {0}", expectedResult);
 		}
 

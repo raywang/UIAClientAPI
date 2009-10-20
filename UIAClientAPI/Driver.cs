@@ -37,12 +37,12 @@ namespace UIAClientAPI
 	{
 		public static void Main ()
 		{
+			ProcedureLogger procedureLogger = new ProcedureLogger ();
 			KeePassTests test = new KeePassTests ();
 			test.Init ();
-			ProcedureLogger procedureLogger = new ProcedureLogger ();
-			procedureLogger.Save();
 			test.TestCase101 ();
-			test.TestCase102 ();
+			//test.TestCase102 ();
+			procedureLogger.Save ();
 		}
 	}
 }

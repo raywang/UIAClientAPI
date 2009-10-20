@@ -39,9 +39,8 @@ namespace UIAClientAPI
 	/// TestBase class helps to launch sample, initiation etc.
 	public class TestBase
 	{
-		// You could donwload our KeePass sampe from http://downloads.sourceforge.net/keepass/KeePass-2.09.zip
-		// Note that the vesionm we use is 2.09
-		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "keePass-2.09\\KeePass.exe");
+		Config config = new Config ();
+		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.appPath);
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 

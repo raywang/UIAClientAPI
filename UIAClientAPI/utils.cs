@@ -53,11 +53,11 @@ namespace UIAClientAPI
 		// runs until it gets True.
 		public static bool RetryUntilTrue (Func<bool> d)
 		{
-			for (int i = 0; i < Config.RETRY_TIMES; i++) {
+			for (int i = 0; i < Config.retryTimes; i++) {
 				if (d ())
 					return true;
 
-				Thread.Sleep (Config.RETRY_INTERVAL);
+				Thread.Sleep (Config.retryInterval);
 			}
 
 			return false;

@@ -34,8 +34,11 @@ namespace UIAClientAPI
 {
 	class Config
 	{
-		public const int RETRY_TIMES = 20;
-		public const int RETRY_INTERVAL = 500;
+		// You could donwload our KeePass sampe from http://downloads.sourceforge.net/keepass/KeePass-2.09.zip
+		// Note that the vesionm we use is 2.09
+		public const string appPath = "keePass-2.09\\KeePass.exe";
+		public const int retryTimes = 20;
+		public const int retryInterval = 500;
 
 		// whether or not to take screenshots
 		private bool take_screen_shots = true;
