@@ -245,13 +245,14 @@ namespace UIAClientAPI
 			//createMasterKeyWindow.FindButton (" Create...").Click ();
 			//Thread.Sleep (1000);
 
-			//103.8  move "add entry" window to (200,200 )and check the transformpattern property
-			procedurelogger.action ("move \"add entry\" window to (200,200 )");
-			procedurelogger.expectedresult ("the \"entropy collection\" window opens");
+			//103.8  move "add entry" window to (200,200 )
+			procedureLogger.Action ("move \"add entry\" window to (200,200 )");
 			var AddEntryDialog = window.FindWindow ("Add Entry");
-			//AddEntryDialog.
-			thread.sleep (1000);
+			AddEntryDialog.Move (200,200);
+			procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
+			Thread.Sleep (1000);
 
+			//check the transformpattern property
 			//procedureLogger.Action ("check the TransformPattern Property");
 			//procedureLogger.ExpectedResult ("The \"Entropy Collection\" window opens");
 			//var newKeyFileDialog = window.FindWindow ("Create a new key file");
@@ -259,10 +260,10 @@ namespace UIAClientAPI
 			//Thread.Sleep (1000);
 
 			//103.9 Click the "Auto-Type" tab item on the "Add Entry" Window
-			//procedureLogger.Action ("Click the \"Auto-Type\" tab item on the "Add Entry" Window");
-			//procedureLogger.ExpectedResult ("The \"Entropy Collection\" window closes");
-			//createMasterKeyWindow.FindWindow ("Entropy Collection").OK ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Click the \"Auto-Type\" tab item on the \"Add Entry\" Window");
+			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
+			createMasterKeyWindow.FindWindow ("Entropy Collection").OK ();
+			Thread.Sleep (1000);
 
 			//103.10 Click the "Add" button on the "Add Entry" Window
 			//procedureLogger.Action ("Click the \"Add\" button on the "Add Entry" Window");

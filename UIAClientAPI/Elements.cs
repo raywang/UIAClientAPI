@@ -224,6 +224,25 @@ namespace UIAClientAPI
 		{
 		}
 
+		//moves the control
+		public void Move (double x, double y)
+		{
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Move (x, y);
+		}
+
+		public void Resize (double weight, double height)
+		{
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Resize(weight, height);
+		}
+
+		public void Rotate (double degress)
+		{
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Rotate(degress);
+		}
+
 		// Click "OK" button of the window.
 		public void OK ()
 		{
@@ -467,31 +486,22 @@ namespace UIAClientAPI
 		}
 	}
 
-	// The wrapper class of Window class.
-	public class Window : Element
+	// The wrapper class of TabItem class.
+	public class TabItem : Element
 	{
-		public Window (AutomationElement elm)
+		public TabItem (AutomationElement elm)
 			: base (elm)
 		{
 		}
-		public void Move ()
-		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Move ();
-		}
 
-		public void Resize ()
+		//Deselects any selected items and then selects the current element
+		public void Select (double x, double y)
 		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Resize ();
+			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
+			sip.Select ();
 		}
-
-		public void Rotate ()
-		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Rotate ();
-		}
-
 
 	}
+
+	
 }
