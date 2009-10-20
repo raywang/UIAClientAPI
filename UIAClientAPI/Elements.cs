@@ -466,4 +466,32 @@ namespace UIAClientAPI
 		{
 		}
 	}
+
+	// The wrapper class of Window class.
+	public class Window : Element
+	{
+		public Window (AutomationElement elm)
+			: base (elm)
+		{
+		}
+		public void Move ()
+		{
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Move ();
+		}
+
+		public void Resize ()
+		{
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Resize ();
+		}
+
+		public void Rotate ()
+		{
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Rotate ();
+		}
+
+
+	}
 }
