@@ -192,5 +192,131 @@ namespace UIAClientAPI
 			standardIconList.FindListItem ("30").Select ();
 			Thread.Sleep (1000);
 		}
+
+		[Test]
+		//TestCase103 test the "Add Entry" dialog
+		public void TestCase103 ()
+		{
+			//103.1 Click "new" button on the toolstripbar
+			procedureLogger.Action ("Click \"New...\" button on the toolbar");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
+			var toolBar = window.FindToolBar ("");
+			toolBar.FindButton ("New...").Click ();
+			Thread.Sleep (1000);
+
+			//103.2 Click "Save" button on the dialog
+			procedureLogger.Action ("Click \"Save\" button of the dialog");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			var newPassDialog = window.FindWindow ("Create New Password Database");
+			newPassDialog.Save ();
+			Thread.Sleep (1000);
+			Console.WriteLine ("test case 02   ....................");
+
+			//103.3 Click "OK" button on the dialog
+			procedureLogger.Action ("Click \"OK\" button of the dialog");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			var keyDialog = window.FindWindow ("Create Composite Master Key");
+			keyDialog.OK ();
+			Thread.Sleep (1000);
+
+			//103.4 Click "Yes" button on the dialog
+			procedureLogger.Action ("Enter \"mono-a11y\" into \"Master password\" text box");
+			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
+			var createMasterKeyWindow = window.FindWindow ("KeePass");
+			createMasterKeyWindow.Yes ();
+			Thread.Sleep (1000);
+
+			//103.5  Click "OK" button on the dialog
+			procedureLogger.Action ("Click \"OK\" button of the dialog");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
+			newPassDialog2.OK ();
+			Thread.Sleep (1000);
+
+			//103.6 Click "Add Entry" button on the toolstripbar
+			procedureLogger.Action ("Check \"Key file/option\" CheckBox");
+			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced");
+			toolBar.FindButton ("Add Entry").Click ();
+			Thread.Sleep (1000);
+
+			//103.7 Check "Add Entry" window's WindowPattern Property
+			//procedureLogger.Action ("Click \" Create...\" button");
+			//procedureLogger.ExpectedResult ("The \"Create a new key file\" dialog opens");
+			//createMasterKeyWindow.FindButton (" Create...").Click ();
+			//Thread.Sleep (1000);
+
+			//103.8  Move "Add Entry" window to (200,200 )and check the TransformPattern Property
+			//procedureLogger.Action ("Click \"Save\" button of the dialog");
+			//procedureLogger.ExpectedResult ("The \"Entropy Collection\" window opens");
+			//var newKeyFileDialog = window.FindWindow ("Create a new key file");
+			//newKeyFileDialog.Save ();
+			//Thread.Sleep (1000);
+
+			//103.9 Click the "Auto-Type" tab item on the "Add Entry" Window
+			//procedureLogger.Action ("Click \"OK\" button of the dialog");
+			//procedureLogger.ExpectedResult ("The \"Entropy Collection\" window closes");
+			//createMasterKeyWindow.FindWindow ("Entropy Collection").OK ();
+			//Thread.Sleep (1000);
+
+			//103.10 Click the "Add" button on the "Add Entry" Window
+			//procedureLogger.Action ("Click \"OK\" button");
+			//procedureLogger.ExpectedResult ("The \"Create Master Key\" window closes");
+			//createMasterKeyWindow.OK ();
+			//Thread.Sleep (1000);
+
+			//103.11 Drag the scroll bar to the bottom on the "Edit Auto-Type Item" window
+			//procedureLogger.Action ("Select \"Compression\" Tab item");
+			//procedureLogger.ExpectedResult ("\"Compression\" tab item opened");
+			//var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
+			//var compressionTabItem = newPassDialog2.FindTabItem ("Compression");
+			//compressionTabItem.Select ();
+			//Thread.Sleep (1000);
+
+			//103.12 Check the scroll bar's property
+			//procedureLogger.Action ("Check \"None\" RadioButton");
+			//procedureLogger.ExpectedResult ("\"None\" radio button selected");
+			//compressionTabItem.FindRadioButton ("None").Select ();
+			//Thread.Sleep (1000);
+
+			//103.13 Click "OK" button on the dialog
+			//var securityTabItem = newPassDialog2.FindTabItem ("Security");
+			//securityTabItem.Select ();
+			//Thread.Sleep (1000);
+
+			//103.14 Click the "Advanced" tab item on the "Add Entry" Window
+			//var keySpinner = newPassDialog2.FindSpinner ("Number of key transformation rounds:");
+			//keySpinner.Value = 1000;
+			//Thread.Sleep (1000);
+
+			//103.15 Click the "Add" button on the "Add Entry" Window
+			//procedureLogger.Action ("Click \"OK\" button of the window");
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
+			//newPassDialog2.OK ();
+			//Thread.Sleep (1000);
+
+			//103.16 Type the "aa" into the "Name" edit
+			//procedureLogger.Action ("Click \"OK\" button of the window");
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
+			//newPassDialog2.OK ();
+			//Thread.Sleep (1000);
+
+			//103.17 Click "OK" button on the "Edit Entry String" dialog
+			//procedureLogger.Action ("Click \"OK\" button of the window");
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
+			//newPassDialog2.OK ();
+			//Thread.Sleep (1000);
+
+			//103.18 Check the "aa" text's TableItemPattern
+			//procedureLogger.Action ("Click \"OK\" button of the window");
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
+			//newPassDialog2.OK ();
+			//Thread.Sleep (1000);
+
+			//103.19 Close the "Add Entry" Window
+			//procedureLogger.Action ("Click \"OK\" button of the window");
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
+			//newPassDialog2.OK ();
+			//Thread.Sleep (1000);
+		}
 	}
 }
