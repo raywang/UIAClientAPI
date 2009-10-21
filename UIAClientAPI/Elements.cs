@@ -208,6 +208,7 @@ namespace UIAClientAPI
 		{
 			return (ToolBar) Find (ControlType.ToolBar, name);
 		}
+
 	}
 
 	// The wrapper class of Window class.
@@ -486,22 +487,7 @@ namespace UIAClientAPI
 		}
 	}
 
-	// The wrapper class of TabItem class.
-	public class TabItem : Element
-	{
-		public TabItem (AutomationElement elm)
-			: base (elm)
-		{
-		}
 
-		//Deselects any selected items and then selects the current element
-		public void Select (double x, double y)
-		{
-			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
-			sip.Select ();
-		}
-
-	}
 
 	
 }

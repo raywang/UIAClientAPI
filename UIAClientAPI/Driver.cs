@@ -43,7 +43,7 @@ namespace UIAClientAPI
 			//test.TestCase101 ();
 			//test.TestCase102 ();
 			test.TestCase103 ();
-			procedureLogger.Save ();
+			test.Quit ();
 		}
 	}
 }

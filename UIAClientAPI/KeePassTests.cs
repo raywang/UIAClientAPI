@@ -261,23 +261,25 @@ namespace UIAClientAPI
 
 			//103.9 Click the "Auto-Type" tab item on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Auto-Type\" tab item on the \"Add Entry\" Window");
+			var tabItemAuto = window.FindTabItem ("Auto-Type");
+			tabItemAuto.Select ();
 			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
-			createMasterKeyWindow.FindWindow ("Entropy Collection").OK ();
 			Thread.Sleep (1000);
 
 			//103.10 Click the "Add" button on the "Add Entry" Window
-			//procedureLogger.Action ("Click the \"Add\" button on the "Add Entry" Window");
-			//procedureLogger.ExpectedResult ("The \"Create Master Key\" window closes");
-			//createMasterKeyWindow.OK ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
+			AddEntryDialog.ClickButton ("Add");
+			procedureLogger.ExpectedResult ("The \"Edit Auto-Type Item\" window appears");
+			Thread.Sleep (1000);
 
 			//103.11 Drag the scroll bar to the bottom on the "Edit Auto-Type Item" window
-			//procedureLogger.Action ("Drag the scroll bar to the bottom on the \"Edit Auto-Type Item\" window");
-			//procedureLogger.ExpectedResult ("\"Compression\" tab item opened");
-			//var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
-			//var compressionTabItem = newPassDialog2.FindTabItem ("Compression");
-			//compressionTabItem.Select ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Drag the scroll bar to the bottom on the \"Edit Auto-Type Item\" window");
+			var autoItemDialog = window.FindWindow ("Edit Auto-Type Item");
+			autoItemDialog.ClickButton ("Forward by large amount");
+			autoItemDialog.ClickButton ("Forward by large amount");
+			//autoItemDialog.FindButton ("Back by small amount").Click ();
+			procedureLogger.ExpectedResult ("the scroll bar is draged to the bottom");
+			Thread.Sleep (1000);
 
 			//103.12 Check the scroll bar's property
 			//procedureLogger.Action ("Check the scroll bar's property");
