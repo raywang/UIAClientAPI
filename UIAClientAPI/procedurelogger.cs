@@ -59,6 +59,14 @@ namespace UIAClientAPI
 			Console.WriteLine ("Action: {0}", action);
 		}
 
+		public void Action (string action, bool log)
+		{
+			_FlushBuffer ();
+			actionBuffer += action + " ";
+			Console.WriteLine ("Action: {0}", action);
+		}
+
+
 		/**
 		 * Log an expected result, e.g., The dialog closes
 		 * 

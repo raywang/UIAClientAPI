@@ -45,6 +45,7 @@ namespace UIAClientAPI
 	[TestFixture]
 	class KeePassTests : TestBase 
 	{
+		Config config = new Config ();
 		Window window = null;
 
 		protected override void OnSetup ()
@@ -59,14 +60,14 @@ namespace UIAClientAPI
 		public void TestCase101 ()
 		{
 			//101.1 Click "New..." button on the toolbar
-			procedureLogger.Action ("Click the \"New...\" button on the toolbar.");
+			//procedureLogger.Action ("Click the \"New...\" button on the toolbar.");
 			var toolBar = window.FindToolBar ("");
 			toolBar.FindButton ("New...").Click();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens.");
 			Thread.Sleep (1000);
 
 			//101.2 Enter "TestCase101" in the "File Name" combo box of the dailog
-			procedureLogger.Action ("Enter \"TestCase101\" in the \"File Name\" combo box of the dailog.");
+			//procedureLogger.Action ("Enter \"TestCase101\" in the \"File Name\" combo box of the dailog.");
 			var newPassDialog = window.FindWindow ("Create New Password Database");
 			var fileNameEdit = newPassDialog.FindEdit ("File name:");
 			fileNameEdit.Value = "TestCase101";
@@ -74,13 +75,13 @@ namespace UIAClientAPI
 			Thread.Sleep (1000);
 
 			//101.3 Click "Save" button of the dialog
-			procedureLogger.Action ("Click the \"Save\" button of the dialog.");
+			//procedureLogger.Action ("Click the \"Save\" button of the dialog.");
 			newPassDialog.Save ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog disappears.");
 			Thread.Sleep (1000);
 
 			//101.4 Enter "mono-a11y" into  "Master password" text box
-			procedureLogger.Action ("Enter \"mono-a11y\" into \"Master password\" text box.");
+			//procedureLogger.Action ("Enter \"mono-a11y\" into \"Master password\" text box.");
 			var createMasterKeyWindow = window.FindWindow ("Create Composite Master Key");
 			var masterPasswdEdit = createMasterKeyWindow.FindEdit ("Repeat password:", "m_tbPassword");
 			masterPasswdEdit.Value = "mono-a11y";
@@ -88,7 +89,7 @@ namespace UIAClientAPI
 			Thread.Sleep (1000);
 
 			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box
-			procedureLogger.Action ("Re-Enter \"mono-a11y\" into \"Repeat password\" text box.");
+			//procedureLogger.Action ("Re-Enter \"mono-a11y\" into \"Repeat password\" text box.");
 			var repeatPasswdEdit = createMasterKeyWindow.FindEdit ("Repeat password:", "m_tbRepeatPassword");
 			repeatPasswdEdit.Value = "mono-a11y";
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
@@ -101,41 +102,45 @@ namespace UIAClientAPI
 			Thread.Sleep (1000);
 
 			//101.7 Click "Create a new key file" button
-			procedureLogger.Action ("Click the \" Create...\" button.");
+			//procedureLogger.Action ("Click the \" Create...\" button.");
 			createMasterKeyWindow.FindButton (" Create...").Click();
 			procedureLogger.ExpectedResult ("The \"Create a new key file\" dialog opens.");
 			Thread.Sleep (1000);
 
 			//101.8  Click "Save" button of the dialog
-			procedureLogger.Action ("Click the \"Save\" button of the dialog.");
+			//procedureLogger.Action ("Click the \"Save\" button of the dialog.");
 			var newKeyFileDialog = window.FindWindow ("Create a new key file");
 			newKeyFileDialog.Save();
-			procedureLogger.ExpectedResult ("The \"Entropy Collection\" window opens.");
-			Thread.Sleep (1000);
-
+			
 			//in case there is a TestCase101 key exist.
 			var comfirmDialog = newKeyFileDialog.FindWindow("Confirm Save As");
 			if (comfirmDialog != null) {
-				procedureLogger.Action ("Overwrite new key file.");
+				procedureLogger.ExpectedResult ("The \"Confirm Save As\" dialog opens.");
+				Thread.Sleep (1000);
+
+				//procedureLogger.Action ("Overwrite new key file.");
 				comfirmDialog.Yes ();
-				procedureLogger.ExpectedResult ("\"Confirm Save As\" dialog disappears.");
+				procedureLogger.ExpectedResult ("The \"Confirm Save As\" dialog disappears.");
+				Thread.Sleep (1000);
+			} else {
+				procedureLogger.ExpectedResult ("The \"Entropy Collection\" window opens.");
 				Thread.Sleep (1000);
 			}
 
 			//101.9 Click "OK" button of the dialog
-			procedureLogger.Action ("Click the \"OK\" button of the dialog.");
+			//procedureLogger.Action ("Click the \"OK\" button of the dialog.");
 			createMasterKeyWindow.FindWindow ("Entropy Collection").OK ();
 			procedureLogger.ExpectedResult ("The \"Entropy Collection\" window disappears.");
 			Thread.Sleep (1000);
 
 			//101.10 Click "OK" button on the "Create Master Key" Window
-			procedureLogger.Action ("Click the \"OK\" button.");
+			//procedureLogger.Action ("Click the \"OK\" button.");
 			createMasterKeyWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Create Master Key\" window disappears.");
 			Thread.Sleep (1000);
 
 			//101.11 Select "Compression" Tab item
-			procedureLogger.Action("Select the \"Compression\" Tab item.");
+			//procedureLogger.Action("Select the \"Compression\" Tab item.");
 			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
 			var compressionTabItem = newPassDialog2.FindTabItem ("Compression");
 			compressionTabItem.Select ();
@@ -143,7 +148,7 @@ namespace UIAClientAPI
 			Thread.Sleep (1000);
 
 			//101.12 Check "None" RadioButton
-			procedureLogger.Action("Check the \"None\" RadioButton.");
+			//procedureLogger.Action("Check the \"None\" RadioButton.");
 			compressionTabItem.FindRadioButton ("None").Select ();
 			procedureLogger.ExpectedResult ("The \"None\" radio button selected.");
 			Thread.Sleep (1000);
@@ -164,7 +169,7 @@ namespace UIAClientAPI
 			//Thread.Sleep (1000);
 
 			//101.15 Click "OK" button to close the dialog
-			procedureLogger.Action("Click the \"OK\" button of the window.");
+			//procedureLogger.Action("Click the \"OK\" button of the window.");
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window disappears.");
 			Thread.Sleep (1000);
@@ -199,44 +204,43 @@ namespace UIAClientAPI
 		{
 			//103.1 Click "new" button on the toolstripbar
 			procedureLogger.Action ("Click \"New...\" button on the toolbar");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
 			var toolBar = window.FindToolBar ("");
 			toolBar.FindButton ("New...").Click ();
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
 			Thread.Sleep (1000);
 
 			//103.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			var newPassDialog = window.FindWindow ("Create New Password Database");
 			newPassDialog.Save ();
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (1000);
-			Console.WriteLine ("test case 02   ....................");
 
 			//103.3 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			var keyDialog = window.FindWindow ("Create Composite Master Key");
 			keyDialog.OK ();
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (1000);
 
 			//103.4 Click "Yes" button on the dialog
 			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
-			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
 			var createMasterKeyWindow = window.FindWindow ("KeePass");
 			createMasterKeyWindow.Yes ();
+			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
 			Thread.Sleep (1000);
 
-			//103.5  Click "OK" button on the dialog
+			//103.5 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
 			newPassDialog2.OK ();
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (1000);
 
 			//103.6 Click "Add Entry" button on the toolstripbar
 			procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
-			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced");
 			toolBar.FindButton ("Add Entry").Click ();
+			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced");
 			Thread.Sleep (1000);
 
 			//103.7 Check "Add Entry" window's WindowPattern Property
@@ -245,10 +249,10 @@ namespace UIAClientAPI
 			//createMasterKeyWindow.FindButton (" Create...").Click ();
 			//Thread.Sleep (1000);
 
-			//103.8  move "add entry" window to (200,200 )
+			//103.8 move "add entry" window to (200,200 )
 			procedureLogger.Action ("move \"add entry\" window to (200,200 )");
 			var AddEntryDialog = window.FindWindow ("Add Entry");
-			AddEntryDialog.Move (200,200);
+			AddEntryDialog.Move (200, 200);
 			procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
 			Thread.Sleep (1000);
 
@@ -302,7 +306,7 @@ namespace UIAClientAPI
 
 			//103.15 Click the "Add" button on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.FindButton ("Add").Click();
+			AddEntryDialog.FindButton ("Add").Click ();
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
 			Thread.Sleep (1000);
 
