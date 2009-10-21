@@ -306,17 +306,19 @@ namespace UIAClientAPI
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
 			Thread.Sleep (1000);
 
+			//TODO: need to call a keyboard operation API in another dll
 			//103.16 Type the "aa" into the "Name" edit
-			procedureLogger.Action ("Type the \"aa\" into the \"Name\" edit");
+			//procedureLogger.Action ("Type the \"aa\" into the \"Name\" edit");
 			var editEntryStringWindow = window.FindWindow ("Edit Entry String");
-			var nameEdit = editEntryStringWindow.FindEdit ("Name:");
-			nameEdit.Value = "aa";
-			procedureLogger.ExpectedResult("the \"name\" edit 's value is \"aa\"");
-			Thread.Sleep (1000);
+			//var nameEdit = editEntryStringWindow.FindEdit ("Name:");
+			//nameEdit.Value = "aa";
+			//procedureLogger.ExpectedResult("the \"name\" edit 's value is \"aa\"");
+			//Thread.Sleep (1000);
 
+			//TODO: replace "OK" by "Cancel" because be blocked by 103.16
 			//103.17 Click "OK" button on the "Edit Entry String" dialog
 			procedureLogger.Action ("Click \"OK\" button on the \"Edit Entry String\" dialog");
-			createMasterKeyWindow.OK ();
+			editEntryStringWindow.Cancel ();
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" window closes");
 			Thread.Sleep (1000);
 

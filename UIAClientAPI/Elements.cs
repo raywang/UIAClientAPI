@@ -16,8 +16,9 @@
 // Copyright (c) 2009 Novell, Inc (http://www.novell.com)
 //
 // Authors:
-//	Felicia Mu  (fxmu@novell.com)
 //	Ray Wang  (rawang@novell.com)
+//	Felicia Mu  (fxmu@novell.com)
+
 
 using System;
 using System.Collections.Generic;
