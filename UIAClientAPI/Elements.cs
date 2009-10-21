@@ -123,6 +123,8 @@ namespace UIAClientAPI
 				return new ListItem (elm);
 			else if (elm.Current.ControlType == ControlType.ToolBar)
 				return new ToolBar (elm);
+			else if (elm.Current.ControlType == ControlType.DataGrid)
+				return new DataGrid (elm);
 
 			return new Element (elm);
 		}
@@ -209,6 +211,12 @@ namespace UIAClientAPI
 		{
 			return (ToolBar) Find (ControlType.ToolBar, name);
 		}
+
+		public DataGrid FindDataGrid (string name)
+		{
+			return (DataGrid) Find (ControlType.DataGrid, name);
+		}
+
 	}
 
 	// The wrapper class of Window class.
@@ -228,20 +236,20 @@ namespace UIAClientAPI
 		//moves the control
 		public void Move (double x, double y)
 		{
-			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			tp.Move (x, y);
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Move (x, y);
 		}
 
-		public void Resize (double width, double height)
+		public void Resize (double weight, double height)
 		{
-			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			tp.Resize(width, height);
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Resize(weight, height);
 		}
 
-		public void Rotate (double degrees)
+		public void Rotate (double degress)
 		{
-			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			tp.Rotate(degrees);
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Rotate(degress);
 		}
 
 		// Click "OK" button of the window.
@@ -485,5 +493,25 @@ namespace UIAClientAPI
 			: base (elm)
 		{
 		}
-	}	
+	}
+
+	public class DataGrid : Element
+	{
+		public DataGrid (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void GetItem (int row, int column)
+		{
+			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
+			gp.GetItem (row, column);
+		}
+
+
+	}
+
+
+
+	
 }
