@@ -288,34 +288,37 @@ namespace UIAClientAPI
 			//Thread.Sleep (1000);
 
 			//103.13 Click "OK" button on the dialog
-			//procedureLogger.Action ("Click \"OK\" button on the dialog");
-			//procedureLogger.ExpectedResult ("\"None\" radio button selected");
-			//compressionTabItem.FindRadioButton ("None").Select ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Click \"OK\" button on the dialog");
+			autoItemDialog.OK ();
+			procedureLogger.ExpectedResult ("\"None\" radio button selected");
+			Thread.Sleep (1000);
 
 			//103.14 Click the "Advanced" tab item on the "Add Entry" Window
-			//procedureLogger.Action ("Click the \"Advanced\" tab item on the "Add Entry" Window");
-			//procedureLogger.ExpectedResult ("\"None\" radio button selected");
-			//compressionTabItem.FindRadioButton ("None").Select ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Click the \"Advanced\" tab item on the \"Add Entry\" Window");
+			var tabItemAdvanced = window.FindTabItem ("Advanced");
+			tabItemAdvanced.Select ();
+			procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+			Thread.Sleep (1000);
 
 			//103.15 Click the "Add" button on the "Add Entry" Window
-			//procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
-			//newPassDialog2.OK ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
+			AddEntryDialog.FindButton ("Add").Click();
+			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
+			Thread.Sleep (1000);
 
 			//103.16 Type the "aa" into the "Name" edit
-			//procedureLogger.Action ("Type the \"aa\" into the "Name" edit");
-			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
-			//newPassDialog2.OK ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Type the \"aa\" into the \"Name\" edit");
+			var editEntryStringWindow = window.FindWindow ("Edit Entry String");
+			var nameEdit = editEntryStringWindow.FindEdit ("Name:");
+			nameEdit.Value = "aa";
+			procedureLogger.ExpectedResult("the \"name\" edit 's value is \"aa\"");
+			Thread.Sleep (1000);
 
 			//103.17 Click "OK" button on the "Edit Entry String" dialog
-			//procedureLogger.Action ("Click \"OK\" button on the \"Edit Entry String\" dialog");
-			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
-			//newPassDialog2.OK ();
-			//Thread.Sleep (1000Console
+			procedureLogger.Action ("Click \"OK\" button on the \"Edit Entry String\" dialog");
+			createMasterKeyWindow.OK ();
+			procedureLogger.ExpectedResult ("The \"Edit Entry String\" window closes");
+			Thread.Sleep (1000);
 
 			//103.18 Check the "aa" text's TableItemPattern
 			//procedureLogger.Action ("Check the \"aa\" text's TableItemPattern");
@@ -324,10 +327,10 @@ namespace UIAClientAPI
 			//Thread.Sleep (1000);
 
 			//103.19 Close the "Add Entry" Window
-			//procedureLogger.Action ("Close the \"Add Entry\" Window");
-			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
-			//newPassDialog2.OK ();
-			//Thread.Sleep (1000);
+			procedureLogger.Action ("Close the \"Add Entry\" Window");
+			AddEntryDialog.OK ();
+			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
+			Thread.Sleep (1000);
 		}
 	}
 }
