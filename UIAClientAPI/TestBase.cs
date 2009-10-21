@@ -36,7 +36,7 @@ using NUnit.Framework;
 namespace UIAClientAPI
 {
 	[TestFixture]
-	/// TestBase class helps to launch sample, initiation etc.
+	/// TestBase class helps to launch sample, initiation etc..
 	public class TestBase
 	{
 		Config config = new Config ();

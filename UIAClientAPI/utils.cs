@@ -32,7 +32,7 @@ namespace UIAClientAPI
 {
 	class Utils
 	{
-		//Takes a screenshot of the desktop
+		//Takes a screenshot of the dialog
 		public static void TakeScreenshot (string path)
 		{
 			Config config = new Config ();
