@@ -125,6 +125,8 @@ namespace UIAClientAPI
 				return new ToolBar (elm);
 			else if (elm.Current.ControlType == ControlType.DataGrid)
 				return new DataGrid (elm);
+			else if (elm.Current.ControlType == ControlType.Document)
+				return new Document (elm);
 
 			return new Element (elm);
 		}
@@ -215,6 +217,11 @@ namespace UIAClientAPI
 		public DataGrid FindDataGrid (string name)
 		{
 			return (DataGrid) Find (ControlType.DataGrid, name);
+		}
+
+		public Document FindDocument (string name)
+		{
+			return (Document) Find (ControlType.Document, name);
 		}
 
 	}
@@ -506,6 +513,16 @@ namespace UIAClientAPI
 		{
 			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
 			gp.GetItem (row, column);
+		}
+
+
+	}
+
+	public class Document : Element
+	{
+		public Document (AutomationElement elm)
+			: base (elm)
+		{
 		}
 
 
