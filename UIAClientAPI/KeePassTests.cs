@@ -246,7 +246,7 @@ namespace UIAClientAPI
 			//103.7 Check "Add Entry" window's default WindowPattern Property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMaximizeProperty");
 			Window addEntryWindow = window.FindWindow ("Add Entry");
-			Assert.AreEqual (false, addEntryWindow.CanMaximize);//Window.CanMaximizeProperty);
+			Assert.AreEqual (false, addEntryWindow.CanMaximize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep((int)config.shortDelay);
 
@@ -453,34 +453,63 @@ namespace UIAClientAPI
 			//var tabItemCompression = window.FindTabItem ("Compression");
 			//tabItemCompression.Select ();
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+<<<<<<< HEAD
+			//Thread.Sleep((int)config.shortDelay); ;
+=======
+			//Thread.Sleep (1000);
+>>>>>>> f60955bc8587b8fa7567aa0dd49ec9d3b4b518ee
 
 			//104.12 Set the Scroll's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the Scroll's VerticalAmount to \"smallDecrement\"");
 			//var document = window.FindDocument (" ");
 			//document.Scroll (ScrollAmount.SmallDecrement,ScrollAmount.SmallDecrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+<<<<<<< HEAD
 			//Thread.Sleep((int)config.shortDelay); 
+=======
+			//Thread.Sleep (1000);
+>>>>>>> f60955bc8587b8fa7567aa0dd49ec9d3b4b518ee
 
 			//104.13 Set the ScrollHorizontal's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollHorizontal's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollHorizontal (ScrollAmount.LargeIncrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+<<<<<<< HEAD
+			//Thread.Sleep((int)config.shortDelay); 
+=======
+			//Thread.Sleep (1000);
+>>>>>>> f60955bc8587b8fa7567aa0dd49ec9d3b4b518ee
 
 			//104.14 Set the ScrollVertical's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollVertical (ScrollAmount.LargeIncrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+<<<<<<< HEAD
+			//Thread.Sleep((int)config.shortDelay); 
+=======
+			//Thread.Sleep (1000);
+>>>>>>> f60955bc8587b8fa7567aa0dd49ec9d3b4b518ee
 
 			//104.15 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
 			//document.SetScrollPercent (50,50);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+<<<<<<< HEAD
+			//Thread.Sleep((int)config.shortDelay); 
+=======
+			//Thread.Sleep (1000);
+>>>>>>> f60955bc8587b8fa7567aa0dd49ec9d3b4b518ee
 
 			//104.16 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window
 			//procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window");
 			//var closeWindow =window.FindWindow("NewDatabase.kdbx*-KeePass Password Safe");
 			//closeWindow.Resize (0,0);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+<<<<<<< HEAD
+			//Thread.Sleep((int)config.shortDelay); 
+=======
+			//Thread.Sleep (1000);
+>>>>>>> f60955bc8587b8fa7567aa0dd49ec9d3b4b518ee
 		}
 	}
 }
