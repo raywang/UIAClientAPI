@@ -338,5 +338,125 @@ namespace UIAClientAPI
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
 			Thread.Sleep (1000);
 		}
+
+		[Test]
+		//TestCase104 test the "Password Generator" dialog
+		public void TestCase104 ()
+		{
+			//104.1 Click "new" button on the toolstripbar
+			procedureLogger.Action ("Click \"New...\" button on the toolbar");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
+			var toolBar = window.FindToolBar ("");
+			toolBar.FindButton ("New...").Click ();
+			Thread.Sleep (1000);
+
+			//104.2 Click "Save" button on the dialog
+			procedureLogger.Action ("Click \"Save\" button of the dialog");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			var newPassDialog = window.FindWindow ("Create New Password Database");
+			newPassDialog.Save ();
+			Thread.Sleep (1000);
+			Console.WriteLine ("test case 02   ....................");
+
+			//104.3 Click "OK" button on the dialog
+			procedureLogger.Action ("Click \"OK\" button of the dialog");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			var keyDialog = window.FindWindow ("Create Composite Master Key");
+			keyDialog.OK ();
+			Thread.Sleep (1000);
+
+			//104.4 Click "Yes" button on the dialog
+			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
+			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
+			var createMasterKeyWindow = window.FindWindow ("KeePass");
+			createMasterKeyWindow.Yes ();
+			Thread.Sleep (1000);
+
+			//104.5  Click "OK" button on the dialog
+			procedureLogger.Action ("Click \"OK\" button of the dialog");
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
+			newPassDialog2.OK ();
+			Thread.Sleep (1000);
+
+			//104.6 Check the "title" of the exist record
+			//procedureLogger.Action ("Check the \"title\" of the exist record");
+			//procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced");
+			//window.FindDataGrid ("").GetItem (0, 0);
+			//Console.WriteLine ("the name {0}", window.FindDataGrid ("").Name);
+			//Thread.Sleep (1000);
+
+			//104.7 Check the GridItemPattern's property of text in data grid
+			//procedureLogger.Action ("Click \" Create...\" button");
+			//procedureLogger.ExpectedResult ("The \"Create a new key file\" dialog opens");
+			//createMasterKeyWindow.FindButton (" Create...").Click ();
+			//Thread.Sleep (1000);
+
+			//104.8  Check the GridItemPattern's property of text in data grid
+			//procedureLogger.Action ("move \"add entry\" window to (200,200 )");
+			//var AddEntryDialog = window.FindWindow ("Add Entry");
+			//AddEntryDialog.Move (200, 200);
+			//procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
+			//Thread.Sleep (1000);
+
+			//check the transformpattern property
+			//procedureLogger.Action ("check the TransformPattern Property");
+			//procedureLogger.ExpectedResult ("The \"Entropy Collection\" window opens");
+			//var newKeyFileDialog = window.FindWindow ("Create a new key file");
+			//newKeyFileDialog.Save ();
+			//Thread.Sleep (1000);
+
+			//104.9 Click "Tools" menu item on the menu bar
+			procedureLogger.Action ("Click \"Tools\" menu item on the menu bar");
+			window.FindMenuItem ("Tools").Click ();
+			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
+			Thread.Sleep (1000);
+
+			// BUG548998 
+			//104.10 Click "Generate Password.." menu item on the sub menu 
+			//procedureLogger.Action ("Click \"Generate Password..\" menu item on the sub menu");
+			//window.FindMenuItem ("Generate Password..").Click ();
+			//procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
+			//Thread.Sleep (1000);
+
+			//104.11 Select "Compression" Tab item
+			//procedureLogger.Action ("Select \"Compression\" Tab item");
+			//var tabItemCompression = window.FindTabItem ("Compression");
+			//tabItemCompression.Select ();
+			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+			//Thread.Sleep (1000); ;
+
+			//104.12 Set the Scroll's VerticalAmount to "smallDecrement"
+			//procedureLogger.Action ("Set the Scroll's VerticalAmount to \"smallDecrement\"");
+			//var document = window.FindDocument (" ");
+			//document.Scroll (ScrollAmount.SmallDecrement,ScrollAmount.SmallDecrement);
+			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+			//Thread.Sleep (1000); 
+
+			//104.13 Set the ScrollHorizontal's VerticalAmount to "smallDecrement"
+			//procedureLogger.Action ("Set the ScrollHorizontal's VerticalAmount to \"smallDecrement\"");
+			//document.ScrollHorizontal (ScrollAmount.LargeIncrement);
+			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+			//Thread.Sleep (1000); 
+
+			//104.14 Set the ScrollVertical's VerticalAmount to "smallDecrement"
+			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
+			//document.ScrollVertical (ScrollAmount.LargeIncrement);
+			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+			//Thread.Sleep (1000); 
+
+			//104.15 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
+			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
+			//document.SetScrollPercent (50,50);
+			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+			//Thread.Sleep (1000); 
+
+			//104.16 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window
+			//procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window");
+			//var closeWindow =window.FindWindow("NewDatabase.kdbx*-KeePass Password Safe");
+			//closeWindow.Resize (0,0);
+			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
+			//Thread.Sleep (1000); 
+		}
 	}
 }
