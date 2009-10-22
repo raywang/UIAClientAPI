@@ -525,6 +525,30 @@ namespace UIAClientAPI
 		{
 		}
 
+		public void Scroll (ScrollAmount horizontalPercent,ScrollAmount verticalPercent)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.Scroll(horizontalPercent, verticalPercent);
+		}
+
+		public void ScrollVertical (ScrollAmount amount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.ScrollVertical (amount);
+		}
+
+		public void ScrollHorizontal (ScrollAmount amount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.ScrollHorizontal (amount);
+		}
+
+		public void SetScrollPercent (double horizontalPercent, double verticalPercent)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.SetScrollPercent (horizontalPercent, verticalPercent);
+		}
+
 
 	}
 
