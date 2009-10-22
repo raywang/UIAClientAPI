@@ -412,7 +412,7 @@ namespace UIAClientAPI
 			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
 			Thread.Sleep (1000);
 
-			// BUG548998 
+			// BUG548998
 			//104.10 Click "Generate Password.." menu item on the sub menu 
 			//procedureLogger.Action ("Click \"Generate Password..\" menu item on the sub menu");
 			//window.FindMenuItem ("Generate Password..").Click ();
@@ -424,39 +424,39 @@ namespace UIAClientAPI
 			//var tabItemCompression = window.FindTabItem ("Compression");
 			//tabItemCompression.Select ();
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep (1000); ;
+			//Thread.Sleep (1000);
 
 			//104.12 Set the Scroll's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the Scroll's VerticalAmount to \"smallDecrement\"");
 			//var document = window.FindDocument (" ");
 			//document.Scroll (ScrollAmount.SmallDecrement,ScrollAmount.SmallDecrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep (1000); 
+			//Thread.Sleep (1000);
 
 			//104.13 Set the ScrollHorizontal's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollHorizontal's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollHorizontal (ScrollAmount.LargeIncrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep (1000); 
+			//Thread.Sleep (1000);
 
 			//104.14 Set the ScrollVertical's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollVertical (ScrollAmount.LargeIncrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep (1000); 
+			//Thread.Sleep (1000);
 
 			//104.15 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
 			//document.SetScrollPercent (50,50);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep (1000); 
+			//Thread.Sleep (1000);
 
 			//104.16 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window
 			//procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window");
 			//var closeWindow =window.FindWindow("NewDatabase.kdbx*-KeePass Password Safe");
 			//closeWindow.Resize (0,0);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep (1000); 
+			//Thread.Sleep (1000);
 		}
 	}
 }

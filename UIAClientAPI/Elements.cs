@@ -223,7 +223,6 @@ namespace UIAClientAPI
 		{
 			return (Document) Find (ControlType.Document, name);
 		}
-
 	}
 
 	// The wrapper class of Window class.
@@ -243,20 +242,20 @@ namespace UIAClientAPI
 		//moves the control
 		public void Move (double x, double y)
 		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Move (x, y);
+			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Move (x, y);
 		}
 
-		public void Resize (double weight, double height)
+		public void Resize (double width, double height)
 		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Resize(weight, height);
+			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Resize(width, height);
 		}
 
-		public void Rotate (double degress)
+		public void Rotate (double degrees)
 		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Rotate(degress);
+			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Rotate(degrees);
 		}
 
 		// Click "OK" button of the window.
@@ -556,8 +555,6 @@ namespace UIAClientAPI
 			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
 			gp.GetItem (row, column);
 		}
-
-
 	}
 
 	public class Document : Element
@@ -590,11 +587,5 @@ namespace UIAClientAPI
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
 			sp.SetScrollPercent (horizontalPercent, verticalPercent);
 		}
-
-
 	}
-
-
-
-	
 }

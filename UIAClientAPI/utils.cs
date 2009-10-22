@@ -38,7 +38,7 @@ namespace UIAClientAPI
 		public static void TakeScreenshot (string path)
 		{
 			// pause before taking screenshots, otherwise we get half-drawn widgets
-			Thread.Sleep ((int) Config.Instance.ShortDelay * 1000);
+			//Thread.Sleep ((int) Config.Instance.ShortDelay * 1000);
 
 			// do the screenshot, and save it to disk
 			int width = Screen.PrimaryScreen.Bounds.Width;
