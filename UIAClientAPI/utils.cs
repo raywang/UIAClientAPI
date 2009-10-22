@@ -27,6 +27,8 @@ using System.Threading;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace UIAClientAPI
 {
@@ -35,10 +37,8 @@ namespace UIAClientAPI
 		//Takes a screenshot of the current desktop
 		public static void TakeScreenshot (string path)
 		{
-			Config config = new Config ();
-
 			// pause before taking screenshots, otherwise we get half-drawn widgets
-			//Thread.Sleep ((int) config.shortDelay * 1000);
+			Thread.Sleep ((int) Config.Instance.ShortDelay * 1000);
 
 			// do the screenshot, and save it to disk
 			int width = Screen.PrimaryScreen.Bounds.Width;
@@ -53,14 +53,46 @@ namespace UIAClientAPI
 		// runs until it gets True.
 		public static bool RetryUntilTrue (Func<bool> d)
 		{
-			for (int i = 0; i < Config.retryTimes; i++) {
+			for (int i = 0; i < Config.Instance.RetryTimes; i++) {
 				if (d ())
 					return true;
 
-				Thread.Sleep (Config.retryInterval);
+				Thread.Sleep (Config.Instance.RetryInterval);
 			}
 
 			return false;
 		}
+	}
+
+	public class Config
+	{
+		private static Config instance = null;
+		public static Config Instance
+		{
+			get
+			{
+				if (instance == null)
+					ReadFromConfigureFile ();
+				return instance;
+			}
+		}
+
+		private static void ReadFromConfigureFile ()
+		{
+			var serializer = new XmlSerializer (typeof (Config));
+			using (FileStream fs = new FileStream ("Config.xml", FileMode.Open)) {
+				instance = serializer.Deserialize (fs) as Config;
+			}
+		}
+
+		public int RetryTimes { get; set; }
+		public int RetryInterval { get; set; }
+		public bool TakeScreenShots { get; set; }
+		// where to write procedure logger output, screenshots, etc
+		public string OutputDir { get; set; }
+		public string AppPath { get; set; }
+		public double ShortDelay { get; set; }
+		public double MediumDelay { get; set; }
+		public double LongDelay { get; set; }
 	}
 }
