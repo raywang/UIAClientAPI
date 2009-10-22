@@ -123,6 +123,10 @@ namespace UIAClientAPI
 				return new ListItem (elm);
 			else if (elm.Current.ControlType == ControlType.ToolBar)
 				return new ToolBar (elm);
+			else if (elm.Current.ControlType == ControlType.DataGrid)
+				return new DataGrid (elm);
+			else if (elm.Current.ControlType == ControlType.Document)
+				return new Document (elm);
 
 			return new Element (elm);
 		}
@@ -209,6 +213,17 @@ namespace UIAClientAPI
 		{
 			return (ToolBar) Find (ControlType.ToolBar, name);
 		}
+
+		public DataGrid FindDataGrid (string name)
+		{
+			return (DataGrid) Find (ControlType.DataGrid, name);
+		}
+
+		public Document FindDocument (string name)
+		{
+			return (Document) Find (ControlType.Document, name);
+		}
+
 	}
 
 	// The wrapper class of Window class.
@@ -228,20 +243,20 @@ namespace UIAClientAPI
 		//moves the control
 		public void Move (double x, double y)
 		{
-			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			tp.Move (x, y);
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Move (x, y);
 		}
 
-		public void Resize (double width, double height)
+		public void Resize (double weight, double height)
 		{
-			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			tp.Resize(width, height);
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Resize(weight, height);
 		}
 
-		public void Rotate (double degrees)
+		public void Rotate (double degress)
 		{
-			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			tp.Rotate(degrees);
+			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			sip.Rotate(degress);
 		}
 
 		// Click "OK" button of the window.
@@ -527,5 +542,59 @@ namespace UIAClientAPI
 			: base (elm)
 		{
 		}
-	}	
+	}
+
+	public class DataGrid : Element
+	{
+		public DataGrid (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void GetItem (int row, int column)
+		{
+			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
+			gp.GetItem (row, column);
+		}
+
+
+	}
+
+	public class Document : Element
+	{
+		public Document (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public void Scroll (ScrollAmount horizontalPercent,ScrollAmount verticalPercent)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.Scroll(horizontalPercent, verticalPercent);
+		}
+
+		public void ScrollVertical (ScrollAmount amount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.ScrollVertical (amount);
+		}
+
+		public void ScrollHorizontal (ScrollAmount amount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.ScrollHorizontal (amount);
+		}
+
+		public void SetScrollPercent (double horizontalPercent, double verticalPercent)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.SetScrollPercent (horizontalPercent, verticalPercent);
+		}
+
+
+	}
+
+
+
+	
 }
