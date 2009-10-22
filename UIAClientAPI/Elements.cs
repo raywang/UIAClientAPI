@@ -240,24 +240,63 @@ namespace UIAClientAPI
 		{
 		}
 
-		//moves the control
+		//TransformPattern
 		public void Move (double x, double y)
 		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Move (x, y);
+			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Move (x, y);
 		}
 
 		public void Resize (double weight, double height)
 		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Resize(weight, height);
+			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Resize(weight, height);
 		}
 
 		public void Rotate (double degress)
 		{
-			TransformPattern sip = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			sip.Rotate(degress);
+			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Rotate(degress);
 		}
+
+		//WindowPattern
+		public void SetWindowVisualState (WindowVisualState state)
+		{
+			WindowPattern wp = (WindowPattern) element.GetCurrentPattern (WindowPattern.Pattern);
+			wp.SetWindowVisualState (state);
+		}
+
+		//the WindowPattern's property
+		public bool CanMaximize
+		{
+			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.CanMaximizeProperty); }
+		}
+
+		public bool CanMinimize
+		{
+			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.CanMinimizeProperty); }
+
+		}
+
+		public bool IsModal
+		{
+		        get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsModalProperty); }
+		}
+
+		public bool IsTopmost
+		{
+		        get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsTopmostProperty); }
+		}
+
+		public WindowVisualState WindowVisualState
+		{
+			get { return (WindowVisualState) element.GetCurrentPropertyValue (WindowPattern.WindowInteractionStateProperty); }
+		}
+
+		public WindowInteractionState WindowInteractionState
+		{
+			get { return (WindowInteractionState) element.GetCurrentPropertyValue (WindowPattern.WindowInteractionStateProperty); }
+		}		
 
 		// Click "OK" button of the window.
 		public void OK ()
@@ -299,6 +338,10 @@ namespace UIAClientAPI
 				Console.WriteLine (e);
 			}
 		}
+
+		//get the property of WindowPattern
+		//WindowPattern
+
 	}
 
 	// The wrapper class of Button class.
