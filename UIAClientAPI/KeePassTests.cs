@@ -441,7 +441,7 @@ namespace UIAClientAPI
 			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
 			Thread.Sleep((int)config.shortDelay);
 
-			// BUG548998 
+			// BUG548998
 			//104.10 Click "Generate Password.." menu item on the sub menu 
 			procedureLogger.Action ("Click \"Generate Password..\" menu item on the sub menu");
 			window.FindMenuItem ("Generate Password...").Click ();
@@ -453,7 +453,6 @@ namespace UIAClientAPI
 			//var tabItemCompression = window.FindTabItem ("Compression");
 			//tabItemCompression.Select ();
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep((int)config.shortDelay); ;
 
 			//104.12 Set the Scroll's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the Scroll's VerticalAmount to \"smallDecrement\"");
@@ -466,26 +465,22 @@ namespace UIAClientAPI
 			//procedureLogger.Action ("Set the ScrollHorizontal's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollHorizontal (ScrollAmount.LargeIncrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep((int)config.shortDelay); 
 
 			//104.14 Set the ScrollVertical's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollVertical (ScrollAmount.LargeIncrement);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep((int)config.shortDelay); 
 
 			//104.15 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
 			//document.SetScrollPercent (50,50);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep((int)config.shortDelay); 
 
 			//104.16 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window
 			//procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window");
 			//var closeWindow =window.FindWindow("NewDatabase.kdbx*-KeePass Password Safe");
 			//closeWindow.Resize (0,0);
 			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep((int)config.shortDelay); 
 		}
 	}
 }

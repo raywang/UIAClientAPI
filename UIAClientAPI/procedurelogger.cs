@@ -59,14 +59,6 @@ namespace UIAClientAPI
 			Console.WriteLine ("Action: {0}", action);
 		}
 
-		public void Action (string action, bool log)
-		{
-			_FlushBuffer ();
-			actionBuffer += action + " ";
-			Console.WriteLine ("Action: {0}", action);
-		}
-
-
 		/**
 		 * Log an expected result, e.g., The dialog closes
 		 * 
@@ -93,7 +85,7 @@ namespace UIAClientAPI
 			//add XML declaration
 			XmlNode xmlDecl = xmlDoc.CreateXmlDeclaration ("1.0", "UTF-8", "");
 			xmlDoc.AppendChild (xmlDecl);
-			XmlNode xmlStyleSheet = xmlDoc.CreateProcessingInstruction ("xml-stylesheet", "type=\"text/xsl\" href=\"procedures.xsl\"");
+			XmlNode xmlStyleSheet = xmlDoc.CreateProcessingInstruction ("xml-stylesheet", "type=\"text/xsl\" href=\"Resources/procedures.xsl\"");
 			xmlDoc.AppendChild (xmlStyleSheet);
 
 			//add a root element
@@ -139,7 +131,7 @@ namespace UIAClientAPI
 				stepElm.AppendChild (resultElm);
 
 				//add <screenshot> element in <step> element
-				if (config.takeScreenShots) {
+				if (Config.Instance.TakeScreenShots) {
 					XmlElement screenshotElm = xmlDoc.CreateElement ("screenshot");
 					XmlText screenshotElmText = xmlDoc.CreateTextNode (p [2]);
 					//add if clause to determine whether has a screenshot or not.
@@ -179,10 +171,10 @@ namespace UIAClientAPI
 			Config config = new Config ();
 
 			if (actionBuffer != string.Empty && expectedResultBuffer != string.Empty) {
-				if (config.takeScreenShots) {
+				if (Config.Instance.TakeScreenShots) {
 					string filename = string.Format ("screen{0:00}.png", _procedures.Count + 1);
 					// take screenshot
-					Utils.TakeScreenshot (Path.Combine (config.outputDir, filename));
+					Utils.TakeScreenshot (Path.Combine (Config.Instance.OutputDir, filename));
 					Console.WriteLine ("Screenshot: " + filename);
 					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd (), filename });
 				} else {

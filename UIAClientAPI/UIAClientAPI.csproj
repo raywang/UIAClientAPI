@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="Elements.cs" />
     <Compile Include="TestBase.cs" />
@@ -70,6 +69,9 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Libs\Bricks.dll" />
     <Content Include="Libs\Bricks.RuntimeFramework.dll">
     </Content>
