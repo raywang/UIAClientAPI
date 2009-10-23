@@ -91,8 +91,8 @@ namespace UIAClientAPI
 		// where to write procedure logger output, screenshots, etc
 		public string OutputDir { get; set; }
 		public string AppPath { get; set; }
-		public double ShortDelay { get; set; }
-		public double MediumDelay { get; set; }
-		public double LongDelay { get; set; }
+		public int ShortDelay { get; set; }
+		public int MediumDelay { get; set; }
+		public int LongDelay { get; set; }
 	}
 }
