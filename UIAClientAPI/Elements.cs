@@ -239,7 +239,7 @@ namespace UIAClientAPI
 		{
 		}
 
-		//TransformPattern
+		//the TransformPattern's method
 		public void Move (double x, double y)
 		{
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
@@ -256,7 +256,23 @@ namespace UIAClientAPI
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
 		}
 
-		//WindowPattern
+		//the TransformPattern's property
+		public bool CanMove
+		{
+			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanMoveProperty); }
+		}
+
+		public bool CanResize
+		{
+			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanResizeProperty); }
+		}
+
+		public bool CanRotate
+		{
+			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanRotateProperty); }
+		}
+
+		//the WindowPattern's method
 		public void SetWindowVisualState (WindowVisualState state)
 		{
 			WindowPattern wp = (WindowPattern) element.GetCurrentPattern (WindowPattern.Pattern);
@@ -277,12 +293,12 @@ namespace UIAClientAPI
 
 		public bool IsModal
 		{
-		        get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsModalProperty); }
+			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsModalProperty); }
 		}
 
 		public bool IsTopmost
 		{
-		        get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsTopmostProperty); }
+			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsTopmostProperty); }
 		}
 
 		public WindowVisualState WindowVisualState
@@ -294,6 +310,7 @@ namespace UIAClientAPI
 		{
 			get { return (WindowInteractionState) element.GetCurrentPropertyValue (WindowPattern.WindowInteractionStateProperty); }
 		}		
+
 
 		// Click "OK" button of the window.
 		public void OK ()
