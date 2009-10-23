@@ -127,6 +127,10 @@ namespace UIAClientAPI
 				return new DataGrid (elm);
 			else if (elm.Current.ControlType == ControlType.Document)
 				return new Document (elm);
+			else if (elm.Current.ControlType == ControlType.ScrollBar)
+				return new ScrollBar (elm);
+			else if (elm.Current.ControlType == ControlType.Text)
+				return new Text (elm);
 
 			return new Element (elm);
 		}
@@ -222,6 +226,16 @@ namespace UIAClientAPI
 		public Document FindDocument (string name)
 		{
 			return (Document) Find (ControlType.Document, name);
+		}
+
+		public ScrollBar FindScrollBar (string name)
+		{
+			return (ScrollBar) Find (ControlType.ScrollBar, name);
+		}
+
+		public Text FindText (string name)
+		{
+			return (Text) Find (ControlType.Text, name);
 		}
 	}
 
@@ -646,4 +660,95 @@ namespace UIAClientAPI
 			sp.SetScrollPercent (horizontalPercent, verticalPercent);
 		}
 	}
+
+	public class ScrollBar : Element
+	{
+		public ScrollBar (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		//the RangeValuePattern's method
+		public void SetValue (double value)
+		{
+			RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
+			rp.SetValue (value);
+		}
+
+		//the RangeValuePattern's property
+		public bool IsReadOnly
+		{
+			get { return (bool) element.GetCurrentPropertyValue (RangeValuePattern.IsReadOnlyProperty); }
+		}
+
+		public double LargeChange
+		{
+			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.LargeChangeProperty); }
+		}
+
+		public double SmallChange
+		{
+			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.SmallChangeProperty); }
+		}
+
+
+		public double Maximum
+		{
+			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.MaximumProperty); }
+		}
+
+		public double Minimum
+		{
+			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.MinimumProperty); }
+		}
+
+		public double Value
+		{
+			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
+		}
+
+
+	}
+
+	public class Text : Element
+	{
+		public Text (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		//the RangeValuePattern's property
+		public int Column
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnProperty); }
+		}
+
+		public int ColumnSpan
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnSpanProperty); }
+		}
+
+		public AutomationElement ContainingGrid
+		{
+			get { return (AutomationElement) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
+		}
+
+		public int Row
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowProperty); }
+		}
+
+		public int RowSpan
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowSpanProperty); }
+		}
+
+		public int Value
+		{
+			get { return (int) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
+		}
+
+
+	}
+
 }
