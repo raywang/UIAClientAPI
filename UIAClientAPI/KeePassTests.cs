@@ -60,7 +60,7 @@ namespace UIAClientAPI
 		public void TestCase101 ()
 		{
 			//101.1 Click "New..." button on the toolbar
-			//procedureLogger.Action ("Click the \"New...\" button on the toolbar.");
+			procedureLogger.Action ("Click the \"New...\" button on the toolbar.");
 			var toolBar = window.FindToolBar ("");
 			toolBar.FindButton ("New...").Click();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens.");
@@ -272,11 +272,8 @@ namespace UIAClientAPI
 
 			procedureLogger.Action ("Check \"Add Entry\" window's WindowVisualStateProperty");
 			Assert.AreEqual (WindowVisualState.Minimized, addEntryWindow.WindowVisualState);
-			//Console.WriteLine (Window.WindowVisualStateProperty);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
-			Thread.Sleep (Config.Instance.ShortDelay);
-
 
 			//103.8 move "add entry" window to (200,200 )
 			procedureLogger.Action ("move \"add entry\" window to (200,200 )");
@@ -289,16 +286,17 @@ namespace UIAClientAPI
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMoveProperty");
 			Assert.AreEqual (true, addEntryWindow.CanMove);
 			procedureLogger.ExpectedResult ("The window's CanMoveProperty should be False");
-
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanSizeProperty");
 			Assert.AreEqual (false, addEntryWindow.CanResize);
 			procedureLogger.ExpectedResult ("The window's CanSizeProperty should be False");
-
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanRotateProperty");
 			Assert.AreEqual (false, addEntryWindow.CanRotate);
 			procedureLogger.ExpectedResult ("The window's CanRotateProperty should be False");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.9 Click the "Auto-Type" tab item on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Auto-Type\" tab item on the \"Add Entry\" Window");
@@ -314,19 +312,43 @@ namespace UIAClientAPI
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.11 Drag the scroll bar to the bottom on the "Edit Auto-Type Item" window
-			procedureLogger.Action ("Drag the scroll bar to the bottom on the \"Edit Auto-Type Item\" window");
+			procedureLogger.Action ("drag the scroll bar to the 300 position");
 			var autoItemDialog = window.FindWindow ("Edit Auto-Type Item");
-			autoItemDialog.ClickButton ("Forward by large amount");
-			autoItemDialog.ClickButton ("Forward by large amount");
-			//autoItemDialog.FindButton ("Back by small amount").Click ();
-			procedureLogger.ExpectedResult ("the scroll bar is draged to the bottom");
+			ScrollBar scrollBar = window.FindScrollBar ("");
+			scrollBar.SetValue (300);
+			procedureLogger.ExpectedResult ("the scroll bar is draged to the 413 position");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.12 Check the scroll bar's property
-			//procedureLogger.Action ("Check the scroll bar's property");
-			//procedureLogger.ExpectedResult ("\"None\" radio button selected");
-			//compressionTabItem.FindRadioButton ("None").Select ();
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			procedureLogger.Action ("Check scroll bar's IsReadOnlyProperty");
+			Assert.AreEqual (false, scrollBar.IsReadOnly);
+			procedureLogger.ExpectedResult ("The scroll bar's IsReadOnlyProperty should be False");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check scroll bar's LargeChangeProperty");
+			Assert.AreEqual (131, (int)scrollBar.LargeChange);
+			procedureLogger.ExpectedResult ("The scroll bar's large chaged value should be 131");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check scroll bar's LargeChangeProperty");
+			Assert.AreEqual (1, (int) scrollBar.SmallChange);
+			procedureLogger.ExpectedResult ("The scroll bar's large chaged value should be 131");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check scroll bar's Maximum value");
+			Assert.AreEqual (362, (int)scrollBar.Maximum);
+			procedureLogger.ExpectedResult ("The scroll bar's Maximum value shoule be 362");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check scroll bar's Minimum value");
+			Assert.AreEqual (0, (int)scrollBar.Minimum);
+			procedureLogger.ExpectedResult ("The scroll bar's minimum value shoule be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check scroll bar's value whether equal to 300");
+			Assert.AreEqual (300, (int)scrollBar.Value);
+			procedureLogger.ExpectedResult ("The scroll bar's value should be 300");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.13 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button on the dialog");
