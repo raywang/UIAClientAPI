@@ -49,7 +49,7 @@ namespace UIAClientAPI
 		{
 			ProcedureLogger.Init ();
 			LaunchSample ();
-			Thread.Sleep (2000);
+			Thread.Sleep (Config.Instance.MediumDelay);
 			OnSetup ();
 		}
 
@@ -57,6 +57,7 @@ namespace UIAClientAPI
 		public void Quit ()
 		{
 			OnQuit ();
+			procedureLogger.Action (string.Format("The {0} closes.", sample));
 			application.Kill ();
 			procedureLogger.Save ();
 		}

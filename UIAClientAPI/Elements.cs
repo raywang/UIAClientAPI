@@ -263,11 +263,13 @@ namespace UIAClientAPI
 		public void Resize (double width, double height)
 		{
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Resize (width, height);
 		}
 
 		public void Rotate (double degrees)
 		{
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Rotate (degrees);
 		}
 
 		//the TransformPattern's property
@@ -302,7 +304,6 @@ namespace UIAClientAPI
 		public bool CanMinimize
 		{
 			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.CanMinimizeProperty); }
-
 		}
 
 		public bool IsModal
@@ -324,7 +325,6 @@ namespace UIAClientAPI
 		{
 			get { return (WindowInteractionState) element.GetCurrentPropertyValue (WindowPattern.WindowInteractionStateProperty); }
 		}		
-
 
 		// Click "OK" button of the window.
 		public void OK ()
@@ -366,10 +366,6 @@ namespace UIAClientAPI
 				Console.WriteLine (e);
 			}
 		}
-
-		//get the property of WindowPattern
-		//WindowPattern
-
 	}
 
 	// The wrapper class of Button class.
@@ -589,6 +585,8 @@ namespace UIAClientAPI
 
 	public class ListItem : Element
 	{
+		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 		public ListItem (AutomationElement elm)
 			: base (elm)
 		{
@@ -596,14 +594,58 @@ namespace UIAClientAPI
 
 		public void Show ()
 		{
+			Show (true);
+		}
+
+		public void Show (bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format("Scroll {0} Into View.", this.Name));
+
 			ScrollItemPattern sip = (ScrollItemPattern) element.GetCurrentPattern (ScrollItemPattern.Pattern);
 			sip.ScrollIntoView ();
 		}
 
 		public void Select ()
 		{
+			Select (true);
+		}
+
+		public void Select (bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("{0} is selected.", this.Name));
+
 			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sip.Select ();
+		}
+
+		public void RemoveFromSelection ()
+		{
+			RemoveFromSelection (true);
+		}
+
+		public void RemoveFromSelection (bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("{0} is removed from selection.", this.Name));
+
+			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
+			sip.RemoveFromSelection ();
+		}
+
+		public void AddToSelection ()
+		{
+			AddToSelection (true);
+		}
+
+		public void AddToSelection (bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("{0} is added to selection.", this.Name));
+
+			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
+			sip.AddToSelection ();
 		}
 	}
 
@@ -691,7 +733,6 @@ namespace UIAClientAPI
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.SmallChangeProperty); }
 		}
 
-
 		public double Maximum
 		{
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.MaximumProperty); }
@@ -706,8 +747,6 @@ namespace UIAClientAPI
 		{
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
 		}
-
-
 	}
 
 	public class Text : Element
@@ -747,8 +786,5 @@ namespace UIAClientAPI
 		{
 			get { return (int) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
 		}
-
-
 	}
-
 }

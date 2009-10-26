@@ -45,7 +45,6 @@ namespace UIAClientAPI
 	[TestFixture]
 	class KeePassTests : TestBase 
 	{
-		Config config = new Config ();
 		Window window = null;
 
 		protected override void OnSetup()
@@ -59,37 +58,32 @@ namespace UIAClientAPI
 		//TestCase101 Init Sample, create a new account
 		public void TestCase101 ()
 		{
-			//101.1 Click "New..." button on the toolbar
-			procedureLogger.Action ("Click the \"New...\" button on the toolbar.");
+			//101.1 Click the "New..." button on the toolbar.
 			var toolBar = window.FindToolBar ("");
 			toolBar.FindButton ("New...").Click();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.2 Enter "TestCase101" in the "File Name" combo box of the dailog
-			//procedureLogger.Action ("Enter \"TestCase101\" in the \"File Name\" combo box of the dailog.");
+			//101.2 Enter "TestCase101" in the "File Name" combo box of the dailog.
 			var newPassDialog = window.FindWindow ("Create New Password Database");
 			var fileNameEdit = newPassDialog.FindEdit ("File name:");
 			fileNameEdit.Value = "TestCase101";
 			procedureLogger.ExpectedResult ("\"TestCase101\" entered in the \"File Name\" box.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.3 Click "Save" button of the dialog
-			//procedureLogger.Action ("Click the \"Save\" button of the dialog.");
+			//101.3 Click the "Save" button of the dialog.
 			newPassDialog.Save ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.4 Enter "mono-a11y" into  "Master password" text box
-			//procedureLogger.Action ("Enter \"mono-a11y\" into \"Master password\" text box.");
+			//101.4 Enter "mono-a11y" into  "Master password" text box.
 			var createMasterKeyWindow = window.FindWindow ("Create Composite Master Key");
 			var masterPasswdEdit = createMasterKeyWindow.FindEdit ("Repeat password:", "m_tbPassword");
 			masterPasswdEdit.Value = "mono-a11y";
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box
-			//procedureLogger.Action ("Re-Enter \"mono-a11y\" into \"Repeat password\" text box.");
+			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box.
 			var repeatPasswdEdit = createMasterKeyWindow.FindEdit ("Repeat password:", "m_tbRepeatPassword");
 			repeatPasswdEdit.Value = "mono-a11y";
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
@@ -101,14 +95,12 @@ namespace UIAClientAPI
 			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.7 Click "Create a new key file" button
-			//procedureLogger.Action ("Click the \" Create...\" button.");
+			//101.7 Click the " Create..." button.
 			createMasterKeyWindow.FindButton (" Create...").Click();
 			procedureLogger.ExpectedResult ("The \"Create a new key file\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.8  Click "Save" button of the dialog
-			//procedureLogger.Action ("Click the \"Save\" button of the dialog.");
+			//101.8  Click the "Save" button of the dialog.
 			var newKeyFileDialog = window.FindWindow ("Create a new key file");
 			newKeyFileDialog.Save();
 			
@@ -118,7 +110,6 @@ namespace UIAClientAPI
 				procedureLogger.ExpectedResult ("The \"Confirm Save As\" dialog opens.");
 				Thread.Sleep(Config.Instance.ShortDelay);
 
-				//procedureLogger.Action ("Overwrite new key file.");
 				comfirmDialog.Yes ();
 				procedureLogger.ExpectedResult ("The \"Confirm Save As\" dialog disappears.");
 				Thread.Sleep(Config.Instance.ShortDelay);
@@ -127,28 +118,24 @@ namespace UIAClientAPI
 				Thread.Sleep(Config.Instance.ShortDelay);
 			}
 
-			//101.9 Click "OK" button of the dialog
-			//procedureLogger.Action ("Click the \"OK\" button of the dialog.");
+			//101.9 Click the "OK" button of the dialog.
 			createMasterKeyWindow.FindWindow ("Entropy Collection").OK ();
 			procedureLogger.ExpectedResult ("The \"Entropy Collection\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.10 Click "OK" button on the "Create Master Key" Window
-			//procedureLogger.Action ("Click the \"OK\" button.");
+			//101.10 Click the "OK" button on the "Create Master Key" Window
 			createMasterKeyWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Create Master Key\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.11 Select "Compression" Tab item
-			//procedureLogger.Action("Select the \"Compression\" Tab item.");
+			//101.11 Select the "Compression" Tab item.
 			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
 			var compressionTabItem = newPassDialog2.FindTabItem ("Compression");
 			compressionTabItem.Select ();
 			procedureLogger.ExpectedResult ("The \"Compression\" tab item opened.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.12 Check "None" RadioButton
-			//procedureLogger.Action("Check the \"None\" RadioButton.");
+			//101.12 Check the "None" RadioButton.
 			compressionTabItem.FindRadioButton ("None").Select ();
 			procedureLogger.ExpectedResult ("The \"None\" radio button selected.");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -165,11 +152,10 @@ namespace UIAClientAPI
 
 			////101.14 Enter a number "3000" in "Key transformation" spinner
 			//var keySpinner = newPassDialog2.FindSpinner ("Number of key transformation rounds:");
-			////keySpinner.Value = Config.Instance.ShortDelay;
+			////keySpinner.Value = 3000;
 			//Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.15 Click "OK" button to close the dialog
-			//procedureLogger.Action("Click the \"OK\" button of the window.");
+			//101.15 Click the "OK" button to close the dialog.
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -179,23 +165,69 @@ namespace UIAClientAPI
 		//TestCase102 Organize the group
 		public void TestCase102 ()
 		{
-			//102.1 Click "Edit" menu item on the menu bar
+			//102.1 Click the "Edit" menu item on the menu bar.
 			var menuBar = window.FindMenuBar ();
 			var editMenuItem = menuBar.FindMenuItem ("Edit");
 			editMenuItem.FindMenuItem ("Edit Group").Click ();
+			procedureLogger.ExpectedResult ("The \"Edit Group\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//102.2 Click "Icon" button on the "Edit Group" window
+			//102.2 Click the "Icon" button on the "Edit Group" dialog.
 			var editGroupWindow = window.FindWindow ("Edit Group");
 			var generalTabItem = editGroupWindow.FindTabItem ("General");
 			generalTabItem.FindButton ("Icon:").Click ();
+			procedureLogger.ExpectedResult ("The \"Icon Picker\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//102.3 Select list item "30" on the "Icon Picker" window
+			//102.3 Select list item "30" on the "Icon Picker" dialog.
 			var iconPickerWindow = editGroupWindow.FindWindow ("Icon Picker");
 			var standardIconList = iconPickerWindow.FindList ("", "m_lvIcons");
-			standardIconList.FindListItem ("30").Select ();
+			var listItem30 = standardIconList.FindListItem ("30");
+			listItem30.Select ();
+			procedureLogger.ExpectedResult ("The \"30\" list item is selected.");
 			Thread.Sleep(Config.Instance.ShortDelay);
+
+			//102.4 Unselect list item "30" on the "Icon Picker" dialog.
+			listItem30.RemoveFromSelection ();
+			procedureLogger.ExpectedResult ("The \"30\" list item is removed from selection.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//102.5 Select list item "30" on the "Icon Picker" dialog again.
+			listItem30.AddToSelection ();
+			procedureLogger.ExpectedResult ("The \"30\" list item is added to selection.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//102.6 Click list item "68" on the "Icon Picker" dialog.
+			standardIconList.FindListItem ("68").Show ();
+			procedureLogger.ExpectedResult ("The \"68\" list item is showed in the view.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//102.7 Click the "OK" button on the "Icon Picker" dialog.
+			iconPickerWindow.OK ();
+			procedureLogger.ExpectedResult ("The \"Icon Picker\" dialog disappears.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//102.8 Select the "Behavior" Tab Item from the Tab.
+			var behaviorTabItem = editGroupWindow.FindTabItem ("Behavior");
+			behaviorTabItem.Select ();
+			procedureLogger.ExpectedResult ("The \"Behavior\" tab item opens.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//102.9 Expand the "Searching entries in this group" combo box.
+			var searchCombobox = behaviorTabItem.FindComboBox ("Searching entries in this group:");
+			searchCombobox.Expand ();
+			procedureLogger.ExpectedResult ("\"Searching entries in this group\" combox box is expanded.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//102.10 Select the "Enabled" from the "Searching entries in this group" combo box.
+			searchCombobox.FindListItem ("Enabled").Select ();
+			procedureLogger.ExpectedResult ("The \"Enabled\" list item is selected.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//102.11 Click the "OK" button on the  "Edit Group" dialog.
+			editGroupWindow.OK ();
+			procedureLogger.ExpectedResult ("The \"Edit Group\" dialog disappears.");
+			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 
 		[Test]
