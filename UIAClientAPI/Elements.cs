@@ -696,6 +696,31 @@ namespace UIAClientAPI
 			get { return (AutomationProperty) element.GetCurrentPropertyValue (GridPattern.ColumnCountProperty); }
 		}
 
+		//the GridItemPattern's property
+		public int Column
+		{
+			get { return (int) element.GetCurrentPropertyValue (GridItemPattern.ColumnProperty); }
+		}
+
+		public int ColumnSpan
+		{
+			get { return (int) element.GetCurrentPropertyValue (GridItemPattern.ColumnSpanProperty); }
+		}
+
+		public int ContainingGrid
+		{
+			get { return (AutomationElement) element.GetCurrentPropertyValue (GridItemPattern.ContainingGridProperty); }
+		}
+
+		public int Row
+		{
+			get { return (int) element.GetCurrentPropertyValue (GridItemPattern.RowProperty); }
+		}
+
+		public int RowSpan
+		{
+			get { return (int) element.GetCurrentPropertyValue (GridItemPattern.RowSpanProperty); }
+		}
 
 		//the MultipleViewPattern 's property
 		public int CurrentViewProperty
