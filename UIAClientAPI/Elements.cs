@@ -664,11 +664,45 @@ namespace UIAClientAPI
 		{
 		}
 
+		//the GridPattern 's method
 		public void GetItem (int row, int column)
 		{
 			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
 			gp.GetItem (row, column);
 		}
+
+		//the MultipleViewPattern 's method
+		public void GetViewName (int viewId)
+		{
+			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
+			mvp.GetViewName (viewId);
+		}
+
+
+		public void SetCurrentView (int viewId)
+		{
+			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
+			mvp.SetCurrentView(viewId);
+		}
+
+		//the GridPattern's property
+		public AutomationProperty RowCountProperty
+		{
+			get { return (AutomationProperty) element.GetCurrentPropertyValue (GridPattern.RowCountProperty); }
+		}
+
+		public AutomationProperty ColumnCountProperty
+		{
+			get { return (AutomationProperty) element.GetCurrentPropertyValue (GridPattern.ColumnCountProperty); }
+		}
+
+
+		//the MultipleViewPattern 's property
+		public int CurrentViewProperty
+		{
+			get { return (int) element.GetCurrentPropertyValue (MultipleViewPattern.CurrentViewProperty); }
+		}
+
 	}
 
 	public class Document : Element
@@ -786,5 +820,42 @@ namespace UIAClientAPI
 		{
 			get { return (int) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
 		}
+
+		//the TableItem's property
+		public AutomationProperty Value
+		{
+			get { return (AutomationProperty) element.GetCurrentPropertyValue (TableItemPattern.ColumnHeaderItemsProperty); }
+		}
+
+		public int Column
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnProperty); }
+		}
+
+		public int ColumnSpan
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnSpanProperty); }
+		}
+
+		public AutomationElement ContainingGrid
+		{
+			get { return (AutomationElement) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
+		}
+
+		public AutomationProperty RowHeaderItems
+		{
+			get { return (AutomationProperty) element.GetCurrentPropertyValue (TableItemPattern.RowHeaderItemsProperty); }
+		}
+
+		public int Row
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowProperty); }
+		}
+
+		public int RowSpan
+		{
+			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowSpanProperty); }
+		}
+
 	}
 }
