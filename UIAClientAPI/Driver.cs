@@ -39,10 +39,12 @@ namespace UIAClientAPI
 		{
 			KeePassTests test = new KeePassTests ();
 			test.Init ();
-			test.TestCase101 ();
-			test.TestCase102 ();
+			//test.TestCase101 ();
+			//test.TestCase102 ();
 			//test.TestCase103 ();
 			//test.TestCase104 ();
+			//test.TestCase105 ();
+			test.TestCase106 ();
 			test.Quit ();
 		}
 	}
