@@ -40,7 +40,9 @@ namespace UIAClientAPI
 	public class TestBase
 	{
 		Config config = new Config ();
-		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.AppPath);
+		//private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
+		//private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternTestPath);
+		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.TransformPatternTestPath);
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 

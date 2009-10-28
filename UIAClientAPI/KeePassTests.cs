@@ -47,11 +47,18 @@ namespace UIAClientAPI
 	{
 		Window window = null;
 
-		protected override void OnSetup()
+		//protected override void OnSetup()
+		//{
+		//        procedureLogger.ExpectedResult ("KeePass window appears.");
+		//        WhiteWindow win = application.GetWindow ("KeePass Password Safe", InitializeOption.NoCache);
+		//        window = new Window (win);			
+		//}
+
+		protected override void OnSetup ()
 		{
-			procedureLogger.ExpectedResult ("KeePass window appears.");
-			WhiteWindow win = application.GetWindow ("KeePass Password Safe", InitializeOption.NoCache);
-			window = new Window (win);			
+			procedureLogger.ExpectedResult ("WindowPattern & TransformPattern Test window appears.");
+			WhiteWindow win = application.GetWindow ("WindowPattern & TransformPattern Test", InitializeOption.NoCache);
+			window = new Window (win);
 		}
 
 		[Test]
@@ -626,6 +633,59 @@ namespace UIAClientAPI
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay); 
+		}
+
+		public void TestCase105 ()
+		{
+			//105.1 Move the dock to the Left
+			var dock = window.FindPane ("Top");
+			dock.DockPosition = DockPosition.Left;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the left.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//105.2 Move the dock to the Right
+			dock.DockPosition = DockPosition.Right;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the right.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//105.3 Move the dock to the Bottom
+			dock.DockPosition = DockPosition.Bottom;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the bottom.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//105.4 Move the dock to the Top
+			dock.DockPosition = DockPosition.Top;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the top.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//105.4 Move the dock to be filled.
+			dock.DockPosition = DockPosition.Fill;
+			procedureLogger.ExpectedResult ("The Dock control is docked to be filled.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+		}
+
+		public void TestCase106 ()
+		{
+			//106.1 Maximize the window
+			window.Maximized ();
+			procedureLogger.ExpectedResult ("The window would be Maximized.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//106.2 Minimize the window
+			window.Minimized ();
+			procedureLogger.ExpectedResult ("The window would be Minimized.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//106.3 Restore the window
+			window.Normal ();
+			procedureLogger.ExpectedResult ("The window would be Restored.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//106.4 Rotate the control for a given degree
+			var pane = window.FindPane ("TransformProviderControl1, r:0");
+			pane.Rotate (90.0);
+			procedureLogger.ExpectedResult ("The pane would be rotated for 90 degree.");
+			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 	}
 }
