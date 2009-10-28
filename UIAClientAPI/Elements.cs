@@ -352,39 +352,64 @@ namespace UIAClientAPI
 		// Click "OK" button of the window.
 		public void OK ()
 		{
-			ClickButton ("OK");
+			ClickButton ("OK", true);
+		}
+
+		public void OK (bool log)
+		{
+			ClickButton ("OK", log);
 		}
 
 		// Click "Cancel" button of the window.
 		public void Cancel ()
 		{
-			ClickButton ("Cancel");
+			ClickButton ("Cancel", true);
+		}
+
+		public void Cancel (bool log)
+		{
+			ClickButton ("Cancel", log);
 		}
 
 		// Click "Save" button of the window.
 		public void Save ()
 		{
-			ClickButton ("Save");
+			ClickButton ("Save", true);
+		}
+
+		public void Save (bool log)
+		{
+			ClickButton ("Save", log);
 		}
 
 		// Click "Yes" button of the window
 		public void Yes ()
 		{
-			ClickButton ("Yes");
+			ClickButton ("Yes", true);
+		}
+
+		public void Yes (bool log)
+		{
+			ClickButton ("Yes", log);
 		}
 
 		// Click "No" button of the window
 		public void No ()
 		{
-			ClickButton ("No");
+			ClickButton ("No", true);
+		}
+
+		public void No (bool log)
+		{
+			ClickButton ("No", log);
 		}
 
 		// Click button by its name.
-		public void ClickButton (string name)
+		private void ClickButton (string name, bool log)
 		{
 			try {
 				Button button = FindButton (name);
-				button.Click ();
+				button.Click (log);
 			} catch (NullReferenceException e) {
 				Console.WriteLine (e);
 			}
