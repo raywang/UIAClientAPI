@@ -734,14 +734,14 @@ namespace UIAClientAPI
 		}
 
 		//the GridPattern's property
-		public AutomationProperty RowCount
+		public int RowCount
 		{
-			get { return (AutomationProperty) element.GetCurrentPropertyValue (GridPattern.RowCountProperty); }
+			get { return (int) element.GetCurrentPropertyValue (GridPattern.RowCountProperty); }
 		}
 
-		public AutomationProperty ColumnCount
+		public int ColumnCount
 		{
-			get { return (AutomationProperty) element.GetCurrentPropertyValue (GridPattern.ColumnCountProperty); }
+			get { return (int) element.GetCurrentPropertyValue (GridPattern.ColumnCountProperty); }
 		}
 
 		//the GridItemPattern's property
@@ -895,7 +895,7 @@ namespace UIAClientAPI
 		}
 
 		//the TableItem's property
-		public AutomationProperty ColumnHeaderItems
+		public AutomationProperty TableItemColumnHeaderItems
 		{
 			get { return (AutomationProperty) element.GetCurrentPropertyValue (TableItemPattern.ColumnHeaderItemsProperty); }
 		}

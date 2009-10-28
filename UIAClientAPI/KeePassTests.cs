@@ -251,41 +251,41 @@ namespace UIAClientAPI
 			//103.1 Click "new" button on the toolstripbar
 			procedureLogger.Action ("Click \"New...\" button on the toolbar");
 			var toolBar = window.FindToolBar ("");
-			toolBar.FindButton ("New...").Click ();
+			toolBar.FindButton ("New...").Click (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
 			var newPassDialog = window.FindWindow ("Create New Password Database");
-			newPassDialog.Save ();
+			newPassDialog.Save (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.3 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
 			var keyDialog = window.FindWindow ("Create Composite Master Key");
-			keyDialog.OK ();
+			keyDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.4 Click "Yes" button on the dialog
 			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
 			var createMasterKeyWindow = window.FindWindow ("KeePass");
-			createMasterKeyWindow.Yes ();
+			createMasterKeyWindow.Yes (false);
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.5 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
 			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
-			newPassDialog2.OK ();
+			newPassDialog2.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.6 Click "Add Entry" button on the toolstripbar
 			procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
-			toolBar.FindButton ("Add Entry").Click ();
+			toolBar.FindButton ("Add Entry").Click (false);
 			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
@@ -353,7 +353,7 @@ namespace UIAClientAPI
 
 			//103.10 Click the "Add" button on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.ClickButton ("Add");
+			AddEntryDialog.FindButton("Add").Click(false);
 			procedureLogger.ExpectedResult ("The \"Edit Auto-Type Item\" window appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
@@ -398,7 +398,7 @@ namespace UIAClientAPI
 
 			//103.13 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button on the dialog");
-			autoItemDialog.OK ();
+			autoItemDialog.OK (false);
 			procedureLogger.ExpectedResult ("\"None\" radio button selected");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
@@ -411,7 +411,7 @@ namespace UIAClientAPI
 
 			//103.15 Click the "Add" button on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.FindButton ("Add").Click ();
+			AddEntryDialog.FindButton ("Add").Click (false);
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
@@ -427,10 +427,11 @@ namespace UIAClientAPI
 			//TODO: replace "OK" by "Cancel" because be blocked by 103.16
 			//103.17 Click "OK" button on the "Edit Entry String" dialog
 			procedureLogger.Action ("Click \"OK\" button on the \"Edit Entry String\" dialog");
-			editEntryStringWindow.Cancel ();
+			editEntryStringWindow.Cancel (false);
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" window closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
+			//TODO blocked by 103.16
 			//103.18 Check the "aa" text's TableItemPattern
 			//procedureLogger.Action ("Check the \"aa\" text's TableItemPattern");
 			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
@@ -439,7 +440,7 @@ namespace UIAClientAPI
 
 			//103.19 Close the "Add Entry" Window
 			procedureLogger.Action ("Close the \"Add Entry\" Window");
-			AddEntryDialog.OK ();
+			AddEntryDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 		}
@@ -449,119 +450,196 @@ namespace UIAClientAPI
 		public void TestCase104 ()
 		{
 			//104.1 Click "new" button on the toolstripbar
-			procedureLogger.Action ("Click \"New...\" button on the toolbar");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
+			procedureLogger.Action ("Click \"New...\" button on the toolbar");			
 			var toolBar = window.FindToolBar ("");
-			toolBar.FindButton ("New...").Click ();
+			toolBar.FindButton ("New...").Click (false);
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//104.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			var newPassDialog = window.FindWindow ("Create New Password Database");
-			newPassDialog.Save ();
+			newPassDialog.Save (false);
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
-			Console.WriteLine ("test case 02   ....................");
 
 			//104.3 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			var keyDialog = window.FindWindow ("Create Composite Master Key");
-			keyDialog.OK ();
-			Thread.Sleep(Config.Instance.ShortDelay);
+			keyDialog.OK (false);
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.4 Click "Yes" button on the dialog
 			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
-			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
 			var createMasterKeyWindow = window.FindWindow ("KeePass");
-			createMasterKeyWindow.Yes ();
-			Thread.Sleep(Config.Instance.ShortDelay);
+			createMasterKeyWindow.Yes (false);
+			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.5  Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
-			newPassDialog2.OK ();
-			Thread.Sleep(Config.Instance.ShortDelay);
+			newPassDialog2.OK (false);
+			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.6 Check the "title" of the exist record
-			//procedureLogger.Action ("Check the \"title\" of the exist record");
-			//procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced");
-			//window.FindDataGrid ("").GetItem (0, 0);
-			//Console.WriteLine ("the name {0}", window.FindDataGrid ("").Name);
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			//104.6 Check the "title" of the exist record 
+			procedureLogger.Action ("Check the fist item in the datagrid");
+			DataGrid dataGrid = window.FindDataGrid ("");
+			dataGrid.GetItem (0, 0);
+			//Assert.AreEqual ("Record", dataGrid.GetItem (0, 0));
+			procedureLogger.ExpectedResult ("the first item in the datagrid should be Record");
+			Thread.Sleep (Config.Instance.ShortDelay);
+			
+			//check GridPattern 's property
+			procedureLogger.Action ("check GridPattern 's property :ColumnCount");
+			Assert.AreEqual (11, dataGrid.ColumnCount);
+			procedureLogger.ExpectedResult ("the data grid 's ColumnCount should be 11");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.7 Check the GridItemPattern's property of text in data grid
-			//procedureLogger.Action ("Click \" Create...\" button");
-			//procedureLogger.ExpectedResult ("The \"Create a new key file\" dialog opens");
-			//createMasterKeyWindow.FindButton (" Create...").Click ();
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			procedureLogger.Action ("check GridPattern 's property :RowCount");
+			Assert.AreEqual (1, dataGrid.RowCount);
+			procedureLogger.ExpectedResult ("the data grid 's RowCount should be 1");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.8  Check the GridItemPattern's property of text in data grid
-			//procedureLogger.Action ("move \"add entry\" window to (200,200 )");
-			//var AddEntryDialog = window.FindWindow ("Add Entry");
-			//AddEntryDialog.Move (200, 200);
-			//procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			//104.7 Check the data grid's MultipleViewPattern property
+			procedureLogger.Action ("Click \" Create...\" button");
+			Assert.AreEqual (1,dataGrid.CurrentViewProperty);
+			procedureLogger.ExpectedResult ("the data grid 's CurrentViewProperty should be 1");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//check the transformpattern property
-			//procedureLogger.Action ("check the TransformPattern Property");
-			//procedureLogger.ExpectedResult ("The \"Entropy Collection\" window opens");
-			//var newKeyFileDialog = window.FindWindow ("Create a new key file");
-			//newKeyFileDialog.Save ();
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			//104.8 Sets the current control-specific view
+			procedureLogger.Action ("Sets the current control-specific view");
+			dataGrid.SetCurrentView (0);
+			procedureLogger.ExpectedResult ("Sets the current control-specific view to 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.9 Click "Tools" menu item on the menu bar
+			//TO DO. viewname
+			//104.9  Retrieves the name of a control-specific view  of the data grid
+			procedureLogger.Action ("Retrieves the name of a control-specific view  of the data grid");
+			//string viewname= dataGrid.GetViewName (0);
+			//Assert.AreEqual ("",viewname);
+			procedureLogger.ExpectedResult ("the name of a control-specific view  of the data grid should be");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//104.10  Check the GridItemPattern's property of text in data grid
+			procedureLogger.Action ("Check the column of data grid");
+			Assert.AreEqual (0,dataGrid.Column);
+			procedureLogger.ExpectedResult ("the column of data grid should be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the column span of data grid");
+			procedureLogger.ExpectedResult ("the column span of data grid should be 1");
+			Assert.AreEqual (1, dataGrid.ColumnSpan);
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the row of data grid");
+			Assert.AreEqual (0, dataGrid.Row);
+			procedureLogger.ExpectedResult ("the row of data grid should be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the row span of data grid");
+			Assert.AreEqual (1, dataGrid.RowSpan);
+			procedureLogger.ExpectedResult ("the row span of data grid should be 1");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the ContainingGrid of data grid");
+			Assert.AreEqual (null, dataGrid.ContainingGrid);
+			procedureLogger.ExpectedResult ("the ContainingGrid of data grid should be null");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//104.11 Check the TableItem's property of text in data grid
+			procedureLogger.Action ("Check the TableItemColumn of the text in datagrid");
+			Text sampleText = window.FindText ("Sample Entry");
+			Assert.AreEqual (0, sampleText.TableItemColumn);
+			procedureLogger.ExpectedResult ("the TableItemColumn of the text in datagrid should be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the TableItemColumnSpan of the text in datagrid");
+			Assert.AreEqual (1, sampleText.TableItemColumnSpan);
+			procedureLogger.ExpectedResult ("the TableItemColumnSpan of the text in datagrid should be 1");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//TODO.
+			//procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
+			//Assert.AreEqual (AutomationProperty.LookupById, sampleText.TableItemContainingGrid);
+			//procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
+			Assert.AreEqual (0, sampleText.TableItemRow);
+			procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
+			//Assert.AreEqual (1, sampleText.TableItemRowHeaderItems);
+			//procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
+			//Assert.AreEqual (1, sampleText.TableItemColumnHeaderItems);
+			//procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the TableItemRowSpan of the text in datagrid");
+			Assert.AreEqual (1, sampleText.TableItemRowSpan);
+			procedureLogger.ExpectedResult ("the TableItemRowSpan of the text in datagrid should be 1");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//104.12 Click "Tools" menu item on the menu bar
 			procedureLogger.Action ("Click \"Tools\" menu item on the menu bar");
-			window.FindMenuItem ("Tools").Click ();
-			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
+			window.FindMenuItem ("Tools").Click (false);
+			procedureLogger.ExpectedResult ("The sub menu of \"Tools\" appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			// BUG548998
-			//104.10 Click "Generate Password.." menu item on the sub menu 
+			//104.13 Click "Generate Password.." menu item on the sub menu 
 			procedureLogger.Action ("Click \"Generate Password..\" menu item on the sub menu");
-			window.FindMenuItem ("Generate Password...").Click ();
-			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
+			window.FindMenuItem ("Generate Password...").Click (false);
+			procedureLogger.ExpectedResult ("The Password Generator dialog appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//104.11 Select "Compression" Tab item
-			//procedureLogger.Action ("Select \"Compression\" Tab item");
-			//var tabItemCompression = window.FindTabItem ("Compression");
-			//tabItemCompression.Select ();
-			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep(Config.Instance.ShortDelay); ;
+			//104.14 Select "Preview" Tab item
+			procedureLogger.Action ("Select \"Preview\" Tab item");
+			var tabItemCompression = window.FindTabItem ("Preview");
+			tabItemCompression.Select ();
+			procedureLogger.ExpectedResult ("The \"Preview\" tab item appears");
+			Thread.Sleep (Config.Instance.ShortDelay); 
 
-			//104.12 Set the Scroll's VerticalAmount to "smallDecrement"
-			//procedureLogger.Action ("Set the Scroll's VerticalAmount to \"smallDecrement\"");
-			//var document = window.FindDocument (" ");
-			//document.Scroll (ScrollAmount.SmallDecrement,ScrollAmount.SmallDecrement);
-			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep(Config.Instance.ShortDelay); 
+			//104.15 Set the Scroll's VerticalAmount to "smallDecrement"
+			var document = window.FindDocument (" ");
+			//document.Scroll (ScrollAmount.SmallDecrement, ScrollAmount.SmallDecrement);
+			//procedureLogger.ExpectedResult ("the Scroll's VerticalAmount is set to \"smallDecrement\"");
+			//Thread.Sleep (Config.Instance.ShortDelay); 
 
-			//104.13 Set the ScrollHorizontal's VerticalAmount to "smallDecrement"
+			//104.16 Set the Scroll HorizontalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollHorizontal's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollHorizontal (ScrollAmount.LargeIncrement);
-			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep(Config.Instance.ShortDelay); 
+			//procedureLogger.ExpectedResult ("the Scroll's Horizontal is set to \"smallDecrement\"");
+			//Thread.Sleep (Config.Instance.ShortDelay); 
 
-			//104.14 Set the ScrollVertical's VerticalAmount to "smallDecrement"
+			//104.17 Set the ScrollVertical's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
 			//document.ScrollVertical (ScrollAmount.LargeIncrement);
-			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep(Config.Instance.ShortDelay); 
+			//procedureLogger.ExpectedResult ("the Scroll's ScrollVertical is set to \"smallDecrement\"");
+			//Thread.Sleep (Config.Instance.ShortDelay); 
 
-			//104.15 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
+			//104.18 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
-			//document.SetScrollPercent (50,50);
-			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep(Config.Instance.ShortDelay); 
+			//document.SetScrollPercent (0, 100);
+			//procedureLogger.ExpectedResult ("the Scroll's ScrollPercent is set to ");
+			//Thread.Sleep (Config.Instance.ShortDelay); 
 
-			//104.16 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window
-			//procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window");
-			//var closeWindow =window.FindWindow("NewDatabase.kdbx*-KeePass Password Safe");
-			//closeWindow.Resize (0,0);
-			//procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			//Thread.Sleep(Config.Instance.ShortDelay); 
+			procedureLogger.Action ("click the OK button");
+			window.FindButton ("OK").Click();
+			procedureLogger.ExpectedResult ("The \"Password Generator\" dialogue disappears");
+			Thread.Sleep (Config.Instance.ShortDelay); 
+
+			//104.19 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window
+			procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window to (50, 50)");
+			window.Resize (50, 50);
+			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
+			Thread.Sleep (Config.Instance.ShortDelay); 
 		}
 
 		public void TestCase105 ()
