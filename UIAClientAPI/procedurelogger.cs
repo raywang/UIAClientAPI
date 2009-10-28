@@ -33,16 +33,16 @@ namespace UIAClientAPI
 	{
 		static string actionBuffer;
 		static string expectedResultBuffer;
-		static List<List<string>> _procedures;
-		static DateTime _start_time;
+		private static List<List<string>> procedures;
+		private static DateTime startTime;
 		Config config = new Config ();
 
 		public static void Init()
 		{
 			actionBuffer = string.Empty;
 			expectedResultBuffer = string.Empty;
-			_procedures = new List<List<string>> ();
-			_start_time = DateTime.Now;
+			procedures = new List<List<string>> ();
+			startTime = DateTime.Now;
 		}
 
 		/**
@@ -54,7 +54,7 @@ namespace UIAClientAPI
 		 */
 		public void Action (string action)
 		{
-			_FlushBuffer ();
+			FlushBuffer ();
 			actionBuffer += action + " ";
 			Console.WriteLine ("Action: {0}", action);
 		}
@@ -76,9 +76,9 @@ namespace UIAClientAPI
 		public void Save ()
 		{
 			// get the total time the test run
-			TimeSpan elapsed_time = DateTime.Now - _start_time;
+			TimeSpan elapsed_time = DateTime.Now - startTime;
 
-			_FlushBuffer ();
+			FlushBuffer ();
 
 			XmlDocument xmlDoc = new XmlDocument ();
 
@@ -114,7 +114,7 @@ namespace UIAClientAPI
 			//add <procedures> element
 			XmlElement procElm = xmlDoc.CreateElement ("procedures");		
 
-			foreach (List<string> p in _procedures) {
+			foreach (List<string> p in procedures) {
 				//add <action> element in <step> element
 				XmlElement stepElm = xmlDoc.CreateElement ("step");
 
@@ -166,19 +166,19 @@ namespace UIAClientAPI
 		 * (after an action/expectedResult pair), we want to append the pair to the
 		 * _procedures list and possibly take a screenshot.
 		 */
-		public void _FlushBuffer ()
+		private void FlushBuffer ()
 		{
 			Config config = new Config ();
 
 			if (actionBuffer != string.Empty && expectedResultBuffer != string.Empty) {
 				if (Config.Instance.TakeScreenShots) {
-					string filename = string.Format ("screen{0:00}.png", _procedures.Count + 1);
+					string filename = string.Format ("screen{0:00}.png", procedures.Count + 1);
 					// take screenshot
 					Utils.TakeScreenshot (Path.Combine (Config.Instance.OutputDir, filename));
 					Console.WriteLine ("Screenshot: " + filename);
-					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd (), filename });
+					procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd (), filename });
 				} else {
-					_procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd ()});
+					procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd ()});
 				}
 
 				actionBuffer = string.Empty;

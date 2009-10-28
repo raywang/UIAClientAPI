@@ -54,6 +54,13 @@ namespace UIAClientAPI
 		//        window = new Window (win);			
 		//}
 
+		protected override void LaunchSample ()
+		{
+			string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.TransformPatternTestPath);
+			procedureLogger.Action ("Launch " + sample);
+			application = Application.Launch (sample);
+		}
+
 		protected override void OnSetup ()
 		{
 			procedureLogger.ExpectedResult ("WindowPattern & TransformPattern Test window appears.");

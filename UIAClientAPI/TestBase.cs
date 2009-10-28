@@ -42,7 +42,7 @@ namespace UIAClientAPI
 		Config config = new Config ();
 		//private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
 		//private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternTestPath);
-		private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.TransformPatternTestPath);
+		
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
@@ -59,17 +59,13 @@ namespace UIAClientAPI
 		public void Quit ()
 		{
 			OnQuit ();
-			procedureLogger.Action (string.Format("The {0} closes.", sample));
+			procedureLogger.Action ("Close the application.");
 			application.Kill ();
 			procedureLogger.Save ();
 		}
 
-		private void LaunchSample ()
+		protected virtual void LaunchSample ()
 		{
-			// start sample.
-			procedureLogger.Action ("Launch " + sample);
-			application = Application.Launch (sample);
-
 		}
 
 		protected virtual void OnSetup ()
