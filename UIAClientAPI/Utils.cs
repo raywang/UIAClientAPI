@@ -90,7 +90,9 @@ namespace UIAClientAPI
 		public bool TakeScreenShots { get; set; }
 		// where to write procedure logger output, screenshots, etc
 		public string OutputDir { get; set; }
-		public string AppPath { get; set; }
+		public string KeePassPath { get; set; }
+		public string DockPatternTestPath { get; set; }
+		public string TransformPatternTestPath { get; set; }
 		public int ShortDelay { get; set; }
 		public int MediumDelay { get; set; }
 		public int LongDelay { get; set; }

@@ -131,6 +131,8 @@ namespace UIAClientAPI
 				return new ScrollBar (elm);
 			else if (elm.Current.ControlType == ControlType.Text)
 				return new Text (elm);
+			else if (elm.Current.ControlType == ControlType.Pane)
+				return new Pane (elm);
 
 			return new Element (elm);
 		}
@@ -237,6 +239,11 @@ namespace UIAClientAPI
 		{
 			return (Text) Find (ControlType.Text, name);
 		}
+
+		public Pane FindPane (string name)
+		{
+			return (Pane) Find (ControlType.Pane, name);
+		}
 	}
 
 	// The wrapper class of Window class.
@@ -291,8 +298,24 @@ namespace UIAClientAPI
 		//the WindowPattern's method
 		public void SetWindowVisualState (WindowVisualState state)
 		{
+			procedureLogger.Action (string.Format ("Set \"{0}\" to be \"{1}\".", this.Name, state));
 			WindowPattern wp = (WindowPattern) element.GetCurrentPattern (WindowPattern.Pattern);
 			wp.SetWindowVisualState (state);
+		}
+
+		public void Maximized ()
+		{
+			SetWindowVisualState (WindowVisualState.Maximized);
+		}
+
+		public void Minimized ()
+		{
+			SetWindowVisualState (WindowVisualState.Minimized);
+		}
+
+		public void Normal ()
+		{
+			SetWindowVisualState (WindowVisualState.Normal);
 		}
 
 		//the WindowPattern's property
@@ -881,6 +904,37 @@ namespace UIAClientAPI
 		{
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowSpanProperty); }
 		}
+	}
 
+	public class Pane : Element
+	{
+		ProcedureLogger procedureLogger = new ProcedureLogger ();
+
+		public Pane (AutomationElement elm)
+			: base (elm)
+		{
+		}
+
+		public DockPosition DockPosition
+		{
+			get
+			{
+				DockPattern dp = (DockPattern) element.GetCurrentPattern (DockPattern.Pattern);
+				return dp.Current.DockPosition;
+			}
+			set
+			{
+				procedureLogger.Action (string.Format ("Set \"{0}\" control to be docked to \"{1}\".", this.Name, value));
+				DockPattern dp = (DockPattern) element.GetCurrentPattern (DockPattern.Pattern);
+				dp.SetDockPosition (value);
+			}
+		}
+
+		public void Rotate (double degree)
+		{
+			procedureLogger.Action (string.Format ("Rotate \"{0}\" for {1} degree.", this.Name, degree));
+			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
+			tp.Rotate (degree);
+		}
 	}
 }
