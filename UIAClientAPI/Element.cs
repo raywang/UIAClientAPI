@@ -40,6 +40,14 @@ namespace UIAClientAPI
 			get { return element.Current.Name; }
 		}
 
+		public AutomationElement AutomationElement
+		{
+			get 
+			{
+				return element;
+			}
+		}
+
 		public Element (Core.UIItems.IUIItem item)
 			: this (item.AutomationElement)
 		{
