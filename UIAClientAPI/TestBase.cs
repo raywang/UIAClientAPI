@@ -35,18 +35,14 @@ using NUnit.Framework;
 
 namespace UIAClientAPI
 {
-	[TestFixture]
-	/// TestBase class helps to launch sample, initiation etc....
+	// TestBase class helps to launch sample, initiation etc....
 	public class TestBase
 	{
 		Config config = new Config ();
-		//private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
-		//private string sample = System.IO.Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternTestPath);
 		
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
-		[TestFixtureSetUp]
 		public void Init ()
 		{
 			ProcedureLogger.Init ();
@@ -55,7 +51,6 @@ namespace UIAClientAPI
 			OnSetup ();
 		}
 
-		[TestFixtureTearDown]
 		public void Quit ()
 		{
 			OnQuit ();

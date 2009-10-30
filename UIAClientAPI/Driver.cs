@@ -1,4 +1,4 @@
-﻿// Driver.cs: main entry of the tests of KeePass
+﻿// Driver.cs: main entry of the UIA Client API tests.
 //
 // Permission is hereby granted, free of charge, to any person obtaining 
 // a copy of this software and associated documentation files (the 
@@ -37,15 +37,31 @@ namespace UIAClientAPI
 	{
 		public static void Main ()
 		{
-			KeePassTests test = new KeePassTests ();
-			test.Init ();
-			//test.TestCase101 ();
-			//test.TestCase102 ();
-			//test.TestCase103 ();
-			//test.TestCase104 ();
-			//test.TestCase105 ();
-			test.TestCase106 ();
-			test.Quit ();
+			KeePassTests keePassTests = new KeePassTests ();
+			keePassTests.Init ();
+			keePassTests.TestCase101 ();
+			keePassTests.TestCase102 ();
+			keePassTests.TestCase103 ();
+			keePassTests.TestCase104 ();
+			keePassTests.Quit ();
+
+			Console.WriteLine ("press any key to continue1");
+			Console.Read ();
+
+			// Dock Pattern Tests.
+			DockPatternTests dockPatterTests = new DockPatternTests ();
+			dockPatterTests.Init ();
+			dockPatterTests.TestCase105 ();
+			dockPatterTests.Quit ();
+
+			Console.WriteLine ("press any key to continue2");
+			Console.Read ();
+
+			// Window Pattern Tests.
+			WindowPatternTests windowPatternTests = new WindowPatternTests ();
+			windowPatternTests.Init ();
+			windowPatternTests.TestCase106 ();
+			windowPatternTests.Quit ();
 		}
 	}
 }

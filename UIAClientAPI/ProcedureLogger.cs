@@ -31,16 +31,16 @@ namespace UIAClientAPI
 	// Logger class which provides Actions logger and ExpectedResults logger.
 	public class ProcedureLogger
 	{
-		static string actionBuffer;
-		static string expectedResultBuffer;
+		static StringBuilder actionBuffer;
+		static StringBuilder expectedResultBuffer;
 		private static List<List<string>> procedures;
 		private static DateTime startTime;
 		Config config = new Config ();
 
 		public static void Init()
 		{
-			actionBuffer = string.Empty;
-			expectedResultBuffer = string.Empty;
+			actionBuffer = new StringBuilder ();
+			expectedResultBuffer = new StringBuilder ();
 			procedures = new List<List<string>> ();
 			startTime = DateTime.Now;
 		}
@@ -55,7 +55,8 @@ namespace UIAClientAPI
 		public void Action (string action)
 		{
 			FlushBuffer ();
-			actionBuffer += action + " ";
+			actionBuffer.Append(action);
+			actionBuffer.Append (" ");
 			Console.WriteLine ("Action: {0}", action);
 		}
 
@@ -68,7 +69,8 @@ namespace UIAClientAPI
 		 */
 		public void ExpectedResult (string expectedResult)
 		{
-			expectedResultBuffer += expectedResult + " ";
+			expectedResultBuffer.Append (expectedResult);
+			expectedResultBuffer.Append (" ");
 			Console.WriteLine ("Expected result: {0}", expectedResult);
 		}
 
@@ -170,19 +172,19 @@ namespace UIAClientAPI
 		{
 			Config config = new Config ();
 
-			if (actionBuffer != string.Empty && expectedResultBuffer != string.Empty) {
+			if (actionBuffer.Length != 0  && expectedResultBuffer.Length != 0) {
 				if (Config.Instance.TakeScreenShots) {
 					string filename = string.Format ("screen{0:00}.png", procedures.Count + 1);
 					// take screenshot
 					Utils.TakeScreenshot (Path.Combine (Config.Instance.OutputDir, filename));
 					Console.WriteLine ("Screenshot: " + filename);
-					procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd (), filename });
+					procedures.Add (new List<string> { actionBuffer.ToString().TrimEnd (), expectedResultBuffer.ToString().TrimEnd (), filename });
 				} else {
-					procedures.Add (new List<string> { actionBuffer.TrimEnd (), expectedResultBuffer.TrimEnd ()});
+					procedures.Add (new List<string> { actionBuffer.ToString().TrimEnd (), expectedResultBuffer.ToString().TrimEnd ()});
 				}
 
-				actionBuffer = string.Empty;
-				expectedResultBuffer = string.Empty;
+				actionBuffer.Remove (0, actionBuffer.Length);
+				expectedResultBuffer.Remove (0, expectedResultBuffer.Length);
 				Console.WriteLine ();
 			}			
 		}
