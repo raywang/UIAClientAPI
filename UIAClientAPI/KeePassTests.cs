@@ -473,6 +473,8 @@ namespace UIAClientAPI
 			//104.6 Check the "title" of the exist record 
 			procedureLogger.Action ("Check the fist item in the datagrid");
 			DataGrid dataGrid = window.FindDataGrid ("");
+			//Assert.AreEqual(dataGrid.AutomationElement, sampleTxt.Contatn
+			//assert the datagrid item's index in datagrid
 			dataGrid.GetItem (0, 0);
 			//Assert.AreEqual ("Record", dataGrid.GetItem (0, 0));
 			procedureLogger.ExpectedResult ("the first item in the datagrid should be Record");
@@ -502,8 +504,9 @@ namespace UIAClientAPI
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//TO DO. viewname
-			//104.9  Retrieves the name of a control-specific view  of the data grid
+     	        	//104.9  Retrieves the name of a control-specific view  of the data grid
 			procedureLogger.Action ("Retrieves the name of a control-specific view  of the data grid");
+			dataGrid.GetViewName (0);
 			//string viewname= dataGrid.GetViewName (0);
 			//Assert.AreEqual ("",viewname);
 			procedureLogger.ExpectedResult ("the name of a control-specific view  of the data grid should be");
@@ -547,26 +550,25 @@ namespace UIAClientAPI
 			procedureLogger.ExpectedResult ("the TableItemColumnSpan of the text in datagrid should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//TODO.
-			//procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
-			//Assert.AreEqual (AutomationProperty.LookupById, sampleText.TableItemContainingGrid);
-			//procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be");
-			//Thread.Sleep (Config.Instance.ShortDelay);
+			procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
+			Assert.AreEqual (dataGrid.AutomationElement, sampleText.TableItemContainingGrid);
+			procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
 			Assert.AreEqual (0, sampleText.TableItemRow);
-			procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be 0");
+			//procedureLogger.ExpecteFindAlldResult ("thFindAlle TableItemContainingGrid of the text in datagrid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
-			//Assert.AreEqual (1, sampleText.TableItemRowHeaderItems);
-			//procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be");
-			//Thread.Sleep (Config.Instance.ShortDelay);
+			procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
+			Assert.AreEqual (0, sampleText.TableItemRowHeaderItems.Length);
+			procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
-			//Assert.AreEqual (1, sampleText.TableItemColumnHeaderItems);
-			//procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be");
-			//Thread.Sleep (Config.Instance.ShortDelay);
+			procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
+			Assert.AreEqual (1, sampleText.TableItemColumnHeaderItems.Length);
+			procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemRowSpan of the text in datagrid");
 			Assert.AreEqual (1, sampleText.TableItemRowSpan);
@@ -593,10 +595,12 @@ namespace UIAClientAPI
 			Thread.Sleep (Config.Instance.ShortDelay); 
 
 			//104.15 Set the Scroll's VerticalAmount to "smallDecrement"
-			var document = window.FindDocument (" ");
-			//document.Scroll (ScrollAmount.SmallDecrement, ScrollAmount.SmallDecrement);
-			//procedureLogger.ExpectedResult ("the Scroll's VerticalAmount is set to \"smallDecrement\"");
-			//Thread.Sleep (Config.Instance.ShortDelay); 
+			procedureLogger.Action ("Set the Scroll's VerticalAmount to \"smallDecrement\"");
+			var documents = window.FindAll<Document> (ControlType.Document);
+			var document = documents [0];
+			document.Scroll (ScrollAmount.NoAmount, ScrollAmount.SmallDecrement);
+			procedureLogger.ExpectedResult ("the Scroll's VerticalAmount is set to \"smallDecrement\"");
+			Thread.Sleep (Config.Instance.ShortDelay); 
 
 			//104.16 Set the Scroll HorizontalAmount to "smallDecrement"
 			//procedureLogger.Action ("Set the ScrollHorizontal's VerticalAmount to \"smallDecrement\"");
@@ -605,16 +609,16 @@ namespace UIAClientAPI
 			//Thread.Sleep (Config.Instance.ShortDelay); 
 
 			//104.17 Set the ScrollVertical's VerticalAmount to "smallDecrement"
-			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
-			//document.ScrollVertical (ScrollAmount.LargeIncrement);
-			//procedureLogger.ExpectedResult ("the Scroll's ScrollVertical is set to \"smallDecrement\"");
-			//Thread.Sleep (Config.Instance.ShortDelay); 
+			procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
+			document.ScrollVertical (ScrollAmount.LargeIncrement);
+			procedureLogger.ExpectedResult ("the Scroll's ScrollVertical is set to \"smallDecrement\"");
+			Thread.Sleep (Config.Instance.ShortDelay); 
 
 			//104.18 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
-			//procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
-			//document.SetScrollPercent (0, 100);
-			//procedureLogger.ExpectedResult ("the Scroll's ScrollPercent is set to ");
-			//Thread.Sleep (Config.Instance.ShortDelay); 
+			procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
+			document.SetScrollPercent (-1, 2);
+			procedureLogger.ExpectedResult ("the Scroll's ScrollPercent is set to ");
+			Thread.Sleep (Config.Instance.ShortDelay); 
 
 			procedureLogger.Action ("click the OK button");
 			window.FindButton ("OK").Click();
