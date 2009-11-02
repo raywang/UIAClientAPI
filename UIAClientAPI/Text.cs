@@ -81,9 +81,9 @@ namespace UIAClientAPI
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnSpanProperty); }
 		}
 
-		public AutomationElement TableItemContainingGrid
+		public AutomationProperty TableItemContainingGrid
 		{
-			get { return (AutomationElement) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
+			get { return (AutomationProperty) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
 		}
 
 		public AutomationProperty TableItemRowHeaderItems
