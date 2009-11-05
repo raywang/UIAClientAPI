@@ -486,7 +486,7 @@ namespace UIAClientAPI
 
 			//104.8 Click "OK" button on the "Add Entry" dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			window.FindButton ("OK").Click ();
+			window.FindButton ("OK").Click (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -782,7 +782,6 @@ namespace UIAClientAPI
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay); 
-	
 		}
 	}
 }
