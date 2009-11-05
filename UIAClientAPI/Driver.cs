@@ -39,9 +39,9 @@ namespace UIAClientAPI
 		{
 			KeePassTests keePassTests = new KeePassTests ();
 			keePassTests.Init ();
-			//keePassTests.TestCase101 ();
-			//keePassTests.TestCase102 ();
-			//keePassTests.TestCase103 ();
+			keePassTests.TestCase101 ();
+			keePassTests.TestCase102 ();
+			keePassTests.TestCase103 ();
 			keePassTests.TestCase104 ();
 			keePassTests.Quit ();
 
@@ -49,19 +49,19 @@ namespace UIAClientAPI
 			Console.Read ();
 
 			// Dock Pattern Tests.
-			//DockPatternTests dockPatterTests = new DockPatternTests ();
-			//dockPatterTests.Init ();
-			//dockPatterTests.TestCase105 ();
-			//dockPatterTests.Quit ();
+			DockPatternTests dockPatterTests = new DockPatternTests ();
+			dockPatterTests.Init ();
+			dockPatterTests.TestCase105 ();
+			dockPatterTests.Quit ();
 
-			//Console.WriteLine ("press any key to continue2");
-			//Console.Read ();
+			Console.WriteLine ("press any key to continue2");
+			Console.Read ();
 
 			// Window Pattern Tests.
-			//WindowPatternTests windowPatternTests = new WindowPatternTests ();
-			//windowPatternTests.Init ();
-			//windowPatternTests.TestCase106 ();
-			//windowPatternTests.Quit ();
+			WindowPatternTests windowPatternTests = new WindowPatternTests ();
+			windowPatternTests.Init ();
+			windowPatternTests.TestCase106 ();
+			windowPatternTests.Quit ();
 		}
 	}
 }

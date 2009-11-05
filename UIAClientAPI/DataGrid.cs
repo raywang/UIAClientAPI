@@ -157,6 +157,5 @@ namespace UIAClientAPI
 		{
 			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalViewSizeProperty); }
 		}
-		
 	}
 }
