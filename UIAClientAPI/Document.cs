@@ -38,7 +38,6 @@ namespace UIAClientAPI
 		public void Scroll (ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
 		{
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
-			//System.Threading.Thread.Sleep (3000);
 			sp.Scroll (horizontalAmount, verticalAmount);
 		}
 
