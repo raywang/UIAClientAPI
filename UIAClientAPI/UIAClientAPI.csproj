@@ -75,6 +75,7 @@
     <Compile Include="MenuItem.cs" />
     <Compile Include="Pane.cs" />
     <Compile Include="RadioButton.cs" />
+    <Compile Include="ScrollBar.cs" />
     <Compile Include="ScrollPattern.cs" />
     <Compile Include="Spinner.cs" />
     <Compile Include="TabItem.cs" />
