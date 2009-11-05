@@ -273,7 +273,7 @@ namespace UIAClientAPI
 			//103.6 Click "Add Entry" button on the toolstripbar
 			procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
 			toolBar.FindButton ("Add Entry").Click (false);
-			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced");
+			procedureLogger.ExpectedResult ("the \"Add Entry\" window appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.7 Check "Add Entry" window's default WindowPattern Property
@@ -435,201 +435,370 @@ namespace UIAClientAPI
 		//TestCase104 test the "Password Generator" dialog
 		public void TestCase104 ()
 		{
-			//104.1 Click "new" button on the toolstripbar
-			procedureLogger.Action ("Click \"New...\" button on the toolbar");			
-			var toolBar = window.FindToolBar ("");
-			toolBar.FindButton ("New...").Click (false);
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			////104.1 Click "new" button on the toolstripbar
+			//procedureLogger.Action ("Click \"New...\" button on the toolbar");			
+			//var toolBar = window.FindToolBar ("");
+			//toolBar.FindButton ("New...").Click (false);
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
+			//Thread.Sleep(Config.Instance.ShortDelay);
 
-			//104.2 Click "Save" button on the dialog
-			procedureLogger.Action ("Click \"Save\" button of the dialog");
-			var newPassDialog = window.FindWindow ("Create New Password Database");
-			newPassDialog.Save (false);
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			////104.2 Click "Save" button on the dialog
+			//procedureLogger.Action ("Click \"Save\" button of the dialog");
+			//var newPassDialog = window.FindWindow ("Create New Password Database");
+			//newPassDialog.Save (false);
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			//Thread.Sleep(Config.Instance.ShortDelay);
 
-			//104.3 Click "OK" button on the dialog
-			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			var keyDialog = window.FindWindow ("Create Composite Master Key");
-			keyDialog.OK (false);
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.3 Click "OK" button on the dialog
+			//procedureLogger.Action ("Click \"OK\" button of the dialog");
+			//var keyDialog = window.FindWindow ("Create Composite Master Key");
+			//keyDialog.OK (false);
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.4 Click "Yes" button on the dialog
-			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
-			var createMasterKeyWindow = window.FindWindow ("KeePass");
-			createMasterKeyWindow.Yes (false);
-			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.4 Click "Yes" button on the dialog
+			//procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
+			//var createMasterKeyWindow = window.FindWindow ("KeePass");
+			//createMasterKeyWindow.Yes (false);
+			//procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.5  Click "OK" button on the dialog
-			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
-			newPassDialog2.OK (false);
-			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.5  Click "OK" button on the dialog
+			//procedureLogger.Action ("Click \"OK\" button of the dialog");
+			//var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
+			//newPassDialog2.OK (false);
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.6 Check the "title" of the exist record 
-			procedureLogger.Action ("Check the fist item in the datagrid");
-			DataGrid dataGrid = window.FindDataGrid ("");
-			//Assert.AreEqual(dataGrid.AutomationElement, sampleTxt.Contatn
-			//assert the datagrid item's index in datagrid
-			dataGrid.GetItem (0, 0);
-			//Assert.AreEqual ("Record", dataGrid.GetItem (0, 0));
-			procedureLogger.ExpectedResult ("the first item in the datagrid should be Record");
-			Thread.Sleep (Config.Instance.ShortDelay);
 			
-			//check GridPattern 's property
-			procedureLogger.Action ("check GridPattern 's property :ColumnCount");
-			Assert.AreEqual (11, dataGrid.ColumnCount);
-			procedureLogger.ExpectedResult ("the data grid 's ColumnCount should be 11");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.6  Click "Add Entry" button on the toolstripbar
+			//procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
+			//toolBar.FindButton ("Add Entry").Click (false);
+			//procedureLogger.ExpectedResult ("The \"Add Entry\" dialog appears");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("check GridPattern 's property :RowCount");
-			Assert.AreEqual (1, dataGrid.RowCount);
-			procedureLogger.ExpectedResult ("the data grid 's RowCount should be 1");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////TODO: need to call a keyboard operation API in another dll
+			////104.7  Input the "email" into the title  edit 
+			////procedureLogger.Action ("Input the \"email\" into the title  edit ");
+			////var NotesEdit = newPassDialog.FindEdit ("Notes:");
+			////NotesEdit.Value = "email";
+			////procedureLogger.ExpectedResult ("The \"email\" field is inputted into the \"Notes\" edit");
+			////Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.7 Check the data grid's MultipleViewPattern property
-			procedureLogger.Action ("Click \" Create...\" button");
-			Assert.AreEqual (1,dataGrid.CurrentViewProperty);
-			procedureLogger.ExpectedResult ("the data grid 's CurrentViewProperty should be 1");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.8 Click "OK" button on the "Add Entry" dialog
+			//procedureLogger.Action ("Click \"OK\" button of the dialog");
+			//window.FindButton ("OK").Click ();
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.8 Sets the current control-specific view
-			procedureLogger.Action ("Sets the current control-specific view");
-			dataGrid.SetCurrentView (0);
-			procedureLogger.ExpectedResult ("Sets the current control-specific view to 0");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.9 Check the datagrid's Coulum  is 11 and Row count is 2
+			//procedureLogger.Action ("check GridPattern 's property :ColumnCount");
+			//DataGrid dataGrid = window.FindDataGrid ("");
+			//Assert.AreEqual (11, dataGrid.ColumnCount);
+			//procedureLogger.ExpectedResult ("the data grid 's ColumnCount should be 11");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//TO DO. viewname
-     	        	//104.9  Retrieves the name of a control-specific view  of the data grid
-			procedureLogger.Action ("Retrieves the name of a control-specific view  of the data grid");
-			dataGrid.GetViewName (0);
-			//string viewname= dataGrid.GetViewName (0);
-			//Assert.AreEqual ("",viewname);
-			procedureLogger.ExpectedResult ("the name of a control-specific view  of the data grid should be");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			//procedureLogger.Action ("check GridPattern 's property :RowCount");
+			//Assert.AreEqual (2, dataGrid.RowCount);
+			//procedureLogger.ExpectedResult ("the data grid 's RowCount should be 2");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.10  Check the GridItemPattern's property of text in data grid
-			procedureLogger.Action ("Check the column of data grid");
-			Assert.AreEqual (0,dataGrid.Column);
-			procedureLogger.ExpectedResult ("the column of data grid should be 0");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.10 Click "Add Entry" button on the toolstripbar
+			//procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
+			//toolBar.FindButton ("Add Entry").Click (false);
+			//procedureLogger.ExpectedResult ("The \"Add Entry\" dialog appears");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the column span of data grid");
-			procedureLogger.ExpectedResult ("the column span of data grid should be 1");
-			Assert.AreEqual (1, dataGrid.ColumnSpan);
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////TODO: need to call a keyboard operation API in another dll
+			////104.11 Input the "shopping" into the title edit 
+			////procedureLogger.Action ("Input the \"shopping\" into the title edit");
+			////NotesEdit.Value = "shopping";
+			////procedureLogger.ExpectedResult ("The \"shopping\" field is inputted into the \"Notes\" edit");
+			////Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the row of data grid");
-			Assert.AreEqual (0, dataGrid.Row);
-			procedureLogger.ExpectedResult ("the row of data grid should be 0");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.12 Click "OK" button on the "Add Entry" dialog
+			//procedureLogger.Action ("Click \"OK\" button of the dialog");
+			//window.FindButton ("OK").Click (false);
+			//procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the row span of data grid");
-			Assert.AreEqual (1, dataGrid.RowSpan);
-			procedureLogger.ExpectedResult ("the row span of data grid should be 1");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.13 Check the datagrid's Coulum is 11 and Row count is 3
+			//procedureLogger.Action ("check GridPattern 's property :ColumnCount");
+			//Assert.AreEqual (11, dataGrid.ColumnCount);
+			//procedureLogger.ExpectedResult ("the data grid 's ColumnCount should be 11");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the ContainingGrid of data grid");
-			Assert.AreEqual (null, dataGrid.ContainingGrid);
-			procedureLogger.ExpectedResult ("the ContainingGrid of data grid should be null");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			//procedureLogger.Action ("check GridPattern 's property :RowCount");
+			//Assert.AreEqual (3, dataGrid.RowCount);
+			//procedureLogger.ExpectedResult ("the data grid 's RowCount should be 3");
+			//Thread.Sleep (Config.Instance.ShortDelay);			
+	
+			////TODO:check it again
+			////104.14 Get the (0,0) element of the datagrid , check if it is "Sample Entry" 
+			//procedureLogger.Action ("Get the (0,0) element of the datagrid , check if it is \"Sample Entry\"");
+			//AutomationElement dataGridItem = dataGrid.GetItem (0, 0);
+			//AutomationElement textItem = window.FindText ("Sample Entry").AutomationElement;
+			//Assert.AreEqual (dataGridItem, textItem);
+			//procedureLogger.ExpectedResult ("the (0,0) item in the datagrid should be Sample Entry");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.11 Check the TableItem's property of text in data grid
-			procedureLogger.Action ("Check the TableItemColumn of the text in datagrid");
-			Text sampleText = window.FindText ("Sample Entry");
-			Assert.AreEqual (0, sampleText.TableItemColumn);
-			procedureLogger.ExpectedResult ("the TableItemColumn of the text in datagrid should be 0");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////decrease to make the horizontal scroll bar appears
+			//window.Resize (500, 600);
 
-			procedureLogger.Action ("Check the TableItemColumnSpan of the text in datagrid");
-			Assert.AreEqual (1, sampleText.TableItemColumnSpan);
-			procedureLogger.ExpectedResult ("the TableItemColumnSpan of the text in datagrid should be 1");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			////104.15 Check the ScrollPattern's default property of datagrid
+			//procedureLogger.Action ("Check Horizontal scroll bar's HorizontallyScrollable is True");
+			////ScrollBar horizontalScrollbar = window.FindScrollBar ("");
+			//Assert.AreEqual (true, dataGrid.HorizontallyScrollable);
+			//procedureLogger.ExpectedResult ("The scroll bar's HorizontallyScrollable is True");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
-			Assert.AreEqual (dataGrid.AutomationElement, sampleText.TableItemContainingGrid);
-			procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			//procedureLogger.Action ("Check Horizontal scroll bar's HorizontalScrollPercent is 0.0");
+			//Assert.AreEqual (0.0,  dataGrid.HorizontalScrollPercent);
+			//procedureLogger.ExpectedResult ("The Horizontal scroll bar's HorizontalScrollPercent should be 0.0");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
-			Assert.AreEqual (0, sampleText.TableItemRow);
-			//procedureLogger.ExpecteFindAlldResult ("thFindAlle TableItemContainingGrid of the text in datagrid should be 0");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			//procedureLogger.Action ("Check Horizontal scroll bar's HorizontalViewSize is 75.711159737417944");
+			//Assert.AreEqual (75.711159737417944, dataGrid.HorizontalViewSize);
+			//procedureLogger.ExpectedResult ("The Horizontal scroll bar's HorizontalViewSize should be 75.711159737417944");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
-			Assert.AreEqual (0, sampleText.TableItemRowHeaderItems.Length);
-			procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			//procedureLogger.Action ("Check Horizontal scroll bar's VerticallyScrollable is false");
+			//Assert.AreEqual (false, dataGrid.VerticallyScrollable);
+			//procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be false");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
-			Assert.AreEqual (1, sampleText.TableItemColumnHeaderItems.Length);
-			procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			//procedureLogger.Action ("Check Horizontal scroll bar's VerticalScrollPercent is -1");
+			//Assert.AreEqual (-1, dataGrid.VerticalScrollPercent);
+			//procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticalScrollPercent should be -1");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the TableItemRowSpan of the text in datagrid");
-			Assert.AreEqual (1, sampleText.TableItemRowSpan);
-			procedureLogger.ExpectedResult ("the TableItemRowSpan of the text in datagrid should be 1");
-			Thread.Sleep (Config.Instance.ShortDelay);
+			//procedureLogger.Action ("Check Horizontal scroll bar's VerticalViewSize is 100");
+			//Assert.AreEqual (100, dataGrid.VerticalViewSize);
+			//procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticalViewSize should be 100");
+			//Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.12 Click "Tools" menu item on the menu bar
+			////104.16  Use Scroll method give the horizotal Scrollbar a LargeIncrement
+			//procedureLogger.Action ("Use Scroll method give the horizotal Scrollbar a LargeIncrement");
+			//dataGrid.Scroll (ScrollAmount.LargeIncrement,ScrollAmount.NoAmount);
+			//procedureLogger.ExpectedResult ("The horizotal Scrollbar increase large");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+ 
+			////104.17 Use Scroll method give the horizotal Scrollbar a SmallIncrement 
+			//procedureLogger.Action ("Use Scroll method give the horizotal Scrollbar a SmallIncrement");
+			//dataGrid.Scroll (ScrollAmount.SmallIncrement, ScrollAmount.NoAmount);
+			//procedureLogger.ExpectedResult ("The horizotal Scrollbar increase small");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.18 Check the horizotal scrollbar's position should be 100.0d
+			//procedureLogger.Action ("after the LargeIncrement and SmallIncrement the scroll's position is 100.0d ");
+			//Assert.AreEqual (100.0d, dataGrid.HorizontalScrollPercent);
+			//procedureLogger.ExpectedResult ("the scroll's position is 100.0d ");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.19 Use ScrollHorizontalmethod give the horizotal Scrollbar a  SmalIDecrement
+			//procedureLogger.Action ("Use Scroll method give the horizotal Scrollbar a SmalIDecrement");
+			//dataGrid.Scroll (ScrollAmount.SmallDecrement, ScrollAmount.NoAmount);
+			//procedureLogger.ExpectedResult ("The horizotal Scrollbar decrease small");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.20 Use ScrollHorizontalmethod give the horizotal Scrollbar a LargeDecrement
+			//procedureLogger.Action ("Use Scroll method give the horizotal Scrollbar a LargeDecrement");
+			//dataGrid.Scroll (ScrollAmount.LargeDecrement, ScrollAmount.NoAmount);
+			//procedureLogger.ExpectedResult ("The horizotal Scrollbar decrease large");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.21 Check the horizotal scrollbar's position should be 0.0d
+			//procedureLogger.Action ("after the LargeDecrement and SmallDecrement the scroll's position is 0.0d");
+			//Assert.AreEqual (0.0d, dataGrid.HorizontalScrollPercent);
+			//procedureLogger.ExpectedResult ("the scroll's position is 0.0d");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.22 Use SetScrollPercent method make the horizotal scrollbar move to (50, -1)
+			//procedureLogger.Action ("Use SetScrollPercent method make the horizotal scrollbar move to (50, -1)");
+			//dataGrid.SetScrollPercent (50,-1);
+			//procedureLogger.ExpectedResult ("The horizotal Scrollbar move to (50, -1)");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.23 Check the horizotal scrollbar's position should be  54.054054054054056d
+			//procedureLogger.Action ("after the SetScrollPercent action the scroll's position is  54.054054054054056d");
+			//Assert.AreEqual (54.054054054054056d, dataGrid.HorizontalScrollPercent);
+			//procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be  54.054054054054056d");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.24 Check the data grid's MultipleViewPattern property
+			//procedureLogger.Action ("Check the data grid's CurrentView is 1");
+			//Assert.AreEqual (1, dataGrid.CurrentView);
+			//procedureLogger.ExpectedResult ("the data grid 's CurrentViewProperty should be 1");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.25 Retrieves the first name "Icons" of the view pattern of the data grid
+			//procedureLogger.Action ("Retrieves the first name \"Icons\" of the view pattern of the data grid");
+			//dataGrid.GetViewName (1);
+			//procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be  54.054054054054056d");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.26 Retrieves the supported name of the view pattern of the data grid, assert its value is one
+			//procedureLogger.Action ("Retrieves the supported name of the view pattern of the data grid, assert its value is one");
+			//Assert.AreEqual (1, dataGrid.CurrentView);
+			//procedureLogger.ExpectedResult ("The supported name's value of the view pattern of the data grid is one");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.27 Check the GridItemPattern's property of text in data grid
+			//procedureLogger.Action ("Check the column of data grid");
+			//Assert.AreEqual (0, dataGrid.Column);
+			//procedureLogger.ExpectedResult ("the column of data grid should be 0");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the column span of data grid");
+			//procedureLogger.ExpectedResult ("the column span of data grid should be 1");
+			//Assert.AreEqual (1, dataGrid.ColumnSpan);
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the row of data grid");
+			//Assert.AreEqual (0, dataGrid.Row);
+			//procedureLogger.ExpectedResult ("the row of data grid should be 0");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the row span of data grid");
+			//Assert.AreEqual (1, dataGrid.RowSpan);
+			//procedureLogger.ExpectedResult ("the row span of data grid should be 1");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the ContainingGrid of data grid");
+			//Assert.AreEqual (null, dataGrid.ContainingGrid);
+			//procedureLogger.ExpectedResult ("the ContainingGrid of data grid should be null");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////104.28 Check the TableItem's property of text in data grid
+			//procedureLogger.Action ("Check the TableItemColumn of the text in datagrid");
+			//Text sampleText = window.FindText ("Sample Entry");
+			//Assert.AreEqual (0, sampleText.TableItemColumn);
+			//procedureLogger.ExpectedResult ("the TableItemColumn of the text in datagrid should be 0");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the TableItemColumnSpan of the text in datagrid");
+			//Assert.AreEqual (1, sampleText.TableItemColumnSpan);
+			//procedureLogger.ExpectedResult ("the TableItemColumnSpan of the text in datagrid should be 1");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
+			//Assert.AreEqual (dataGrid.AutomationElement, sampleText.TableItemContainingGrid);
+			//procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be dataGrid.AutomationElement");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the TableItemRow of the text in datagrid");
+			//Assert.AreEqual (0, sampleText.TableItemRow);
+			//procedureLogger.ExpectedResult ("the TableItemRow of the text in datagrid should be 0");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
+			//Assert.AreEqual ("", sampleText.TableItemRowHeaderItems);
+			//procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			////TODO
+			////procedureLogger.Action ("Check the TableItemColumnHeaderItems of the text in datagrid");
+			////Assert.AreEqual (dataGrid.AutomationElement, sampleText.TableItemColumnHeaderItems);
+			////procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be");
+			////Thread.Sleep (Config.Instance.ShortDelay);
+
+			//procedureLogger.Action ("Check the TableItemRowSpan of the text in datagrid");
+			//Assert.AreEqual (1, sampleText.TableItemRowSpan);
+			//procedureLogger.ExpectedResult ("the TableItemRowSpan of the text in datagrid should be 1");
+			//Thread.Sleep (Config.Instance.ShortDelay);
+
+			//104.29 Click "Tools" menu item on the menu bar
 			procedureLogger.Action ("Click \"Tools\" menu item on the menu bar");
 			window.FindMenuItem ("Tools").Click (false);
 			procedureLogger.ExpectedResult ("The sub menu of \"Tools\" appears");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.13 Click "Generate Password.." menu item on the sub menu 
+			//104.30 Click "Generate Password.." menu item on the sub menu 
 			procedureLogger.Action ("Click \"Generate Password..\" menu item on the sub menu");
 			window.FindMenuItem ("Generate Password...").Click (false);
 			procedureLogger.ExpectedResult ("The Password Generator dialog appears");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.14 Select "Preview" Tab item
+			//104.31 Select "Preview" Tab item
 			procedureLogger.Action ("Select \"Preview\" Tab item");
-			var tabItemCompression = window.FindTabItem ("Preview");
-			tabItemCompression.Select ();
+			var tabItemPreview = window.FindTabItem ("Preview");
+			tabItemPreview.Select ();
 			procedureLogger.ExpectedResult ("The \"Preview\" tab item appears");
 			Thread.Sleep (Config.Instance.ShortDelay); 
 
-			//104.15 Set the Scroll's VerticalAmount to "smallDecrement"
-			procedureLogger.Action ("Set the Scroll's VerticalAmount to \"smallDecrement\"");
-			var documents = window.FindAll<Document> (ControlType.Document);
-			var document = documents [0];
-			document.Scroll (ScrollAmount.NoAmount, ScrollAmount.SmallDecrement);
-			procedureLogger.ExpectedResult ("the Scroll's VerticalAmount is set to \"smallDecrement\"");
-			Thread.Sleep (Config.Instance.ShortDelay); 
+			//104.32 Use Scroll method give the vertical Scrollbar a LargeIncrement
+			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
+			var passwordDocument = tabItemPreview.FindByType (ControlType.Document) as Document;
+			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.LargeIncrement);
+			procedureLogger.ExpectedResult ("The vertical Scrollbar increase large");
+			Thread.Sleep (Config.Instance.ShortDelay);
+ 
+			//104.33 Use Scroll method give the vertical Scrollbar a SmallIncrement 
+			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
+			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.SmallIncrement);
+			procedureLogger.ExpectedResult ("The vertical Scrollbar increase large");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.16 Set the Scroll HorizontalAmount to "smallDecrement"
-			//procedureLogger.Action ("Set the ScrollHorizontal's VerticalAmount to \"smallDecrement\"");
-			//document.ScrollHorizontal (ScrollAmount.LargeIncrement);
-			//procedureLogger.ExpectedResult ("the Scroll's Horizontal is set to \"smallDecrement\"");
-			//Thread.Sleep (Config.Instance.ShortDelay); 
+			//104.34 Check the vertical scrollbar's position
+			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is 100.0d");
+			Assert.AreEqual (100.0d, passwordDocument.VerticalScrollPercent);
+			procedureLogger.ExpectedResult ("The vertical scroll bar's Vertically Scrollable should be 100.0d");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.17 Set the ScrollVertical's VerticalAmount to "smallDecrement"
-			procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
-			document.ScrollVertical (ScrollAmount.LargeIncrement);
-			procedureLogger.ExpectedResult ("the Scroll's ScrollVertical is set to \"smallDecrement\"");
-			Thread.Sleep (Config.Instance.ShortDelay); 
+			//104.35 Use ScrollVertical method give the vertical Scrollbar a SmalIDecrement
+			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
+			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.SmallDecrement);
+			procedureLogger.ExpectedResult ("The vertical Scrollbar increase large");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.18 Set the SetScrollPercent's VerticalAmount to "smallDecrement"
-			procedureLogger.Action ("Set the ScrollVertical's VerticalAmount to \"smallDecrement\"");
-			document.SetScrollPercent (-1, 2);
-			procedureLogger.ExpectedResult ("the Scroll's ScrollPercent is set to ");
-			Thread.Sleep (Config.Instance.ShortDelay); 
+			//104.36 Use ScrollVertical method give the vertical Scrollbar a LargeDecrement
+			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
+			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.LargeDecrement);
+			procedureLogger.ExpectedResult ("The horizotal vertical increase large");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("click the OK button");
-			window.FindButton ("OK").Click();
+			//104.37 Check the vertical scrollbar's position
+			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is 0.0d");
+			Assert.AreEqual (0.0d, passwordDocument.VerticalScrollPercent);
+			procedureLogger.ExpectedResult ("The vertical scroll bar's VerticallyScrollable should be 0.0d");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//104.38 Use SetScrollPercent method make the vertical scrollbar move to (-1, 50) 
+			procedureLogger.Action ("Use SetScrollPercent method make the horizotal scrollbar move to (-1, 50)");
+			passwordDocument.SetScrollPercent (-1, 50);
+			procedureLogger.ExpectedResult ("The horizotal Scrollbar move to (-1, 50)");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//104.39 Check the vertical scrollbar's position
+			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is 50.0d");
+			Assert.AreEqual (50.0d, passwordDocument.VerticalScrollPercent);
+			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be 50.0d");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//104.40 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window to (50,50)
+			procedureLogger.Action ("click the Close button");
+			window.FindButton ("Close").Click ();
 			procedureLogger.ExpectedResult ("The \"Password Generator\" dialogue disappears");
-			Thread.Sleep (Config.Instance.ShortDelay); 
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.19 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window
 			procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window to (50, 50)");
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay); 
+	
+ 
+
+
+
+
+			
+
+			
+
+		
+
+			
+			
 		}
 	}
 }

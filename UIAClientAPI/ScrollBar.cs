@@ -34,6 +34,8 @@ namespace UIAClientAPI
 		{
 		}
 
+		
+
 		//the RangeValuePattern's method
 		public void SetValue (double value)
 		{

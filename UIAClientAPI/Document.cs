@@ -34,16 +34,12 @@ namespace UIAClientAPI
 		{
 		}
 
-		public void Scroll (ScrollAmount horizontalPercent, ScrollAmount verticalPercent)
+		//the ScrollPattern's method
+		public void Scroll (ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
 		{
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
-			sp.Scroll (horizontalPercent, verticalPercent);
-		}
-
-		public void ScrollVertical (ScrollAmount amount)
-		{
-			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
-			sp.ScrollVertical (amount);
+			//System.Threading.Thread.Sleep (3000);
+			sp.Scroll (horizontalAmount, verticalAmount);
 		}
 
 		public void ScrollHorizontal (ScrollAmount amount)
@@ -52,10 +48,48 @@ namespace UIAClientAPI
 			sp.ScrollHorizontal (amount);
 		}
 
+		public void ScrollVertical (ScrollAmount amount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.ScrollVertical (amount);
+		}
+
 		public void SetScrollPercent (double horizontalPercent, double verticalPercent)
 		{
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
 			sp.SetScrollPercent (horizontalPercent, verticalPercent);
 		}
+
+		//the ScrollPattern's property
+		public bool HorizontallyScrollable
+		{
+			get { return (bool) element.GetCurrentPropertyValue (ScrollPattern.HorizontallyScrollableProperty); }
+		}
+
+		public double HorizontalScrollPercent
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.HorizontalScrollPercentProperty); }
+		}
+
+		public double HorizontalViewSize
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.HorizontalViewSizeProperty); }
+		}
+
+		public bool VerticallyScrollable
+		{
+			get { return (bool) element.GetCurrentPropertyValue (ScrollPattern.VerticallyScrollableProperty); }
+		}
+
+		public double VerticalScrollPercent
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalScrollPercentProperty); }
+		}
+
+		public double VerticalViewSize
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalViewSizeProperty); }
+		}
+
 	}
 }

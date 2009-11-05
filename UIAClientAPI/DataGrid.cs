@@ -35,10 +35,10 @@ namespace UIAClientAPI
 		}
 
 		//the GridPattern 's method
-		public void GetItem (int row, int column)
+		public AutomationElement GetItem (int row, int column)
 		{
 			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
-			gp.GetItem (row, column);
+			return gp.GetItem (row, column);
 		}
 
 		//the MultipleViewPattern 's method
@@ -55,11 +55,15 @@ namespace UIAClientAPI
 			mvp.SetCurrentView (viewId);
 		}
 
+		
+
 		//the GridPattern's property
 		public int RowCount
 		{
 			get { return (int) element.GetCurrentPropertyValue (GridPattern.RowCountProperty); }
 		}
+
+		
 
 		public int ColumnCount
 		{
@@ -93,9 +97,74 @@ namespace UIAClientAPI
 		}
 
 		//the MultipleViewPattern 's property
-		public int CurrentViewProperty
+		public int CurrentView
 		{
 			get { return (int) element.GetCurrentPropertyValue (MultipleViewPattern.CurrentViewProperty); }
 		}
+
+		public int [] SupportedViews
+		{
+			get { return (int []) element.GetCurrentPropertyValue (MultipleViewPattern.SupportedViewsProperty); }
+		}
+
+		//the ScrollPattern's method
+		public void Scroll (ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.Scroll (horizontalAmount, verticalAmount);
+		}
+
+		public void ScrollHorizontal (ScrollAmount amount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.ScrollHorizontal (amount);
+		}
+
+		public void ScrollVertical (ScrollAmount amount)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.ScrollVertical (amount);
+		}
+
+		public void SetScrollPercent (double horizontalPercent, double verticalPercent)
+		{
+			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
+			sp.SetScrollPercent (horizontalPercent, verticalPercent);
+		}
+
+		//the ScrollPattern's property
+		public bool HorizontallyScrollable
+		{
+			get { return (bool) element.GetCurrentPropertyValue (ScrollPattern.HorizontallyScrollableProperty); }
+		}
+
+		public double HorizontalScrollPercent
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.HorizontalScrollPercentProperty); }
+		}
+
+		public double HorizontalViewSize
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.HorizontalViewSizeProperty); }
+		}
+
+		public bool VerticallyScrollable
+		{
+			get { return (bool) element.GetCurrentPropertyValue (ScrollPattern.VerticallyScrollableProperty); }
+		}
+
+		public double VerticalScrollPercent
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalScrollPercentProperty); }
+		}
+
+		public double VerticalViewSize
+		{
+			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalViewSizeProperty); }
+		}
+
+
+		
+
 	}
 }

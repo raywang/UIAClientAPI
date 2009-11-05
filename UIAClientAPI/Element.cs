@@ -58,6 +58,16 @@ namespace UIAClientAPI
 			this.element = element;
 		}
 
+		public Element FindByType (ControlType type)
+		{
+			var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
+			AutomationElement control = element.FindFirst (TreeScope.Descendants, cond);
+			if (control == null)
+				return null;
+			else
+				return Promote (control);
+		}
+
 		// Find a Element by name.
 		public Element Find (ControlType type, string name)
 		{
@@ -236,6 +246,11 @@ namespace UIAClientAPI
 		public Document FindDocument (string name)
 		{
 			return (Document) Find (ControlType.Document, name);
+		}
+
+		public Document FindDocument (string name,string automationId)
+		{
+			return (Document) Find (ControlType.Document, name, automationId);
 		}
 
 		public ScrollBar FindScrollBar (string name)

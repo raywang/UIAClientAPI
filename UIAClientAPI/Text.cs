@@ -66,9 +66,9 @@ namespace UIAClientAPI
 		}
 
 		//the TableItem's property
-		public AutomationProperty TableItemColumnHeaderItems
+		public AutomationElement[] TableItemColumnHeaderItems
 		{
-			get { return (AutomationProperty) element.GetCurrentPropertyValue (TableItemPattern.ColumnHeaderItemsProperty); }
+			get { return (AutomationElement[]) element.GetCurrentPropertyValue (TableItemPattern.ColumnHeaderItemsProperty); }
 		}
 
 		public int TableItemColumn
@@ -81,14 +81,14 @@ namespace UIAClientAPI
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnSpanProperty); }
 		}
 
-		public AutomationProperty TableItemContainingGrid
+		public AutomationElement TableItemContainingGrid
 		{
-			get { return (AutomationProperty) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
+			get { return (AutomationElement) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
 		}
 
-		public AutomationProperty TableItemRowHeaderItems
+		public AutomationElement[] TableItemRowHeaderItems
 		{
-			get { return (AutomationProperty) element.GetCurrentPropertyValue (TableItemPattern.RowHeaderItemsProperty); }
+			get { return (AutomationElement[]) element.GetCurrentPropertyValue (TableItemPattern.RowHeaderItemsProperty); }
 		}
 
 		public int TableItemRow
