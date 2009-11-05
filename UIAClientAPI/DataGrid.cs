@@ -48,22 +48,17 @@ namespace UIAClientAPI
 			mvp.GetViewName (viewId);
 		}
 
-
 		public void SetCurrentView (int viewId)
 		{
 			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
 			mvp.SetCurrentView (viewId);
 		}
 
-		
-
 		//the GridPattern's property
 		public int RowCount
 		{
 			get { return (int) element.GetCurrentPropertyValue (GridPattern.RowCountProperty); }
 		}
-
-		
 
 		public int ColumnCount
 		{
@@ -162,9 +157,6 @@ namespace UIAClientAPI
 		{
 			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalViewSizeProperty); }
 		}
-
-
 		
-
 	}
 }
