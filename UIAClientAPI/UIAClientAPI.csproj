@@ -105,6 +105,7 @@
     </Content>
     <Content Include="Libs\log4net.dll" />
     <Content Include="Libs\White.Core.dll" />
+    <Content Include="Libs\Xstream.Core.dll" />
     <Content Include="Resources\novell_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
