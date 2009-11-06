@@ -69,18 +69,21 @@ namespace UIAClientAPI
 		}
 
 		// Find a Element by name.
-		public Element Find (ControlType type, string name)
+		protected Element Find (ControlType type, string name)
 		{
 			return Find (type, name, string.Empty);
 		}
 
-		public Element Find (ControlType type, string name, string automationId)
+		protected Element Find (ControlType type, string name, string automationId)
 		{
 			AndCondition cond;
 
 			if (automationId == string.Empty) {
 				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
 					new PropertyCondition (AutomationElementIdentifiers.NameProperty, name));
+			} else if (name == string.Empty) {
+				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
+					new PropertyCondition (AutomationElementIdentifiers.AutomationIdProperty, automationId));
 			} else {
 				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
 					new PropertyCondition (AutomationElementIdentifiers.NameProperty, name),
@@ -98,7 +101,7 @@ namespace UIAClientAPI
 			return null;
 		}
 
-		public T [] FindAll<T> (ControlType type) where T : Element
+		protected T [] FindAll<T> (ControlType type) where T : Element
 		{
 			for (int i = 0; i < Config.Instance.RetryTimes; i++) {
 				var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
@@ -243,14 +246,14 @@ namespace UIAClientAPI
 			return (DataGrid) Find (ControlType.DataGrid, name);
 		}
 
-		public Document FindDocument (string name)
+		public Document FindDocumentByName (string name)
 		{
 			return (Document) Find (ControlType.Document, name);
 		}
 
-		public Document FindDocument (string name,string automationId)
+		public Document FindDocumentByAutomationId(string automationId)
 		{
-			return (Document) Find (ControlType.Document, name, automationId);
+			return (Document) Find (ControlType.Document, "", automationId);
 		}
 
 		public ScrollBar FindScrollBar (string name)
