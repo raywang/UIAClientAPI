@@ -27,8 +27,6 @@ using System.Threading;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using System.IO;
-using System.Xml.Serialization;
 
 namespace UIAClientAPI
 {
@@ -62,39 +60,5 @@ namespace UIAClientAPI
 
 			return false;
 		}
-	}
-
-	public class Config
-	{
-		private static Config instance = null;
-		public static Config Instance
-		{
-			get
-			{
-				if (instance == null)
-					ReadFromConfigureFile ();
-				return instance;
-			}
-		}
-
-		private static void ReadFromConfigureFile ()
-		{
-			var serializer = new XmlSerializer (typeof (Config));
-			using (FileStream fs = new FileStream ("Config.xml", FileMode.Open)) {
-				instance = serializer.Deserialize (fs) as Config;
-			}
-		}
-
-		public int RetryTimes { get; set; }
-		public int RetryInterval { get; set; }
-		public bool TakeScreenShots { get; set; }
-		// where to write procedure logger output, screenshots, etc
-		public string OutputDir { get; set; }
-		public string KeePassPath { get; set; }
-		public string DockPatternProviderPath { get; set; }
-		public string WindowAndTransformPatternProviderPath { get; set; }
-		public int ShortDelay { get; set; }
-		public int MediumDelay { get; set; }
-		public int LongDelay { get; set; }
 	}
 }
