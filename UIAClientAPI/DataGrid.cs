@@ -29,6 +29,8 @@ namespace UIAClientAPI
 {
 	public class DataGrid : Element
 	{
+		public static readonly ControlType UIAType = ControlType.DataGrid;
+
 		public DataGrid (AutomationElement elm)
 			: base (elm)
 		{

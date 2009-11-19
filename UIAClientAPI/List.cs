@@ -29,6 +29,8 @@ namespace UIAClientAPI
 {
 	public class List : Element
 	{
+		public static readonly ControlType UIAType = ControlType.List;
+
 		public List (AutomationElement elm)
 			: base (elm)
 		{

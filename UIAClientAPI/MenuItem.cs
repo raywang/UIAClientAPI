@@ -29,6 +29,7 @@ namespace UIAClientAPI
 {
 	public class MenuItem : Element
 	{
+		public static readonly ControlType UIAType = ControlType.MenuItem;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public MenuItem (AutomationElement elm)

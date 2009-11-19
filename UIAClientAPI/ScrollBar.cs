@@ -29,6 +29,7 @@ namespace UIAClientAPI
 {
 	public class ScrollBar : Element
 	{
+		public static readonly ControlType UIAType = ControlType.ScrollBar;
 		public ScrollBar (AutomationElement elm)
 			: base (elm)
 		{

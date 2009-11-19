@@ -29,6 +29,8 @@ namespace UIAClientAPI
 {
 	public class CheckBox : Element
 	{
+		public static readonly ControlType UIAType = ControlType.CheckBox;
+
 		public CheckBox (AutomationElement elm)
 			: base (elm)
 		{

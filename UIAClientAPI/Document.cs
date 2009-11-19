@@ -29,6 +29,8 @@ namespace UIAClientAPI
 {
 	public class Document : Element
 	{
+		public static readonly ControlType UIAType = ControlType.Document;
+
 		public Document (AutomationElement elm)
 			: base (elm)
 		{

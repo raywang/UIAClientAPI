@@ -63,12 +63,14 @@
     <Compile Include="Button.cs" />
     <Compile Include="CheckBox.cs" />
     <Compile Include="ComboBox.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="DataGrid.cs" />
     <Compile Include="DockPatternTests.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="Edit.cs" />
     <Compile Include="Element.cs" />
+    <Compile Include="Finder.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListItem.cs" />
     <Compile Include="MenuBar.cs" />
@@ -76,7 +78,6 @@
     <Compile Include="Pane.cs" />
     <Compile Include="RadioButton.cs" />
     <Compile Include="ScrollBar.cs" />
-    <Compile Include="ScrollPattern.cs" />
     <Compile Include="Spinner.cs" />
     <Compile Include="TabItem.cs" />
     <Compile Include="TestBase.cs" />

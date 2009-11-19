@@ -19,7 +19,6 @@
 //	Ray Wang  (rawang@novell.com)
 //	Felicia Mu  (fxmu@novell.com)
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,20 +57,29 @@ namespace UIAClientAPI
 			this.element = element;
 		}
 
-		public Element FindByType (ControlType type)
-		{
-			var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
-			AutomationElement control = element.FindFirst (TreeScope.Descendants, cond);
-			if (control == null)
-				return null;
-			else
-				return Promote (control);
-		}
 
 		// Find a Element by name.
 		protected Element Find (ControlType type, string name)
 		{
 			return Find (type, name, string.Empty);
+		}
+
+		public Element FindByType (ControlType type) 
+		{ 
+			var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type); 
+			AutomationElement control = element.FindFirst (TreeScope.Descendants, cond); 
+			if (control == null)				
+				return null; else				
+
+			return Promote (control); 
+		}
+
+		public Finder Finder
+		{
+			get
+			{
+				return new Finder (this.AutomationElement);
+			}
 		}
 
 		protected Element Find (ControlType type, string name, string automationId)
@@ -116,7 +124,7 @@ namespace UIAClientAPI
 
 		// To promote a AutomationElement to a certain instance of a class,
 		// in order to get more specific mothods.
-		protected Element Promote (AutomationElement elm)
+		public static Element Promote (AutomationElement elm)
 		{
 			if (elm.Current.ControlType == ControlType.Window)
 				return new Window (elm);

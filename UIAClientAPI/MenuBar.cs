@@ -29,6 +29,7 @@ namespace UIAClientAPI
 {
 	public class MenuBar : Element
 	{
+		public static readonly ControlType UIAType = ControlType.MenuBar;
 		public MenuBar (AutomationElement elm)
 			: base (elm)
 		{

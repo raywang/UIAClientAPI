@@ -45,9 +45,10 @@ namespace UIAClientAPI
 			keePassTests.TestCase104 ();
 			keePassTests.Quit ();
 
-			Console.WriteLine ("press any key to continue1");
-			Console.Read ();
+			//Console.WriteLine ("press any key to continue1");
+			//Console.Read ();
 
+			/*
 			// Dock Pattern Tests.
 			DockPatternTests dockPatterTests = new DockPatternTests ();
 			dockPatterTests.Init ();
@@ -62,6 +63,7 @@ namespace UIAClientAPI
 			windowPatternTests.Init ();
 			windowPatternTests.TestCase106 ();
 			windowPatternTests.Quit ();
+			 */
 		}
 	}
 }

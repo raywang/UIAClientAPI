@@ -30,6 +30,8 @@ namespace UIAClientAPI
 	// The wrapper class of Window class.
 	public class Window : Element
 	{
+		public static readonly ControlType UIAType = ControlType.Window;
+
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public Window (Core.UIItems.WindowItems.Window elm)

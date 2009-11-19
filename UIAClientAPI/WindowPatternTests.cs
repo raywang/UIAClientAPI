@@ -1,4 +1,4 @@
-﻿// KeePassTests.cs: Tests for KeePass
+﻿// WindowPatternTests.cs: Tests for Window and Dock Patterns.
 //
 // Permission is hereby granted, free of charge, to any person obtaining 
 // a copy of this software and associated documentation files (the 
@@ -34,6 +34,7 @@ using System.Threading;
 using Core;
 using Core.Factory;
 using WhiteWindow = Core.UIItems.WindowItems.Window;
+using System.Diagnostics;
 
 namespace UIAClientAPI
 {
@@ -45,7 +46,13 @@ namespace UIAClientAPI
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.WindowAndTransformPatternProviderPath);
 			procedureLogger.Action ("Launch " + sample);
-			application = Application.Launch (sample);
+
+			try {
+				application = Application.Launch (sample);
+			} catch (Exception e) {
+				Console.WriteLine (e.Message);
+				Process.GetCurrentProcess ().Kill ();
+			}
 		}
 
 		protected override void OnSetup ()
@@ -73,7 +80,7 @@ namespace UIAClientAPI
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.4 Rotate the control for a given degree
-			var pane = window.FindPane ("WindowAndTransformPatternProviderControl, r:0");
+			var pane = window.Finder.ByName ("WindowAndTransformPatternProviderControl, r:0").Find<Pane> ();
 			pane.Rotate (90.0);
 			procedureLogger.ExpectedResult ("The pane would be rotated for 90 degree.");
 			Thread.Sleep (Config.Instance.ShortDelay);

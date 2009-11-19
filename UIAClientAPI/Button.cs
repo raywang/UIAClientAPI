@@ -30,6 +30,7 @@ namespace UIAClientAPI
 	// The wrapper class of Button class.
 	public class Button : Element
 	{
+		public static readonly ControlType UIAType = ControlType.Button;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public Button (AutomationElement elm)

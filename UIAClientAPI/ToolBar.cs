@@ -29,6 +29,8 @@ namespace UIAClientAPI
 {
 	public class ToolBar : Element
 	{
+		public static readonly ControlType UIAType = ControlType.ToolBar;
+
 		public ToolBar (AutomationElement elm)
 			: base (elm)
 		{

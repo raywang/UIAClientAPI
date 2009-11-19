@@ -1,4 +1,4 @@
-﻿// KeePassTests.cs: Tests for KeePass
+﻿// DockPattern.cs: Tests for DockPattern
 //
 // Permission is hereby granted, free of charge, to any person obtaining 
 // a copy of this software and associated documentation files (the 
@@ -35,6 +35,7 @@ using Core;
 using Core.Factory;
 using System.Windows.Automation;
 using WhiteWindow = Core.UIItems.WindowItems.Window;
+using System.Diagnostics;
 
 namespace UIAClientAPI
 {
@@ -46,7 +47,13 @@ namespace UIAClientAPI
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternProviderPath);
 			procedureLogger.Action ("Launch " + sample);
-			application = Application.Launch (sample);
+
+			try {
+				application = Application.Launch (sample);
+			} catch (Exception e) {
+				Console.WriteLine (e.Message);
+				Process.GetCurrentProcess ().Kill ();
+			}
 		}
 
 		protected override void OnSetup ()
@@ -59,7 +66,7 @@ namespace UIAClientAPI
 		public void TestCase105 ()
 		{
 			//105.1 Move the dock to the Left
-			var dock = window.FindPane ("Top");
+			var dock = window.Finder.ByName ("Top").Find<Pane> ();
 			dock.DockPosition = DockPosition.Left;
 			procedureLogger.ExpectedResult ("The Dock control is docked to the left.");
 			Thread.Sleep (Config.Instance.ShortDelay);

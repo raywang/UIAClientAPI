@@ -29,6 +29,7 @@ namespace UIAClientAPI
 {
 	public class Spinner : Element
 	{
+		public static readonly ControlType UIAType = ControlType.Spinner;
 		public Spinner (AutomationElement elm)
 			: base (elm)
 		{

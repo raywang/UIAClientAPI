@@ -29,6 +29,8 @@ namespace UIAClientAPI
 {
 	public class Text : Element
 	{
+		public static readonly ControlType UIAType = ControlType.Text;
+
 		public Text (AutomationElement elm)
 			: base (elm)
 		{
