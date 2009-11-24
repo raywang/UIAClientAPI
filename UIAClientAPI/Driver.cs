@@ -39,7 +39,6 @@ namespace UIAClientAPI
 		{
 			List<string> input = new List<string>{
 				 "all","1", "2", "3", "4", "5", "6"};
-			Console.WriteLine ("the length of the args is {0}",args.Length);
 
 			if (args.Length == 0) {
 				Console.WriteLine ("please select the testcase you want to test:");
