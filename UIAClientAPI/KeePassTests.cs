@@ -37,6 +37,7 @@ using WhiteWindow = Core.UIItems.WindowItems.Window;
 using NUnit.Framework;
 using System.Windows.Automation;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 
 namespace UIAClientAPI 
@@ -51,7 +52,7 @@ namespace UIAClientAPI
 			procedureLogger.Action ("Launch " + sample);
 
 			try {
-				application = Application.Launch (sample);
+				application = Core.Application.Launch (sample);
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -244,48 +245,48 @@ namespace UIAClientAPI
 		{
 			//103.1 Click "new" button on the toolstripbar
 			procedureLogger.Action ("Click \"New...\" button on the toolbar");
-			var toolBar = window.FindToolBar ("");
-			toolBar.FindButton ("New...").Click (false);
+			var toolBar = window.Finder.Find<ToolBar>();
+			toolBar.Finder.ByName ("New...").Find<Button> ().Click (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
-			var newPassDialog = window.FindWindow ("Create New Password Database");
+			var newPassDialog = window.Finder.ByName ("Create New Password Database").Find<Window> ();
 			newPassDialog.Save (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.3 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			var keyDialog = window.FindWindow ("Create Composite Master Key");
+			var keyDialog = window.Finder.ByName("Create Composite Master Key").Find<Window>();
 			keyDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.4 Click "Yes" button on the dialog
 			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
-			var createMasterKeyWindow = window.FindWindow ("KeePass");
+			var createMasterKeyWindow = window.Finder.ByName("KeePass").Find<Window>();
 			createMasterKeyWindow.Yes (false);
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.5 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
+			var newPassDialog2 = window.Finder.ByName("Create New Password Database - Step 2").Find<Window>();
 			newPassDialog2.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.6 Click "Add Entry" button on the toolstripbar
 			procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
-			toolBar.FindButton ("Add Entry").Click (false);
+			toolBar.Finder.ByName ("Add Entry").Find<Button> ().Click ();
 			procedureLogger.ExpectedResult ("the \"Add Entry\" window appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.7 Check "Add Entry" window's default WindowPattern Property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMaximizeProperty");
-			Window addEntryWindow = window.FindWindow ("Add Entry");
+			Window addEntryWindow = window.Finder.ByName("Add Entry").Find<Window>();
 			Assert.AreEqual (false, addEntryWindow.CanMaximize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -317,7 +318,7 @@ namespace UIAClientAPI
 
 			//103.8 move "add entry" window to (200,200 )
 			procedureLogger.Action ("move \"add entry\" window to (200,200 )");
-			var AddEntryDialog = window.FindWindow ("Add Entry");
+			var AddEntryDialog = window.Finder.ByName ("Add Entry").Find<Window> ();
 			AddEntryDialog.Move (200, 200);
 			procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -340,21 +341,21 @@ namespace UIAClientAPI
 
 			//103.9 Click the "Auto-Type" tab item on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Auto-Type\" tab item on the \"Add Entry\" Window");
-			var tabItemAuto = window.FindTabItem ("Auto-Type");
+			var tabItemAuto = window.Finder.ByName ("Auto-Type").Find<TabItem> ();
 			tabItemAuto.Select ();
 			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.10 Click the "Add" button on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.FindButton("Add").Click(false);
+			AddEntryDialog.Finder.ByName("Add").Find<Button>().Click();
 			procedureLogger.ExpectedResult ("The \"Edit Auto-Type Item\" window appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.11 Drag the scroll bar to the bottom on the "Edit Auto-Type Item" window
 			procedureLogger.Action ("drag the scroll bar to the 300 position");
-			var autoItemDialog = window.FindWindow ("Edit Auto-Type Item");
-			ScrollBar scrollBar = window.FindScrollBar ("");
+			var autoItemDialog = window.Finder.ByName("Edit Auto-Type Item").Find<Window>();
+			ScrollBar scrollBar = window.Finder.Find<ScrollBar>();
 			scrollBar.SetValue (300);
 			procedureLogger.ExpectedResult ("the scroll bar is draged to the 413 position");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -398,39 +399,62 @@ namespace UIAClientAPI
 
 			//103.14 Click the "Advanced" tab item on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Advanced\" tab item on the \"Add Entry\" Window");
-			var tabItemAdvanced = window.FindTabItem ("Advanced");
+			var tabItemAdvanced = window.Finder.ByName ("Advanced").Find<TabItem> ();
 			tabItemAdvanced.Select ();
 			procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.15 Click the "Add" button on the "Add Entry" Window
+			var datagrid2 = AddEntryDialog.Finder.Find<DataGrid> ();
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.FindButton ("Add").Click (false);
+			AddEntryDialog.Finder.ByName ("Add").Find<Button>().Click();
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//TODO: need to call a keyboard operation API in another dll
 			//103.16 Type the "aa" into the "Name" edit
-			//procedureLogger.Action ("Type the \"aa\" into the \"Name\" edit");
+			procedureLogger.Action ("Type the \"aa\" into the \"Name\" edit");
 			var editEntryStringWindow = window.FindWindow ("Edit Entry String");
-			//var nameEdit = editEntryStringWindow.FindEdit ("Name:");
-			//nameEdit.Value = "aa";
-			//procedureLogger.ExpectedResult("the \"name\" edit 's value is \"aa\"");
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			var nameEdit = editEntryStringWindow.FindEdit ("Name:");
+			SendKeys.SendWait ("aa");		
+			procedureLogger.ExpectedResult("the \"name\" edit 's value is \"aa\"");
+			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//TODO: replace "OK" by "Cancel" because be blocked by 103.16
 			//103.17 Click "OK" button on the "Edit Entry String" dialog
 			procedureLogger.Action ("Click \"OK\" button on the \"Edit Entry String\" dialog");
-			editEntryStringWindow.Cancel (false);
+			editEntryStringWindow.OK (false);
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" window closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//TODO blocked by 103.16
 			//103.18 Check the "aa" text's TableItemPattern
-			//procedureLogger.Action ("Check the \"aa\" text's TableItemPattern");
-			//procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
-			//newPassDialog2.OK ();
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			var aaText= AddEntryDialog.Finder.ByName("aa").Find<Text>();
+			
+			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's Column property");
+			Assert.AreEqual (0, aaText.Column);
+			procedureLogger.ExpectedResult ("The \"aa\" text's Colum should be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ColumnSpan property");
+			Assert.AreEqual (1, aaText.ColumnSpan);
+			procedureLogger.ExpectedResult ("The \"aa\" text's ColumnSpan should be 1");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's Row property");
+			Assert.AreEqual (0, aaText.Row);
+			procedureLogger.ExpectedResult ("The \"aa\" text's Row should be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's RowSpan property");
+			Assert.AreEqual (1, aaText.RowSpan);
+			procedureLogger.ExpectedResult ("The \"aa\" text's RowSpan should be 1");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ContainingGrid property");
+			Assert.AreEqual (aaText.AutomationElement.GetCurrentPropertyValue (GridItemPattern.ContainingGridProperty), datagrid2.AutomationElement);
+			procedureLogger.ExpectedResult ("The \"aa\" text's ContainingGrid should be 0");
+			Thread.Sleep (Config.Instance.ShortDelay);
+			
+			newPassDialog2.OK ();
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.19 Close the "Add Entry" Window
 			procedureLogger.Action ("Close the \"Add Entry\" Window");
@@ -444,62 +468,61 @@ namespace UIAClientAPI
 		{
 			//104.1 Click "new" button on the toolstripbar
 			procedureLogger.Action ("Click \"New...\" button on the toolbar");
-			var toolBar = window.FindToolBar ("");
-			toolBar.FindButton ("New...").Click (false);
+			var toolBar = window.Finder.Find<ToolBar> ();
+			toolBar.Finder.ByName ("New...").Find<Button> ().Click (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
-			var newPassDialog = window.FindWindow ("Create New Password Database");
+			var newPassDialog = window.Finder.ByName ("Create New Password Database").Find<Window> ();
 			newPassDialog.Save (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.3 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			var keyDialog = window.FindWindow ("Create Composite Master Key");
+			var keyDialog = window.Finder.ByName ("Create Composite Master Key").Find<Window> ();
 			keyDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.4 Click "Yes" button on the dialog
 			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
-			var createMasterKeyWindow = window.FindWindow ("KeePass");
+			var createMasterKeyWindow = window.Finder.ByName ("KeePass").Find<Window> ();
 			createMasterKeyWindow.Yes (false);
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.5  Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			var newPassDialog2 = window.FindWindow ("Create New Password Database - Step 2");
+			var newPassDialog2 = window.Finder.ByName ("Create New Password Database - Step 2").Find<Window> ();
 			newPassDialog2.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.6  Click "Add Entry" button on the toolstripbar
 			procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
-			toolBar.FindButton ("Add Entry").Click (false);
+			toolBar.Finder.ByName ("Add Entry").Find<Button> ().Click (false);
 			procedureLogger.ExpectedResult ("The \"Add Entry\" dialog appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//TODO: need to call a keyboard operation API in another dll
 			//104.7  Input the "email" into the title  edit 
-			//procedureLogger.Action ("Input the \"email\" into the title  edit ");
-			//var NotesEdit = newPassDialog.FindEdit ("Notes:");
-			//NotesEdit.Value = "email";
-			//procedureLogger.ExpectedResult ("The \"email\" field is inputted into the \"Notes\" edit");
-			//Thread.Sleep (Config.Instance.ShortDelay);
+			procedureLogger.Action ("Input the \"email\" into the title  edit ");
+			var notesEdit = newPassDialog.Finder.ByName("Notes:").Find<Edit>();
+			SendKeys.SendWait ("email");
+			procedureLogger.ExpectedResult ("The \"email\" field is inputted into the \"Notes\" edit");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.8 Click "OK" button on the "Add Entry" dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			window.FindButton ("OK").Click (false);
+			window.Finder.ByName("OK").Find<Button>().Click(false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.9 Check the datagrid's Coulum  is 11 and Row count is 2
 			procedureLogger.Action ("check GridPattern 's property :ColumnCount");
-			DataGrid dataGrid = window.FindDataGrid ("");
+			DataGrid dataGrid = window.Finder.Find<DataGrid>();
 			Assert.AreEqual (11, dataGrid.ColumnCount);
 			procedureLogger.ExpectedResult ("the data grid 's ColumnCount should be 11");
 			Thread.Sleep (Config.Instance.ShortDelay);
@@ -511,20 +534,19 @@ namespace UIAClientAPI
 
 			//104.10 Click "Add Entry" button on the toolstripbar
 			procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
-			toolBar.FindButton ("Add Entry").Click (false);
+			toolBar.Finder.ByName("Add Entry").Find<Button>().Click(false);
 			procedureLogger.ExpectedResult ("The \"Add Entry\" dialog appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//TODO: need to call a keyboard operation API in another dll
 			//104.11 Input the "shopping" into the title edit 
-			//procedureLogger.Action ("Input the \"shopping\" into the title edit");
-			//NotesEdit.Value = "shopping";
-			//procedureLogger.ExpectedResult ("The \"shopping\" field is inputted into the \"Notes\" edit");
-			//Thread.Sleep (Config.Instance.ShortDelay);
+			procedureLogger.Action ("Input the \"shopping\" into the title edit");
+			SendKeys.SendWait ("shopping");
+			procedureLogger.ExpectedResult ("The \"shopping\" field is inputted into the \"Notes\" edit");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.12 Click "OK" button on the "Add Entry" dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
-			window.FindButton ("OK").Click (false);
+			window.Finder.ByName ("OK").Find<Button> ().Click(false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -675,7 +697,7 @@ namespace UIAClientAPI
 
 			//104.28 Check the TableItem's property of text in data grid
 			procedureLogger.Action ("Check the TableItemColumn of the text in datagrid");
-			Text sampleText = window.FindText ("Sample Entry");
+			Text sampleText = window.Finder.ByName ("Sample Entry").Find<Text> ();
 			Assert.AreEqual (0, sampleText.TableItemColumn);
 			procedureLogger.ExpectedResult ("the TableItemColumn of the text in datagrid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
@@ -697,14 +719,14 @@ namespace UIAClientAPI
 
 			procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
 			Assert.AreEqual ("", sampleText.TableItemRowHeaderItems);
-			procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be");
+			procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be none");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//TODO
-			//procedureLogger.Action ("Check the TableItemColumnHeaderItems of the text in datagrid");
-			//Assert.AreEqual (dataGrid.AutomationElement, sampleText.TableItemColumnHeaderItems);
-			//procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be");
-			//Thread.Sleep (Config.Instance.ShortDelay);
+			procedureLogger.Action ("Check the TableItemColumnHeaderItems of the text in datagrid");
+			Assert.AreEqual (sampleText.AutomationElement.GetCurrentPropertyValue (GridItemPattern.ContainingGridProperty),
+				dataGrid.AutomationElement);
+			procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be ");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemRowSpan of the text in datagrid");
 			Assert.AreEqual (1, sampleText.TableItemRowSpan);
@@ -713,26 +735,26 @@ namespace UIAClientAPI
 
 			//104.29 Click "Tools" menu item on the menu bar
 			procedureLogger.Action ("Click \"Tools\" menu item on the menu bar");
-			window.FindMenuItem ("Tools").Click (false);
+			window.Finder.ByName ("Tools").Find<MenuItem>().Click(false);
 			procedureLogger.ExpectedResult ("The sub menu of \"Tools\" appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.30 Click "Generate Password.." menu item on the sub menu 
 			procedureLogger.Action ("Click \"Generate Password..\" menu item on the sub menu");
-			window.FindMenuItem ("Generate Password...").Click (false);
+			window.Finder.ByName ("Generate Password...").Find<MenuItem>().Click(false);
 			procedureLogger.ExpectedResult ("The Password Generator dialog appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.31 Select "Preview" Tab item
 			procedureLogger.Action ("Select \"Preview\" Tab item");
-			var tabItemPreview = window.FindTabItem ("Preview");
+			var tabItemPreview = window.Finder.ByName ("Preview").Find<TabItem> ();
 			tabItemPreview.Select ();
 			procedureLogger.ExpectedResult ("The \"Preview\" tab item appears");
 			Thread.Sleep (Config.Instance.ShortDelay); 
 
 			//104.32 Use Scroll method give the vertical Scrollbar a LargeIncrement
 			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
-			var passwordDocument = tabItemPreview.FindByType (ControlType.Document) as Document;
+			var passwordDocument = tabItemPreview.Finder.Find<Document> ();
 			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.LargeIncrement);
 			procedureLogger.ExpectedResult ("The vertical Scrollbar increase large");
 			Thread.Sleep (Config.Instance.ShortDelay);
@@ -781,7 +803,7 @@ namespace UIAClientAPI
 
 			//104.40 Minimize "NewDatabase.kdbx*-KeePass Password Safe" Window to (50,50)
 			procedureLogger.Action ("click the Close button");
-			window.FindButton ("Close").Click ();
+			window.Finder.ByName("Close").Find<Button>().Click(false);
 			procedureLogger.ExpectedResult ("The \"Password Generator\" dialogue disappears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
