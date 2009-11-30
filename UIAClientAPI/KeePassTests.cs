@@ -150,21 +150,17 @@ namespace UIAClientAPI
 			compressionTabItem.Finder.ByName ("None").Find<RadioButton> ().Select ();
 			procedureLogger.ExpectedResult ("The \"None\" radio button selected.");
 			Thread.Sleep(Config.Instance.ShortDelay);
+		
+			//101.13 Select "Security" Tab item;
+			var securityTabItem = newPassDialog2.FindTabItem ("Security");
+			securityTabItem.Select ();
+			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//TODO: We can't change the value of Spinner by using
-			// RangeValuePattern.SetValue, since the maximum 
-			// and mininum value are all 0, seems like the Spinner 
-			// did not well provides proper provider here.
-
-			////101.13 Select "Security" Tab item;
-			//var securityTabItem = newPassDialog2.FindTabItem ("Security");
-			//securityTabItem.Select ();
-			//Thread.Sleep(Config.Instance.ShortDelay);
-
-			////101.14 Enter a number "3000" in "Key transformation" spinner
-			//var keySpinner = newPassDialog2.FindSpinner ("Number of key transformation rounds:");
-			////keySpinner.Value = 3000;
-			//Thread.Sleep(Config.Instance.ShortDelay);
+			//101.14 Enter a number "3000" in "Key transformation" spinner
+			var keySpinner = newPassDialog2.FindSpinner ("Number of key transformation rounds:");
+			SendKeys.SendWait ("3000");
+			procedureLogger.ExpectedResult ("The \"Key transformation\" spinner is set to 3000.");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//101.15 Click the "OK" button to close the dialog.
 			newPassDialog2.OK ();
@@ -253,6 +249,8 @@ namespace UIAClientAPI
 			//103.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
 			var newPassDialog = window.Finder.ByName ("Create New Password Database").Find<Window> ();
+		        //window.FindButton
+			
 			newPassDialog.Save (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -267,6 +265,7 @@ namespace UIAClientAPI
 			//103.4 Click "Yes" button on the dialog
 			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
 			var createMasterKeyWindow = window.Finder.ByName("KeePass").Find<Window>();
+			// window.Find<Button>("", "m_value").Click()
 			createMasterKeyWindow.Yes (false);
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
 			Thread.Sleep(Config.Instance.ShortDelay);
