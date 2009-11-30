@@ -298,12 +298,23 @@ namespace UIAClientAPI
 
 			//103.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
-			var newPassDialog = window.Find<Window> ("Create New Password Database");
-		        //window.FindButton
-			
+			var newPassDialog = window.Find<Window> ("Create New Password Database");			
 			newPassDialog.Save (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
 			Thread.Sleep(Config.Instance.ShortDelay);
+
+			var comfirmDialog = newKeyFileDialog.Find<Window> ("Confirm Save As");
+			if (comfirmDialog != null) {
+				procedureLogger.ExpectedResult ("The \"Confirm Save As\" dialog opens.");
+				Thread.Sleep (Config.Instance.ShortDelay);
+
+				comfirmDialog.Yes ();
+				procedureLogger.ExpectedResult ("The \"Confirm Save As\" dialog disappears.");
+				Thread.Sleep (Config.Instance.ShortDelay);
+			} else {
+				procedureLogger.ExpectedResult ("The \"Entropy Collection\" window opens.");
+				Thread.Sleep (Config.Instance.ShortDelay);
+			}
 
 			//103.3 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
