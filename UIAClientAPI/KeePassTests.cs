@@ -454,7 +454,7 @@ namespace UIAClientAPI
 
 			//103.15 Click the "Add" button on the "Add Entry" Window
 			var editEntryDialog = window.Find<Window> ("Edit Entry");
-			var datagrid2 = editEntryDialog.Find<DataGrid> ("Notes:");
+			var datagrid2 = editEntryDialog.Find<DataGrid> ("");
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
 			AddEntryDialog.Find<Button> ("Add").Click (false);
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
