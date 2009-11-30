@@ -80,7 +80,7 @@ namespace UIAClientAPI
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.4 Rotate the control for a given degree
-			var pane = window.Finder.ByName ("WindowAndTransformPatternProviderControl, r:0").Find<Pane> ();
+			var pane = window.Find<Pane> ("WindowAndTransformPatternProviderControl, r:0");
 			pane.Rotate (90.0);
 			procedureLogger.ExpectedResult ("The pane would be rotated for 90 degree.");
 			Thread.Sleep (Config.Instance.ShortDelay);

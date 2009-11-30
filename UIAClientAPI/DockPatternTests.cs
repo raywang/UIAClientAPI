@@ -66,7 +66,7 @@ namespace UIAClientAPI
 		public void TestCase105 ()
 		{
 			//105.1 Move the dock to the Left
-			var dock = window.Finder.ByName ("Top").Find<Pane> ();
+			var dock = window.Find<Pane> ("Top");
 			dock.DockPosition = DockPosition.Left;
 			procedureLogger.ExpectedResult ("The Dock control is docked to the left.");
 			Thread.Sleep (Config.Instance.ShortDelay);

@@ -25,6 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Automation;
 using System.Threading;
+using System.Reflection;
 
 namespace UIAClientAPI
 {
@@ -57,41 +58,52 @@ namespace UIAClientAPI
 			this.element = element;
 		}
 
+		//public Element FindByType (ControlType type) 
+		//{ 
+		//        var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type); 
+		//        AutomationElement control = element.FindFirst (TreeScope.Descendants, cond); 
+		//        if (control == null)				
+		//                return null; else				
+
+		//        return Promote (control); 
+		//}
+
+		public T Find<T> () where T : Element
+		{
+			return Find<T> (string.Empty, string.Empty);
+		}
+
+		public T Find<T> (string name) where T : Element
+		{
+			return Find<T> (name, string.Empty);
+		}
+
+		public T Find<T> (string name, string automationId) where T : Element
+		{
+			var uiaType = typeof (T).GetField ("UIAType", BindingFlags.Static | BindingFlags.Public);
+			ControlType type = uiaType.GetValue (null) as ControlType;
+			return Find (type, name, automationId) as T;
+		}
 
 		// Find a Element by name.
-		protected Element Find (ControlType type, string name)
-		{
-			return Find (type, name, string.Empty);
-		}
 
-		public Element FindByType (ControlType type) 
-		{ 
-			var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type); 
-			AutomationElement control = element.FindFirst (TreeScope.Descendants, cond); 
-			if (control == null)				
-				return null; else				
-
-			return Promote (control); 
-		}
-
-		public Finder Finder
-		{
-			get
-			{
-				return new Finder (this.AutomationElement);
-			}
-		}
+		//protected Element Find (ControlType type, string name)
+		//{
+		//        return Find (type, name, string.Empty);
+		//}
 
 		protected Element Find (ControlType type, string name, string automationId)
 		{
-			AndCondition cond;
+			Condition cond;
 
-			if (automationId == string.Empty) {
+			if (automationId == string.Empty && name != string.Empty) {
 				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
 					new PropertyCondition (AutomationElementIdentifiers.NameProperty, name));
-			} else if (name == string.Empty) {
+			} else if (name == string.Empty && automationId != string.Empty) {
 				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
 					new PropertyCondition (AutomationElementIdentifiers.AutomationIdProperty, automationId));
+			} else if (name == string.Empty && automationId == string.Empty) {
+				cond =  new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type);
 			} else {
 				cond = new AndCondition (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type),
 					new PropertyCondition (AutomationElementIdentifiers.NameProperty, name),
@@ -174,6 +186,7 @@ namespace UIAClientAPI
 			return ret;
 		}
 
+		/*
 		public Window FindWindow (string name)
 		{
 			return (Window) Find (ControlType.Window, name);
@@ -278,5 +291,6 @@ namespace UIAClientAPI
 		{
 			return (Pane) Find (ControlType.Pane, name);
 		}
+		 */
 	}
 }

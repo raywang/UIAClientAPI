@@ -192,7 +192,7 @@ namespace UIAClientAPI
 		private void ClickButton (string name, bool log)
 		{
 			try {
-				Button button = FindButton (name);
+				Button button = Find<Button> (name);
 				button.Click (log);
 			} catch (NullReferenceException e) {
 				Console.WriteLine (e);
