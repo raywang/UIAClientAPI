@@ -58,16 +58,6 @@ namespace UIAClientAPI
 			this.element = element;
 		}
 
-		//public Element FindByType (ControlType type) 
-		//{ 
-		//        var cond = new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, type); 
-		//        AutomationElement control = element.FindFirst (TreeScope.Descendants, cond); 
-		//        if (control == null)				
-		//                return null; else				
-
-		//        return Promote (control); 
-		//}
-
 		public T Find<T> () where T : Element
 		{
 			return Find<T> (string.Empty, string.Empty);
@@ -84,13 +74,6 @@ namespace UIAClientAPI
 			ControlType type = uiaType.GetValue (null) as ControlType;
 			return Find (type, name, automationId) as T;
 		}
-
-		// Find a Element by name.
-
-		//protected Element Find (ControlType type, string name)
-		//{
-		//        return Find (type, name, string.Empty);
-		//}
 
 		protected Element Find (ControlType type, string name, string automationId)
 		{
@@ -185,112 +168,5 @@ namespace UIAClientAPI
 				ret [i] = Promote (elm [i]) as T;
 			return ret;
 		}
-
-		/*
-		public Window FindWindow (string name)
-		{
-			return (Window) Find (ControlType.Window, name);
-		}
-
-		public Button FindButton (string name)
-		{
-			return (Button) Find (ControlType.Button, name);
-		}
-
-		public Edit FindEdit (string name)
-		{
-			return (Edit) Find (ControlType.Edit, name);
-		}
-
-		public Edit FindEdit (string name, string automationId)
-		{
-			return (Edit) Find (ControlType.Edit, name, automationId);
-		}
-
-		public CheckBox FindCheckBox (string name)
-		{
-			return (CheckBox) Find (ControlType.CheckBox, name);
-		}
-
-		public RadioButton FindRadioButton (string name)
-		{
-			return (RadioButton) Find (ControlType.RadioButton, name);
-		}
-
-		public TabItem FindTabItem (string name)
-		{
-			return (TabItem) Find (ControlType.TabItem, name);
-		}
-
-		public Spinner FindSpinner (string name)
-		{
-			return (Spinner) Find (ControlType.Spinner, name);
-		}
-
-		public ComboBox FindComboBox (string name)
-		{
-			return (ComboBox) Find (ControlType.ComboBox, name);
-		}
-
-		public MenuBar FindMenuBar ()
-		{
-			return (MenuBar) Find (ControlType.MenuBar, "");
-		}
-
-		public MenuItem FindMenuItem (string name)
-		{
-			return (MenuItem) Find (ControlType.MenuItem, name);
-		}
-
-		public List FindList (string name)
-		{
-			return FindList (name, string.Empty);
-		}
-
-		public List FindList (string name, string automationId)
-		{
-			return (List) Find (ControlType.List, name, automationId);
-		}
-
-		public ListItem FindListItem (string name)
-		{
-			return (ListItem) Find (ControlType.ListItem, name);
-		}
-
-		public ToolBar FindToolBar (string name)
-		{
-			return (ToolBar) Find (ControlType.ToolBar, name);
-		}
-
-		public DataGrid FindDataGrid (string name)
-		{
-			return (DataGrid) Find (ControlType.DataGrid, name);
-		}
-
-		public Document FindDocumentByName (string name)
-		{
-			return (Document) Find (ControlType.Document, name);
-		}
-
-		public Document FindDocumentByAutomationId(string automationId)
-		{
-			return (Document) Find (ControlType.Document, "", automationId);
-		}
-
-		public ScrollBar FindScrollBar (string name)
-		{
-			return (ScrollBar) Find (ControlType.ScrollBar, name);
-		}
-
-		public Text FindText (string name)
-		{
-			return (Text) Find (ControlType.Text, name);
-		}
-
-		public Pane FindPane (string name)
-		{
-			return (Pane) Find (ControlType.Pane, name);
-		}
-		 */
 	}
 }
