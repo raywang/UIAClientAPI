@@ -26,7 +26,7 @@ using System.Text;
 using System.Xml;
 using System.IO;
 
-namespace UIAClientAPI
+namespace UIAClientTestFramework
 {
 	// Logger class which provides Actions logger and ExpectedResults logger.
 	public class ProcedureLogger

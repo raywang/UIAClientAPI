@@ -1,4 +1,4 @@
-﻿// WindowPatternTests.cs: Tests for Window and Dock Patterns.
+﻿// DockPattern.cs: Tests for DockPattern
 //
 // Permission is hereby granted, free of charge, to any person obtaining 
 // a copy of this software and associated documentation files (the 
@@ -11,6 +11,8 @@
 // The above copyright notice and this permission notice shall be 
 // included in all copies or substantial portions of the Software. 
 //  
+
+
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
 // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
 // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
@@ -33,18 +35,20 @@ using System.IO;
 using System.Threading;
 using Core;
 using Core.Factory;
+using System.Windows.Automation;
 using WhiteWindow = Core.UIItems.WindowItems.Window;
 using System.Diagnostics;
+using UIAClientTestFramework;
 
-namespace UIAClientAPI
+namespace ClientTest
 {
-	class WindowPatternTests : TestBase
+	class DockPatternTests : TestBase
 	{
 		Window window = null;
 
 		protected override void LaunchSample ()
 		{
-			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.WindowAndTransformPatternProviderPath);
+			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternProviderPath);
 			procedureLogger.Action ("Launch " + sample);
 
 			try {
@@ -57,33 +61,39 @@ namespace UIAClientAPI
 
 		protected override void OnSetup ()
 		{
-			procedureLogger.ExpectedResult ("WindowPattern & TransformPattern Test window appears.");
-			WhiteWindow win = application.GetWindow ("WindowPattern & TransformPattern Test", InitializeOption.NoCache);
+			procedureLogger.ExpectedResult ("DockPattern Test window appears.");
+			WhiteWindow win = application.GetWindow ("DockPattern Test", InitializeOption.NoCache);
 			window = new Window (win);
 		}
 
-		public void TestCase106 ()
+		public void TestCase105 ()
 		{
-			//106.1 Maximize the window
-			window.Maximized ();
-			procedureLogger.ExpectedResult ("The window would be Maximized.");
+			//105.1 Move the dock to the Left
+			var dock = window.Find<Pane> ("Top");
+			dock.DockPosition = DockPosition.Left;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the left.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//106.2 Minimize the window
-			window.Minimized ();
-			procedureLogger.ExpectedResult ("The window would be Minimized.");
+			//105.2 Move the dock to the Right
+			dock.DockPosition = DockPosition.Right;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the right.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//106.3 Restore the window
-			window.Normal ();
-			procedureLogger.ExpectedResult ("The window would be Restored.");
+			//105.3 Move the dock to the Bottom
+			dock.DockPosition = DockPosition.Bottom;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the bottom.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//106.4 Rotate the control for a given degree
-			var pane = window.Find<Pane> ("WindowAndTransformPatternProviderControl, r:0");
-			pane.Rotate (90.0);
-			procedureLogger.ExpectedResult ("The pane would be rotated for 90 degree.");
+			//105.4 Move the dock to the Top
+			dock.DockPosition = DockPosition.Top;
+			procedureLogger.ExpectedResult ("The Dock control is docked to the top.");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//105.4 Move the dock to be filled.
+			dock.DockPosition = DockPosition.Fill;
+			procedureLogger.ExpectedResult ("The Dock control is docked to be filled.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 		}
+
 	}
 }

@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Automation;
 
-namespace UIAClientAPI
+namespace UIAClientTestFramework
 {
 	public class MenuItem : Element
 	{

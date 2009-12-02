@@ -27,7 +27,7 @@ using System.Windows.Automation;
 using System.Threading;
 using System.Reflection;
 
-namespace UIAClientAPI
+namespace UIAClientTestFramework
 {
 	// Basic instance which provides Find methods (e.g. FindButton, FindEdit..
 	public class Element

@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Automation;
 
-namespace UIAClientAPI
+namespace UIAClientTestFramework
 {
 	// The wrapper class of Button class.
 	public class Button : Element

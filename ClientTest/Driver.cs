@@ -30,8 +30,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Automation;
+using UIAClientTestFramework;
 
-namespace UIAClientAPI
+namespace ClientTest
 {
 	class Driver
 	{
@@ -65,8 +66,6 @@ namespace UIAClientAPI
 				Console.WriteLine ("6          Dockpattern.TestCase106");
 				Console.WriteLine ("all        all the tests");
 			}
-
-			
 
 			foreach (string arg in args)
 				if (string.Equals (arg, "1")) {

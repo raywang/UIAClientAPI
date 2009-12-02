@@ -33,7 +33,7 @@ using Core;
 using System.Threading;
 using NUnit.Framework;
 
-namespace UIAClientAPI
+namespace UIAClientTestFramework
 {
 	// TestBase class helps to launch sample, initiation etc....
 	public class TestBase

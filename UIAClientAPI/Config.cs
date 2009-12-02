@@ -32,7 +32,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace UIAClientAPI
+namespace UIAClientTestFramework
 {
 	public class Config
 	{
