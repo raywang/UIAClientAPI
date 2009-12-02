@@ -57,17 +57,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DockPatternTests.cs" />
-    <Compile Include="Driver.cs" />
-    <Compile Include="KeePassTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowPatternTests.cs" />
+    <Compile Include="WinForms\DockPatternTests.cs" />
+    <Compile Include="WinForms\Driver.cs" />
+    <Compile Include="WinForms\KeePassTests.cs" />
+    <Compile Include="WinForms\WindowPatternTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UIAClientAPI\UIAClientTestFramework.csproj">
       <Project>{4AACD863-5F3A-49E9-B4B5-6B011A7F2741}</Project>
       <Name>UIAClientTestFramework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GTK\" />
+    <Folder Include="Moonlight\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
