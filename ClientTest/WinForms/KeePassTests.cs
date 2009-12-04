@@ -45,6 +45,7 @@ namespace ClientTest
 	class KeePassTests : TestBase 
 	{
 		Window window = null;
+		Finder Finder = null;
 
 		protected override void LaunchSample ()
 		{
@@ -71,7 +72,7 @@ namespace ClientTest
 		{
 			//101.1 Click the "New..." button on the toolbar.
 			var toolBar = window.Find<ToolBar> ();
-			toolBar.Find<Button> ("New...").Click ();
+			toolBar.Find<Button> ("New...").Click (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
@@ -198,13 +199,13 @@ namespace ClientTest
 
 			//101.4 Enter "mono-a11y" into  "Master password" text box.
 			var createMasterKeyWindow = window.Find<Window> ("Create Composite Master Key");
-			var masterPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbPassword");
+			var masterPasswdEdit = createMasterKeyWindow.Finder.ByName ("Repeat password:").ByAutomationId ("m_tbPassword").Find<Edit> ();
 			masterPasswdEdit.Value = "mono-a11y";
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box.
-			var repeatPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbRepeatPassword");
+			var repeatPasswdEdit = createMasterKeyWindow.Finder.ByName ("Repeat password:").ByAutomationId ("m_tbRepeatPassword").Find<Edit> ();
 			repeatPasswdEdit.Value = "mono-a11y";
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
@@ -219,7 +220,6 @@ namespace ClientTest
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("\"Create New Password Database - Step 2\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
-
 
 			//102.1 Click the "Edit" menu item on the menu bar.
 			var menuBar = window.Find<MenuBar> ();
