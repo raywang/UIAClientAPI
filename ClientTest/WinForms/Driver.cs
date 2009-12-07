@@ -36,94 +36,28 @@ namespace ClientTest
 {
 	class Driver
 	{
-		public static void Main (string [] args)
+		public static void Main ()
 		{
-			List<string> input = new List<string>{
-				 "all","1", "2", "3", "4", "5", "6"};
+			//KeePassTests test
+			KeePassTests keePassTests = new KeePassTests ();
+			keePassTests.Init ();
+			keePassTests.TestCase101 ();
+			keePassTests.TestCase102 ();
+			keePassTests.TestCase103 ();
+			keePassTests.TestCase104 ();
+			keePassTests.Quit ();
 
-			if (args.Length == 0) {
-				Console.WriteLine ("please select the testcase you want to test:");
-				Console.WriteLine ("1          keePassTests.TestCase101");
-				Console.WriteLine ("2          keePassTests.TestCase102");
-				Console.WriteLine ("3          keePassTests.TestCase103");
-				Console.WriteLine ("4          keePassTests.TestCase104");
-				Console.WriteLine ("5          windowPattern.TestCase105");
-				Console.WriteLine ("6          Dockpattern.TestCase106");
-				Console.WriteLine ("all        all the tests");
-				return ;
-			}
+			// Dock Pattern Tests.
+			DockPatternTests dockPatterTests = new DockPatternTests ();
+			dockPatterTests.Init ();
+			dockPatterTests.TestCase105 ();
+			dockPatterTests.Quit ();
 
-			bool isNullInput = ( args.Length == 0 );
-			bool isCorrect = input.Contains (args [0]);
-
-			if (args.Length != 1 || !isCorrect) {
-				Console.WriteLine ("please select the testcase you want to test:");
-				Console.WriteLine ("1          keePassTests.TestCase101");
-				Console.WriteLine ("2          keePassTests.TestCase102");
-				Console.WriteLine ("3          keePassTests.TestCase103");
-				Console.WriteLine ("4          keePassTests.TestCase104");
-				Console.WriteLine ("5          windowPattern.TestCase105");
-				Console.WriteLine ("6          Dockpattern.TestCase106");
-				Console.WriteLine ("all        all the tests");
-			}
-
-			foreach (string arg in args)
-				if (string.Equals (arg, "1")) {
-					KeePassTests keePassTests = new KeePassTests ();
-					keePassTests.Init ();
-					keePassTests.TestCase101 ();
-					keePassTests.Quit ();
-
-				} else if (string.Equals (arg, "2")) {
-					KeePassTests keePassTests = new KeePassTests ();
-					keePassTests.Init ();
-					keePassTests.TestCase102 ();
-					keePassTests.Quit ();
-				} else if (string.Equals (arg, "3")) {
-					KeePassTests keePassTests = new KeePassTests ();
-					keePassTests.Init ();
-					keePassTests.TestCase103 ();
-					keePassTests.Quit ();
-				} else if (string.Equals (arg, "4")) {
-					KeePassTests keePassTests = new KeePassTests ();
-					keePassTests.Init ();
-					keePassTests.TestCase104 ();
-					keePassTests.Quit ();
-				} else if (string.Equals (arg, "5")) {
-					DockPatternTests dockPatterTests = new DockPatternTests ();
-					dockPatterTests.Init ();
-					dockPatterTests.TestCase105 ();
-					dockPatterTests.Quit ();
-
-				} else if (string.Equals (arg, "6")) {
-					WindowPatternTests windowPatternTests = new WindowPatternTests ();
-					windowPatternTests.Init ();
-					windowPatternTests.TestCase106 ();
-					windowPatternTests.Quit ();
-
-				} else if (string.Equals (arg, "all")) {
-					//KeePassTests test
-					KeePassTests keePassTests = new KeePassTests ();
-					keePassTests.Init ();
-					keePassTests.TestCase101 ();
-					keePassTests.TestCase102 ();
-					keePassTests.TestCase103 ();
-					keePassTests.TestCase104 ();
-					keePassTests.Quit ();
-
-					// Dock Pattern Tests.
-					DockPatternTests dockPatterTests = new DockPatternTests ();
-					dockPatterTests.Init ();
-					dockPatterTests.TestCase105 ();
-					dockPatterTests.Quit ();
-
-					// Window Pattern Tests.
-					WindowPatternTests windowPatternTests = new WindowPatternTests ();
-					windowPatternTests.Init ();
-					windowPatternTests.TestCase106 ();
-					windowPatternTests.Quit ();
-				}
-
+			// Window Pattern Tests.
+			WindowPatternTests windowPatternTests = new WindowPatternTests ();
+			windowPatternTests.Init ();
+			windowPatternTests.TestCase106 ();
+			windowPatternTests.Quit ();
 		}
 	}
 }

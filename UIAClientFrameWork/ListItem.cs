@@ -30,7 +30,7 @@ namespace UIAClientTestFramework
 	public class ListItem : Element
 	{
 		public static readonly ControlType UIAType = ControlType.ListItem;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 
 		public ListItem (AutomationElement elm)
 			: base (elm)

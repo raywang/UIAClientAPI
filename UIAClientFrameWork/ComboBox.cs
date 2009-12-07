@@ -30,7 +30,7 @@ namespace UIAClientTestFramework
 	public class ComboBox : Element
 	{
 		public static readonly ControlType UIAType = ControlType.ComboBox;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 
 		public ComboBox (AutomationElement elm)
 			: base (elm)

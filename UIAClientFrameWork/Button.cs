@@ -31,13 +31,13 @@ namespace UIAClientTestFramework
 	public class Button : Element
 	{
 		public static readonly ControlType UIAType = ControlType.Button;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public Button (AutomationElement elm)
 			: base (elm)
 		{
 		}
 
+		/*
 		// Perform "Click" action.
 		public void Click ()
 		{
@@ -52,5 +52,34 @@ namespace UIAClientTestFramework
 			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
 			ip.Invoke ();
 		}
+		*/
+		 
+
+		
+		// Perform "Click" action.
+		public void Click ()
+		{
+			Click (true);
+		}
+
+		public bool Click (bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Click the \"{0}\" button.", this.Name));
+
+			bool ret = true;
+			try {
+				Element.GetCurrentPattern<InvokePattern> (element).Invoke ();
+			} catch (Exception ex) {
+				//WriteErrorToLog (ex);
+				ret = false;
+			}
+			return ret;
+		}
+		 
+
+		
+
+
 	}
 }

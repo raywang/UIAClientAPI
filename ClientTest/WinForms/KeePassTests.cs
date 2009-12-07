@@ -292,7 +292,7 @@ namespace ClientTest
 			
 			//103.1 Click "new" button on the toolstripbar
 			var toolBar = window.Find<ToolBar> ();
-			toolBar.Find<Button> ("New...").Click (false);
+			toolBar.Finder.ByName ("New...").Find<Button> ().Click ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
@@ -446,7 +446,6 @@ namespace ClientTest
 			//103.14 Click the "Advanced" tab item on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Advanced\" tab item on the \"Add Entry\" Window");
 			var tabItemAdvanced = window.Find<TabItem> ("Advanced");
-			//var editEntryDialog = window.Find<Window> ("Edit Entry");
 			tabItemAdvanced.Select ();
 			procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -479,6 +478,7 @@ namespace ClientTest
 			NF.Assert.AreEqual (0, aaText.Column);
 			procedureLogger.ExpectedResult ("The \"aa\" text's Colum should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
+
   			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ColumnSpan property");
 			NF.Assert.AreEqual (1, aaText.ColumnSpan);
 			procedureLogger.ExpectedResult ("The \"aa\" text's ColumnSpan should be 1");

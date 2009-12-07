@@ -30,7 +30,7 @@ namespace UIAClientTestFramework
 	public class Edit : Element
 	{
 		public static readonly ControlType UIAType = ControlType.Edit;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
+
 
 		public Edit (AutomationElement elm)
 			: base (elm)
