@@ -39,13 +39,16 @@ using System.Windows.Automation;
 using WhiteWindow = Core.UIItems.WindowItems.Window;
 using System.Diagnostics;
 using UIAClientTestFramework;
+using NUnit.Framework;
 
 namespace ClientTest
 {
+	[TestFixture]
 	class DockPatternTests : TestBase
 	{
 		Window window = null;
 
+		[TestFixtureSetUp]
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternProviderPath);
@@ -66,6 +69,7 @@ namespace ClientTest
 			window = new Window (win);
 		}
 
+		[Test]
 		public void TestCase105 ()
 		{
 			//105.1 Move the dock to the Left

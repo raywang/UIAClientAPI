@@ -36,13 +36,16 @@ using Core.Factory;
 using WhiteWindow = Core.UIItems.WindowItems.Window;
 using System.Diagnostics;
 using UIAClientTestFramework;
+using NUnit.Framework;
 
 namespace ClientTest
 {
+	[TestFixture]
 	class WindowPatternTests : TestBase
 	{
 		Window window = null;
 
+		[TestFixtureSetUp]
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.WindowAndTransformPatternProviderPath);
@@ -63,6 +66,7 @@ namespace ClientTest
 			window = new Window (win);
 		}
 
+		[Test]
 		public void TestCase106 ()
 		{
 			//106.1 Maximize the window
