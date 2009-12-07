@@ -30,7 +30,6 @@ namespace UIAClientTestFramework
 	public class Pane : Element
 	{
 		public static readonly ControlType UIAType = ControlType.Pane;
-		ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public Pane (AutomationElement elm)
 			: base (elm)

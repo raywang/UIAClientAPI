@@ -171,8 +171,10 @@ namespace UIAClientTestFramework
 		}
 
 		//add a new Finder property
-		public Finder Finder { get { return new Finder (this.AutomationElement); 
-			} }
+		public Finder Finder { 
+			get { return new Finder (this.AutomationElement); 
+			}	 
+		}
 
 		//get the Pattern of the control
 		public static T GetCurrentPattern<T> (AutomationElement ae) where T : BasePattern

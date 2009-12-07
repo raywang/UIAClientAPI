@@ -35,7 +35,8 @@ using NUnit.Framework;
 
 namespace UIAClientTestFramework
 {
-	// TestBase class helps to launch sample, initiation etc....
+	// TestBase class helps to launch sample, initiation etc
+	[TestFixture]
 	public class TestBase
 	{
 		Config config = new Config ();
@@ -43,6 +44,7 @@ namespace UIAClientTestFramework
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
+		[TestFixtureSetUp]
 		public void Init ()
 		{
 			ProcedureLogger.Init ();
@@ -51,6 +53,7 @@ namespace UIAClientTestFramework
 			OnSetup ();
 		}
 
+		[TestFixtureTearDown]
 		public void Quit ()
 		{
 			OnQuit ();

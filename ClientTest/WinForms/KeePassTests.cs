@@ -34,19 +34,22 @@ using System.Threading;
 using Core;
 using Core.Factory;
 using WhiteWindow = Core.UIItems.WindowItems.Window;
-using NF = NUnit.Framework;
+using NUnit.Framework;
 using System.Windows.Automation;
 using System.Diagnostics;
 using SWF = System.Windows.Forms;
 using UIAClientTestFramework;
+using MyList = UIAClientTestFramework.List;
+using MyText = UIAClientTestFramework.Text;
 
 namespace ClientTest 
 {
+	[TestFixture]
 	class KeePassTests : TestBase 
 	{
 		Window window = null;
-		Finder Finder = null;
 
+		[TestFixtureSetUp]
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
@@ -68,6 +71,7 @@ namespace ClientTest
 		}
 
 		//TestCase101 Init Sample, create a new account
+		[Test]
 		public void TestCase101 ()
 		{
 			//101.1 Click the "New..." button on the toolbar.
@@ -177,6 +181,7 @@ namespace ClientTest
 		}
 
 		//TestCase102 Organize the group
+		[Test]
 		public void TestCase102 ()
 		{
 			//101.1
@@ -237,7 +242,7 @@ namespace ClientTest
 
 			//102.3 Select list item "30" on the "Icon Picker" dialog.
 			var iconPickerWindow = editGroupWindow.Find<Window> ("Icon Picker");
-			var standardIconList = iconPickerWindow.Find<List> ("", "m_lvIcons");
+			var standardIconList = iconPickerWindow.Finder.ByAutomationId ("m_lvIcons").Find<MyList> ();
 			var listItem30 = standardIconList.Find<ListItem> ("30");
 			listItem30.Select ();
 			procedureLogger.ExpectedResult ("The \"30\" list item is selected.");
@@ -287,6 +292,7 @@ namespace ClientTest
 		}
 		
 		//TestCase103 test the "Add Entry" dialog
+		[Test]
 		public void TestCase103 ()
 		{
 			
@@ -333,32 +339,32 @@ namespace ClientTest
 			//103.7 Check "Add Entry" window's default WindowPattern Property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMaximizeProperty");
 			Window addEntryWindow = window.Find<Window> ("Add Entry");
-			NF.Assert.AreEqual (false, addEntryWindow.CanMaximize);
+			Assert.AreEqual (false, addEntryWindow.CanMaximize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMinimizeProperty");
-			NF.Assert.AreEqual (false, addEntryWindow.CanMinimize);
+			Assert.AreEqual (false, addEntryWindow.CanMinimize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's IsModalProperty");
-			NF.Assert.AreEqual (true, addEntryWindow.IsModal);
+			Assert.AreEqual (true, addEntryWindow.IsModal);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's IsTopmostProperty");
-			NF.Assert.AreEqual (false, addEntryWindow.IsTopmost);
+			Assert.AreEqual (false, addEntryWindow.IsTopmost);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's WindowInteractionStateProperty");
-			NF.Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, addEntryWindow.WindowInteractionState);
+			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, addEntryWindow.WindowInteractionState);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's WindowVisualStateProperty");
-			NF.Assert.AreEqual (WindowVisualState.Minimized, addEntryWindow.WindowVisualState);
+			Assert.AreEqual (WindowVisualState.Minimized, addEntryWindow.WindowVisualState);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
@@ -371,17 +377,17 @@ namespace ClientTest
 
 			//check the transformpattern's property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMoveProperty");
-			NF.Assert.AreEqual (true, addEntryWindow.CanMove);
+			Assert.AreEqual (true, addEntryWindow.CanMove);
 			procedureLogger.ExpectedResult ("The window's CanMoveProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanSizeProperty");
-			NF.Assert.AreEqual (false, addEntryWindow.CanResize);
+			Assert.AreEqual (false, addEntryWindow.CanResize);
 			procedureLogger.ExpectedResult ("The window's CanSizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanRotateProperty");
-			NF.Assert.AreEqual (false, addEntryWindow.CanRotate);
+			Assert.AreEqual (false, addEntryWindow.CanRotate);
 			procedureLogger.ExpectedResult ("The window's CanRotateProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -408,32 +414,32 @@ namespace ClientTest
 
 			//103.12 Check the scroll bar's property
 			procedureLogger.Action ("Check scroll bar's IsReadOnlyProperty");
-			NF.Assert.AreEqual (false, scrollBar.IsReadOnly);
+			Assert.AreEqual (false, scrollBar.IsReadOnly);
 			procedureLogger.ExpectedResult ("The scroll bar's IsReadOnlyProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's LargeChangeProperty");
-			NF.Assert.AreEqual (131, (int)scrollBar.LargeChange);
+			Assert.AreEqual (131, (int)scrollBar.LargeChange);
 			procedureLogger.ExpectedResult ("The scroll bar's large chaged value should be 131");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's LargeChangeProperty");
-			NF.Assert.AreEqual (1, (int) scrollBar.SmallChange);
+			Assert.AreEqual (1, (int) scrollBar.SmallChange);
 			procedureLogger.ExpectedResult ("The scroll bar's large chaged value should be 131");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's Maximum value");
-			NF.Assert.AreEqual (362, (int)scrollBar.Maximum);
+			Assert.AreEqual (362, (int)scrollBar.Maximum);
 			procedureLogger.ExpectedResult ("The scroll bar's Maximum value shoule be 362");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's Minimum value");
-			NF.Assert.AreEqual (0, (int)scrollBar.Minimum);
+			Assert.AreEqual (0, (int)scrollBar.Minimum);
 			procedureLogger.ExpectedResult ("The scroll bar's minimum value shoule be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's value whether equal to 300");
-			NF.Assert.AreEqual (300, (int)scrollBar.Value);
+			Assert.AreEqual (300, (int)scrollBar.Value);
 			procedureLogger.ExpectedResult ("The scroll bar's value should be 300");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -472,32 +478,32 @@ namespace ClientTest
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//103.18 Check the "aa" text's TableItemPattern
-			var aaText = AddEntryDialog.Find<Text> ("aa");
+			var aaText = AddEntryDialog.Find<MyText> ("aa");
 			
 			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's Column property");
-			NF.Assert.AreEqual (0, aaText.Column);
+			Assert.AreEqual (0, aaText.Column);
 			procedureLogger.ExpectedResult ("The \"aa\" text's Colum should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
   			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ColumnSpan property");
-			NF.Assert.AreEqual (1, aaText.ColumnSpan);
+			Assert.AreEqual (1, aaText.ColumnSpan);
 			procedureLogger.ExpectedResult ("The \"aa\" text's ColumnSpan should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's Row property");
-			NF.Assert.AreEqual (0, aaText.Row);
+			Assert.AreEqual (0, aaText.Row);
 			procedureLogger.ExpectedResult ("The \"aa\" text's Row should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's RowSpan property");
-			NF.Assert.AreEqual (1, aaText.RowSpan);
+			Assert.AreEqual (1, aaText.RowSpan);
 			procedureLogger.ExpectedResult ("The \"aa\" text's RowSpan should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ContainingGrid property");
 			AutomationElement dataGridItem = datagrid2.GetItem (0, 0);
-			AutomationElement aatextItem = window.Find<Text> ("aa").AutomationElement;
-			NF.Assert.AreEqual (dataGridItem, aatextItem);
+			AutomationElement aatextItem = window.Find<MyText> ("aa").AutomationElement;
+			Assert.AreEqual (dataGridItem, aatextItem);
 			procedureLogger.ExpectedResult ("The \"aa\" text's ContainingGrid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 			
@@ -512,6 +518,7 @@ namespace ClientTest
 		}
 
 		//TestCase104 test the "Password Generator" dialog
+		[Test]
 		public void TestCase104 ()
 		{
 			//104.1 Click "new" button on the toolstripbar
@@ -571,12 +578,12 @@ namespace ClientTest
 			//104.9 Check the datagrid's Coulum  is 11 and Row count is 2
 			procedureLogger.Action ("check GridPattern 's property :ColumnCount");
 			DataGrid dataGrid = window.Find<DataGrid>();
-			NF.Assert.AreEqual (11, dataGrid.ColumnCount);
+			Assert.AreEqual (11, dataGrid.ColumnCount);
 			procedureLogger.ExpectedResult ("the data grid 's ColumnCount should be 11");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("check GridPattern 's property :RowCount");
-			NF.Assert.AreEqual (2, dataGrid.RowCount);
+			Assert.AreEqual (2, dataGrid.RowCount);
 			procedureLogger.ExpectedResult ("the data grid 's RowCount should be 2");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -600,20 +607,20 @@ namespace ClientTest
 
 			//104.13 Check the datagrid's Coulum is 11 and Row count is 3
 			procedureLogger.Action ("check GridPattern 's property :ColumnCount");
-			NF.Assert.AreEqual (11, dataGrid.ColumnCount);
+			Assert.AreEqual (11, dataGrid.ColumnCount);
 			procedureLogger.ExpectedResult ("the data grid 's ColumnCount should be 11");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("check GridPattern 's property :RowCount");
-			NF.Assert.AreEqual (3, dataGrid.RowCount);
+			Assert.AreEqual (3, dataGrid.RowCount);
 			procedureLogger.ExpectedResult ("the data grid 's RowCount should be 3");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.14 Get the (0,0) element of the datagrid , check if it is "Sample Entry" 
 			procedureLogger.Action ("Get the (0,0) element of the datagrid , check if it is \"Sample Entry\"");
 			AutomationElement dataGridItem = dataGrid.GetItem (0, 0);
-			AutomationElement textItem = window.Find<Text> ("Sample Entry").AutomationElement;
-			NF.Assert.AreEqual (dataGridItem, textItem);
+			AutomationElement textItem = window.Find<MyText> ("Sample Entry").AutomationElement;
+			Assert.AreEqual (dataGridItem, textItem);
 			procedureLogger.ExpectedResult ("the (0,0) item in the datagrid should be Sample Entry");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -622,32 +629,32 @@ namespace ClientTest
 
 			//104.15 Check the ScrollPattern's default property of datagrid
 			procedureLogger.Action ("Check Horizontal scroll bar's HorizontallyScrollable is True");
-			NF.Assert.AreEqual (true, dataGrid.HorizontallyScrollable);
+			Assert.AreEqual (true, dataGrid.HorizontallyScrollable);
 			procedureLogger.ExpectedResult ("The scroll bar's HorizontallyScrollable is True");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check Horizontal scroll bar's HorizontalScrollPercent is 0.0");
-			NF.Assert.AreEqual (0.0, dataGrid.HorizontalScrollPercent);
+			Assert.AreEqual (0.0, dataGrid.HorizontalScrollPercent);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's HorizontalScrollPercent should be 0.0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check Horizontal scroll bar's HorizontalViewSize is 75.711159737417944");
-			NF.Assert.AreEqual (75.711159737417944, dataGrid.HorizontalViewSize);
+			Assert.AreEqual (75.711159737417944, dataGrid.HorizontalViewSize);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's HorizontalViewSize should be 75.711159737417944");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check Horizontal scroll bar's VerticallyScrollable is false");
-			NF.Assert.AreEqual (false, dataGrid.VerticallyScrollable);
+			Assert.AreEqual (false, dataGrid.VerticallyScrollable);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be false");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check Horizontal scroll bar's VerticalScrollPercent is -1");
-			NF.Assert.AreEqual (-1, dataGrid.VerticalScrollPercent);
+			Assert.AreEqual (-1, dataGrid.VerticalScrollPercent);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticalScrollPercent should be -1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check Horizontal scroll bar's VerticalViewSize is 100");
-			NF.Assert.AreEqual (100, dataGrid.VerticalViewSize);
+			Assert.AreEqual (100, dataGrid.VerticalViewSize);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticalViewSize should be 100");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -665,7 +672,7 @@ namespace ClientTest
 
 			//104.18 Check the horizotal scrollbar's position should be 100.0d
 			procedureLogger.Action ("after the LargeIncrement and SmallIncrement the scroll's position is 100.0d ");
-			NF.Assert.AreEqual (100.0d, dataGrid.HorizontalScrollPercent);
+			Assert.AreEqual (100.0d, dataGrid.HorizontalScrollPercent);
 			procedureLogger.ExpectedResult ("the scroll's position is 100.0d ");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -683,7 +690,7 @@ namespace ClientTest
 
 			//104.21 Check the horizotal scrollbar's position should be 0.0d
 			procedureLogger.Action ("after the LargeDecrement and SmallDecrement the scroll's position is 0.0d");
-			NF.Assert.AreEqual (0.0d, dataGrid.HorizontalScrollPercent);
+			Assert.AreEqual (0.0d, dataGrid.HorizontalScrollPercent);
 			procedureLogger.ExpectedResult ("the scroll's position is 0.0d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -695,13 +702,13 @@ namespace ClientTest
 
 			//104.23 Check the horizotal scrollbar's position should be  54.054054054054056d
 			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is  54.054054054054056d");
-			NF.Assert.AreEqual (54.054054054054056d, dataGrid.HorizontalScrollPercent);
+			Assert.AreEqual (54.054054054054056d, dataGrid.HorizontalScrollPercent);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be  54.054054054054056d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.24 Check the data grid's MultipleViewPattern property
 			procedureLogger.Action ("Check the data grid's CurrentView is 1");
-			NF.Assert.AreEqual (1, dataGrid.CurrentView);
+			Assert.AreEqual (1, dataGrid.CurrentView);
 			procedureLogger.ExpectedResult ("the data grid 's CurrentViewProperty should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -711,73 +718,73 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be  54.054054054054056d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.26 Retrieves the supported name of the view pattern of the data grid, NF.Assert its value is one
-			procedureLogger.Action ("Retrieves the supported name of the view pattern of the data grid, NF.Assert its value is one");
-			NF.Assert.AreEqual (1, dataGrid.CurrentView);
+			//104.26 Retrieves the supported name of the view pattern of the data grid, Assert its value is one
+			procedureLogger.Action ("Retrieves the supported name of the view pattern of the data grid, Assert its value is one");
+			Assert.AreEqual (1, dataGrid.CurrentView);
 			procedureLogger.ExpectedResult ("The supported name's value of the view pattern of the data grid is one");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.27 Check the GridItemPattern's property of text in data grid
 			procedureLogger.Action ("Check the column of data grid");
-			NF.Assert.AreEqual (0, dataGrid.Column);
+			Assert.AreEqual (0, dataGrid.Column);
 			procedureLogger.ExpectedResult ("the column of data grid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the column span of data grid");
 			procedureLogger.ExpectedResult ("the column span of data grid should be 1");
-			NF.Assert.AreEqual (1, dataGrid.ColumnSpan);
+			Assert.AreEqual (1, dataGrid.ColumnSpan);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the row of data grid");
-			NF.Assert.AreEqual (0, dataGrid.Row);
+			Assert.AreEqual (0, dataGrid.Row);
 			procedureLogger.ExpectedResult ("the row of data grid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the row span of data grid");
-			NF.Assert.AreEqual (1, dataGrid.RowSpan);
+			Assert.AreEqual (1, dataGrid.RowSpan);
 			procedureLogger.ExpectedResult ("the row span of data grid should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the ContainingGrid of data grid");
-			NF.Assert.AreEqual (null, dataGrid.ContainingGrid);
+			Assert.AreEqual (null, dataGrid.ContainingGrid);
 			procedureLogger.ExpectedResult ("the ContainingGrid of data grid should be null");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.28 Check the TableItem's property of text in data grid
 			procedureLogger.Action ("Check the TableItemColumn of the text in datagrid");
-			Text sampleText = window.Find<Text> ("Sample Entry");
-			NF.Assert.AreEqual (0, sampleText.TableItemColumn);
+			MyText sampleText = window.Find<MyText> ("Sample Entry");
+			Assert.AreEqual (0, sampleText.TableItemColumn);
 			procedureLogger.ExpectedResult ("the TableItemColumn of the text in datagrid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemColumnSpan of the text in datagrid");
-			NF.Assert.AreEqual (1, sampleText.TableItemColumnSpan);
+			Assert.AreEqual (1, sampleText.TableItemColumnSpan);
 			procedureLogger.ExpectedResult ("the TableItemColumnSpan of the text in datagrid should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemContainingGrid of the text in datagrid");
-			NF.Assert.AreEqual (dataGrid.AutomationElement, sampleText.TableItemContainingGrid);
+			Assert.AreEqual (dataGrid.AutomationElement, sampleText.TableItemContainingGrid);
 			procedureLogger.ExpectedResult ("the TableItemContainingGrid of the text in datagrid should be dataGrid.AutomationElement");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemRow of the text in datagrid");
-			NF.Assert.AreEqual (0, sampleText.TableItemRow);
+			Assert.AreEqual (0, sampleText.TableItemRow);
 			procedureLogger.ExpectedResult ("the TableItemRow of the text in datagrid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemRowHeaderItems of the text in datagrid");
-			NF.Assert.AreEqual ("", sampleText.TableItemRowHeaderItems);
+			Assert.AreEqual ("", sampleText.TableItemRowHeaderItems);
 			procedureLogger.ExpectedResult ("the TableItemRowHeaderItems of the text in datagrid should be none");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemColumnHeaderItems of the text in datagrid");
-			NF.Assert.AreEqual (sampleText.AutomationElement.GetCurrentPropertyValue (GridItemPattern.ContainingGridProperty),
+			Assert.AreEqual (sampleText.AutomationElement.GetCurrentPropertyValue (GridItemPattern.ContainingGridProperty),
 				dataGrid.AutomationElement);
 			procedureLogger.ExpectedResult ("the TableItemColumnHeaderItems of the text in datagrid should be ");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check the TableItemRowSpan of the text in datagrid");
-			NF.Assert.AreEqual (1, sampleText.TableItemRowSpan);
+			Assert.AreEqual (1, sampleText.TableItemRowSpan);
 			procedureLogger.ExpectedResult ("the TableItemRowSpan of the text in datagrid should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -815,7 +822,7 @@ namespace ClientTest
 
 			//104.34 Check the vertical scrollbar's position
 			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is 100.0d");
-			NF.Assert.AreEqual (100.0d, passwordDocument.VerticalScrollPercent);
+			Assert.AreEqual (100.0d, passwordDocument.VerticalScrollPercent);
 			procedureLogger.ExpectedResult ("The vertical scroll bar's Vertically Scrollable should be 100.0d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -833,7 +840,7 @@ namespace ClientTest
 
 			//104.37 Check the vertical scrollbar's position
 			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is 0.0d");
-			NF.Assert.AreEqual (0.0d, passwordDocument.VerticalScrollPercent);
+			Assert.AreEqual (0.0d, passwordDocument.VerticalScrollPercent);
 			procedureLogger.ExpectedResult ("The vertical scroll bar's VerticallyScrollable should be 0.0d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -845,7 +852,7 @@ namespace ClientTest
 
 			//104.39 Check the vertical scrollbar's position
 			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is 50.0d");
-			NF.Assert.AreEqual (50.0d, passwordDocument.VerticalScrollPercent);
+			Assert.AreEqual (50.0d, passwordDocument.VerticalScrollPercent);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be 50.0d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
