@@ -35,5 +35,31 @@ namespace UIAClientAPI
 			: base (elm)
 		{
 		}
+
+		public void GetViewName (int viewId)
+		{
+			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
+			mvp.GetViewName (viewId);
+		}
+
+		public void SetCurrentView (int viewId)
+		{
+			SetCurrentView (viewId, true);
+		}
+
+		public void SetCurrentView (int viewId, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set current view to \"{0}\".", this.Name));
+
+			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
+			mvp.SetCurrentView (viewId);
+		}
+
+		public AutomationElement [] GetSelection ()
+		{
+			SelectionPattern sp = (SelectionPattern) element.GetCurrentPattern (SelectionPattern.Pattern);
+			return (AutomationElement []) sp.Current.GetSelection ();
+		}
 	}
 }

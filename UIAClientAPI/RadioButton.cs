@@ -30,7 +30,6 @@ namespace UIAClientAPI
 	public class RadioButton : Element
 	{
 		public static readonly ControlType UIAType = ControlType.RadioButton;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public RadioButton (AutomationElement elm)
 			: base (elm)

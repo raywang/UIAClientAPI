@@ -32,8 +32,6 @@ namespace UIAClientAPI
 	{
 		public static readonly ControlType UIAType = ControlType.Window;
 
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
-
 		public Window (Core.UIItems.WindowItems.Window elm)
 			: base (elm)
 		{

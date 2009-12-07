@@ -31,7 +31,6 @@ namespace UIAClientAPI
 	public class Button : Element
 	{
 		public static readonly ControlType UIAType = ControlType.Button;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public Button (AutomationElement elm)
 			: base (elm)

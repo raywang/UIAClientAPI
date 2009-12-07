@@ -78,9 +78,15 @@ namespace UIAClientAPI
 			//101.2 Enter "TestCase101" in the "File Name" combo box of the dailog.
 			var newPassDialog = window.Find<Window> ("Create New Password Database");
 			var fileNameEdit = newPassDialog.Find<Edit> ("File name:");
-			fileNameEdit.Value = "TestCase101";
+			fileNameEdit.SetValue ("TestCase101");
 			procedureLogger.ExpectedResult ("\"TestCase101\" entered in the \"File Name\" box.");
+			Assert.AreEqual (fileNameEdit.Value, "TestCase101"); 
 			Thread.Sleep(Config.Instance.ShortDelay);
+
+			var itemViewList = newPassDialog.Find<List> ("Items View");
+			itemViewList.SetCurrentView (0);
+			procedureLogger.ExpectedResult ("The current view of the dialog is \"Extra Large Icons\"");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//101.3 Click the "Save" button of the dialog.
 			newPassDialog.Save ();
@@ -90,14 +96,16 @@ namespace UIAClientAPI
 			//101.4 Enter "mono-a11y" into  "Master password" text box.
 			var createMasterKeyWindow = window.Find<Window> ("Create Composite Master Key");
 			var masterPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbPassword");
-			masterPasswdEdit.Value = "mono-a11y";
+			masterPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box.");
+			Assert.AreEqual (masterPasswdEdit.Value, "mono-a11y");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box.
 			var repeatPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbRepeatPassword");
-			repeatPasswdEdit.Value = "mono-a11y";
+			repeatPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
+			Assert.AreEqual (repeatPasswdEdit.Value, "mono-a11y");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//101.6 Check "Key file/option" CheckBox
@@ -178,43 +186,43 @@ namespace UIAClientAPI
 		//TestCase102 Organize the group
 		public void TestCase102 ()
 		{
-			//101.1
+			//102
 			var toolBar = window.Find<ToolBar> ();
 			toolBar.Find<Button> ("New...").Click ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//101.2 Enter "TestCase101" in the "File Name" combo box of the dailog.
+			//102 Enter "TestCase101" in the "File Name" combo box of the dailog.
 			var newPassDialog = window.Find<Window> ("Create New Password Database");
 			var fileNameEdit = newPassDialog.Find<Edit> ("File name:");
-			fileNameEdit.Value = "TestCase101";
+			fileNameEdit.SetValue ("TestCase101");
 			procedureLogger.ExpectedResult ("\"TestCase101\" entered in the \"File Name\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//101.3 Click the "Save" button of the dialog.
+			//102 Click the "Save" button of the dialog.
 			newPassDialog.Save ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//101.4 Enter "mono-a11y" into  "Master password" text box.
+			//102 Enter "mono-a11y" into  "Master password" text box.
 			var createMasterKeyWindow = window.Find<Window> ("Create Composite Master Key");
 			var masterPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbPassword");
-			masterPasswdEdit.Value = "mono-a11y";
+			masterPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box.
+			//102 Re-Enter "mono-a11y" into "Repeat password" text box.
 			var repeatPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbRepeatPassword");
-			repeatPasswdEdit.Value = "mono-a11y";
+			repeatPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//101.6 Click the "OK" button on the "Create Master Key" Window
+			//102 Click the "OK" button on the "Create Master Key" Window
 			createMasterKeyWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Create Master Key\" window disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//101.7
+			//102.
 			var newPassDialog2 = window.Find<Window> ("Create New Password Database - Step 2");
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("\"Create New Password Database - Step 2\" dialog disappears.");
@@ -241,6 +249,9 @@ namespace UIAClientAPI
 			var listItem30 = standardIconList.Find<ListItem> ("30");
 			listItem30.Select ();
 			procedureLogger.ExpectedResult ("The \"30\" list item is selected.");
+			// In standardIconList List, we only allow single selection, so we
+			// assert [0] is reasonable.
+			Assert.AreEqual(standardIconList.GetSelection()[0].Current.Name, "30");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//102.4 Unselect list item "30" on the "Icon Picker" dialog.

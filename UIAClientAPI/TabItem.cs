@@ -30,7 +30,6 @@ namespace UIAClientAPI
 	public class TabItem : Element
 	{
 		public static readonly ControlType UIAType = ControlType.TabItem;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public TabItem (AutomationElement elm)
 			: base (elm)

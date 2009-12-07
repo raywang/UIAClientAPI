@@ -33,6 +33,7 @@ namespace UIAClientAPI
 	public class Element
 	{
 		protected AutomationElement element;
+		protected ProcedureLogger procedureLogger = new ProcedureLogger();
 
 		// AutomationElement Name property.>
 		public string Name

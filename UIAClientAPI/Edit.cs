@@ -30,7 +30,6 @@ namespace UIAClientAPI
 	public class Edit : Element
 	{
 		public static readonly ControlType UIAType = ControlType.Edit;
-		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		public Edit (AutomationElement elm)
 			: base (elm)
@@ -40,17 +39,21 @@ namespace UIAClientAPI
 		// wrapper SetValue method as a property to set value to the Edit control.
 		public string Value
 		{
-			get
-			{
-				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
-				return vp.Current.Value;
-			}
-			set
-			{
+			get { return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty); }
+		}
+
+		public void SetValue (string value)
+		{
+			SetValue (value, true);
+		}
+
+		public void SetValue (string value, bool log)
+		{
+			if (log == true)
 				procedureLogger.Action (string.Format ("Set \"{0}\" to the \"{1}\".", value, this.Name));
-				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
-				vp.SetValue (value);
-			}
+
+			ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
+			vp.SetValue (value);
 		}
 	}
 }
