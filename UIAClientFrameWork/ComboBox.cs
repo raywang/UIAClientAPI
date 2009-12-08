@@ -36,6 +36,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
+		// The methods of ExpandCollapsePattern
 		public void Expand ()
 		{
 			Expand (true);
@@ -62,6 +63,14 @@ namespace UIAClientTestFramework
 
 			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
 			ecp.Collapse ();
+		}
+
+		// The property of ExpandCollapsePattern
+		public ExpandCollapseState ExpandCollapseState
+		{
+			get {
+				return (ExpandCollapseState) element.GetCurrentPropertyValue (ExpandCollapsePattern.ExpandCollapseStateProperty);
+			}
 		}
 	}
 }

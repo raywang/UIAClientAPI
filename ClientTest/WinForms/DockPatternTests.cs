@@ -48,7 +48,6 @@ namespace ClientTest
 	{
 		Window window = null;
 
-		[TestFixtureSetUp]
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternProviderPath);
@@ -74,28 +73,39 @@ namespace ClientTest
 		{
 			//105.1 Move the dock to the Left
 			var dock = window.Find<Pane> ("Top");
-			dock.DockPosition = DockPosition.Left;
+			dock.SetDockPosition (DockPosition.Left);
 			procedureLogger.ExpectedResult ("The Dock control is docked to the left.");
+			Assert.AreEqual (dock.DockPosition, DockPosition.Left);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//105.2 Move the dock to the Right
-			dock.DockPosition = DockPosition.Right;
+			dock.SetDockPosition (DockPosition.Right);
 			procedureLogger.ExpectedResult ("The Dock control is docked to the right.");
+			Assert.AreEqual (dock.DockPosition, DockPosition.Right);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//105.3 Move the dock to the Bottom
-			dock.DockPosition = DockPosition.Bottom;
+			dock.SetDockPosition (DockPosition.Bottom);
 			procedureLogger.ExpectedResult ("The Dock control is docked to the bottom.");
+			Assert.AreEqual (dock.DockPosition, DockPosition.Bottom);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//105.4 Move the dock to the Top
-			dock.DockPosition = DockPosition.Top;
+			dock.SetDockPosition (DockPosition.Top);
 			procedureLogger.ExpectedResult ("The Dock control is docked to the top.");
+			Assert.AreEqual (dock.DockPosition, DockPosition.Top);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//105.4 Move the dock to be filled.
-			dock.DockPosition = DockPosition.Fill;
+			//105.5 Move the dock to be Filled.
+			dock.SetDockPosition (DockPosition.Fill);
 			procedureLogger.ExpectedResult ("The Dock control is docked to be filled.");
+			Assert.AreEqual (dock.DockPosition, DockPosition.Fill);
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//105.6 Move the dock to None.
+			dock.SetDockPosition (DockPosition.None);
+			procedureLogger.ExpectedResult ("The Dock control is docked to none.");
+			Assert.AreEqual (dock.DockPosition, DockPosition.None);
 			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 

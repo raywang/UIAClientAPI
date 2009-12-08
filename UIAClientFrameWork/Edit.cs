@@ -36,12 +36,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		// wrapper SetValue method as a property to set value to the Edit control.
-		public string Value
-		{
-			get { return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty); }
-		}
-
+		// The method of ValuePattern
 		public void SetValue (string value)
 		{
 			SetValue (value, true);
@@ -54,6 +49,19 @@ namespace UIAClientTestFramework
 
 			ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
 			vp.SetValue (value);
+		}
+
+		// The property of ValuePatter
+		public string Value {
+			get {
+				return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty);
+			}
+		}
+
+		public bool IsReadOnly {
+			get {
+				return (bool) element.GetCurrentPropertyValue (ValuePattern.IsReadOnlyProperty);
+			}
 		}
 	}
 }

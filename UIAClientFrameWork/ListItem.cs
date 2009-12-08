@@ -44,7 +44,7 @@ namespace UIAClientTestFramework
 		public void Show (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Scroll {0} Into View.", this.Name));
+				procedureLogger.Action (string.Format ("Scroll {0} into view.", this.Name));
 
 			ScrollItemPattern sip = (ScrollItemPattern) element.GetCurrentPattern (ScrollItemPattern.Pattern);
 			sip.ScrollIntoView ();
@@ -58,7 +58,7 @@ namespace UIAClientTestFramework
 		public void Select (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("{0} is selected.", this.Name));
+				procedureLogger.Action (string.Format ("Select {0}.", this.Name));
 
 			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sip.Select ();
@@ -72,7 +72,7 @@ namespace UIAClientTestFramework
 		public void RemoveFromSelection (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("{0} is removed from selection.", this.Name));
+				procedureLogger.Action (string.Format ("Unselect {0}.", this.Name));
 
 			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sip.RemoveFromSelection ();
@@ -86,7 +86,7 @@ namespace UIAClientTestFramework
 		public void AddToSelection (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("{0} is added to selection.", this.Name));
+				procedureLogger.Action (string.Format ("Select {0}.", this.Name));
 
 			SelectionItemPattern sip = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sip.AddToSelection ();

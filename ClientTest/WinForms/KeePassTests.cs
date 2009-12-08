@@ -49,7 +49,6 @@ namespace ClientTest
 	{
 		Window window = null;
 
-		[TestFixtureSetUp]
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
@@ -84,12 +83,14 @@ namespace ClientTest
 			var newPassDialog = window.Find<Window> ("Create New Password Database");
 			var fileNameEdit = newPassDialog.Find<Edit> ("File name:");
 			fileNameEdit.SetValue ("TestCase101");
+			Thread.Sleep (Config.Instance.ShortDelay);
 			procedureLogger.ExpectedResult ("\"TestCase101\" entered in the \"File Name\" box.");
 			Assert.AreEqual (fileNameEdit.Value, "TestCase101"); 
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			var itemViewList = newPassDialog.Find<MyList> ("Items View");
 			itemViewList.SetCurrentView (0);
+			Thread.Sleep (Config.Instance.ShortDelay);
 			procedureLogger.ExpectedResult ("The current view of the dialog is \"Extra Large Icons\"");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -100,23 +101,25 @@ namespace ClientTest
 
 			//101.4 Enter "mono-a11y" into  "Master password" text box.
 			var createMasterKeyWindow = window.Find<Window> ("Create Composite Master Key");
-			var masterPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbPassword");
+			var masterPasswdEdit = createMasterKeyWindow.Finder.ByName("Repeat password:").ByAutomationId("m_tbPassword").Find<Edit> ();
+			Assert.AreEqual (masterPasswdEdit.IsReadOnly, false);
 			masterPasswdEdit.SetValue ("mono-a11y");
+			Thread.Sleep (Config.Instance.ShortDelay);
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box.");
-			Assert.AreEqual (masterPasswdEdit.Value, "mono-a11y");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box.
-			var repeatPasswdEdit = createMasterKeyWindow.Find<Edit> ("Repeat password:", "m_tbRepeatPassword");
+			var repeatPasswdEdit = createMasterKeyWindow.Finder.ByName ("Repeat password:").ByAutomationId ("m_tbRepeatPassword").Find<Edit> ();
+			Assert.AreEqual (masterPasswdEdit.IsReadOnly, false);
 			repeatPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
-			Assert.AreEqual (repeatPasswdEdit.Value, "mono-a11y");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//101.6 Check "Key file/option" CheckBox
-			procedureLogger.Action ("Check the \"Key file/option\" CheckBox.");
-			createMasterKeyWindow.Find<CheckBox> ("Key file / provider:").Toggle ();
+			var keyfileCheckBox = createMasterKeyWindow.Find<CheckBox> ("Key file / provider:");
+			keyfileCheckBox.Toggle();
 			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced.");
+			Assert.AreEqual (keyfileCheckBox.ToggleState, ToggleState.On);
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//101.7 Click the " Create..." button.
@@ -164,25 +167,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The \"None\" radio button selected.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//TODO: We can't change the value of Spinner by using
-			// RangeValuePattern.SetValue, since the maximum
-			// and mininum value are all 0, seems like the Spinner
-			// did not well provides proper provider here.
-
-			/*
-			//101.13 Select "Security" Tab item;
-			var securityTabItem = newPassDialog2.FindTabItem ("Security");
-			securityTabItem.Select ();
-			Thread.Sleep (Config.Instance.ShortDelay);
-
-			//101.14 Enter a number "3000" in "Key transformation" spinner
-			var keySpinner = newPassDialog2.Find<Spinner> ("Number of key transformation rounds:");
-			SWF.SendKeys.SendWait ("3000");
-			procedureLogger.ExpectedResult ("The \"Key transformation\" spinner is set to 3000.");
-			Thread.Sleep (Config.Instance.ShortDelay);
-			*/
-
-			//101.15 Click the "OK" button to close the dialog.
+			//101.13 Click the "OK" button to close the dialog.
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -256,7 +241,9 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The \"30\" list item is selected.");
 			// In standardIconList List, we only allow single selection, so we
 			// assert [0] is reasonable.
-			Assert.AreEqual(standardIconList.GetSelection()[0].Current.Name, "30");
+			Assert.AreEqual (standardIconList.CanSelectMultiple, false);
+			Assert.AreEqual (standardIconList.IsSelectionRequired, false);
+			Assert.AreEqual (standardIconList.GetSelection () [0].Current.Name, "30");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//102.4 Unselect list item "30" on the "Icon Picker" dialog.
@@ -289,6 +276,7 @@ namespace ClientTest
 			var searchCombobox = behaviorTabItem.Find<ComboBox> ("Searching entries in this group:");
 			searchCombobox.Expand ();
 			procedureLogger.ExpectedResult ("\"Searching entries in this group\" combox box is expanded.");
+			Assert.AreEqual (searchCombobox.ExpandCollapseState, ExpandCollapseState.Expanded);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//102.10 Select the "Enabled" from the "Searching entries in this group" combo box.

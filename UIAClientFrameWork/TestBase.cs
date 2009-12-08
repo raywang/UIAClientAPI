@@ -44,7 +44,7 @@ namespace UIAClientTestFramework
 		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
-		[TestFixtureSetUp]
+		[SetUp]
 		public void Init ()
 		{
 			ProcedureLogger.Init ();
@@ -53,7 +53,7 @@ namespace UIAClientTestFramework
 			OnSetup ();
 		}
 
-		[TestFixtureTearDown]
+		[TearDown]
 		public void Quit ()
 		{
 			OnQuit ();

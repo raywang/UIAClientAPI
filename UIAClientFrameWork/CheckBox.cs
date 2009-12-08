@@ -36,11 +36,26 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		// Perform "Toggle" action.
+		// The method of TogglePattern.
 		public void Toggle ()
 		{
+			Toggle (true);
+		}
+
+		public void Toggle (bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format("Toggle {0}.", this.Name));
+
 			TogglePattern tp = (TogglePattern) element.GetCurrentPattern (TogglePattern.Pattern);
 			tp.Toggle ();
+		}
+
+		// The property of TogglePattern
+		public ToggleState ToggleState {
+			get {
+				return (ToggleState) element.GetCurrentPropertyValue (TogglePattern.ToggleStateProperty);
+			}
 		}
 	}
 }

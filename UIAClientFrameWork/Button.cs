@@ -76,10 +76,5 @@ namespace UIAClientTestFramework
 			}
 			return ret;
 		}
-		 
-
-		
-
-
 	}
 }
