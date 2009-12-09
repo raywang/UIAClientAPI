@@ -39,8 +39,22 @@ namespace UIAClientTestFramework
 		//the GridPattern 's method
 		public AutomationElement GetItem (int row, int column)
 		{
-			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
-			return gp.GetItem (row, column);
+			return GetItem (row, column, true);
+		}
+
+		public AutomationElement GetItem (int row, int column, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Get the \"{0}\" Item.", this.Name));
+			AutomationElement item;
+			try {
+				item = Element.GetCurrentPattern<GridPattern> 
+					(element).GetItem (row, column);
+				return item;
+			} catch (Exception ex) {
+				Console.WriteLine (ex.Message);
+			}
+			return null;
 		}
 
 		//the MultipleViewPattern 's method

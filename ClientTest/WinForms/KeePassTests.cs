@@ -323,6 +323,7 @@ namespace ClientTest
 			};
 			procedureLogger.RunAction (action, "Click \"Yes\" button on the KeePass dialog",
 				"\"mono-a11y\" entered in the \"Master password\" box"); 
+
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.5 Click "OK" button on the dialog
@@ -505,7 +506,7 @@ namespace ClientTest
 			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ContainingGrid property");
 			AutomationElement dataGridItem = datagrid2.GetItem (0, 0);
 			AutomationElement aatextItem = window.Find<MyText> ("aa").AutomationElement;
-			//Assert.AreEqual (dataGridItem, aatextItem);
+			Assert.AreEqual (dataGridItem, aatextItem);
 			procedureLogger.ExpectedResult ("The \"aa\" text's ContainingGrid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
