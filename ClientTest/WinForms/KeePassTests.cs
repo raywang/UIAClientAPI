@@ -88,18 +88,21 @@ namespace ClientTest
 			Assert.AreEqual (fileNameEdit.Value, "TestCase101"); 
 			Thread.Sleep(Config.Instance.ShortDelay);
 
+			//101.3 Change the view of list to "Extra Large Icons"
 			var itemViewList = newPassDialog.Find<MyList> ("Items View");
-			itemViewList.SetCurrentView (0);
+			if (itemViewList.GetSupportedViews ().Contains<int> (0))
+				itemViewList.SetCurrentView (0);
 			Thread.Sleep (Config.Instance.ShortDelay);
 			procedureLogger.ExpectedResult ("The current view of the dialog is \"Extra Large Icons\"");
+			Assert.AreEqual (itemViewList.GetViewName(itemViewList.CurrentView), "Extra Large Icons");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//101.3 Click the "Save" button of the dialog.
+			//101.4 Click the "Save" button of the dialog.
 			newPassDialog.Save ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.4 Enter "mono-a11y" into  "Master password" text box.
+			//101.5 Enter "mono-a11y" into  "Master password" text box.
 			var createMasterKeyWindow = window.Find<Window> ("Create Composite Master Key");
 			var masterPasswdEdit = createMasterKeyWindow.Finder.ByName("Repeat password:").ByAutomationId("m_tbPassword").Find<Edit> ();
 			Assert.AreEqual (masterPasswdEdit.IsReadOnly, false);
@@ -108,26 +111,26 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.5  Re-Enter "mono-a11y" into "Repeat password" text box.
+			//101.6  Re-Enter "mono-a11y" into "Repeat password" text box.
 			var repeatPasswdEdit = createMasterKeyWindow.Finder.ByName ("Repeat password:").ByAutomationId ("m_tbRepeatPassword").Find<Edit> ();
 			Assert.AreEqual (masterPasswdEdit.IsReadOnly, false);
 			repeatPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.6 Check "Key file/option" CheckBox
+			//101.7 Check "Key file/option" CheckBox
 			var keyfileCheckBox = createMasterKeyWindow.Find<CheckBox> ("Key file / provider:");
 			keyfileCheckBox.Toggle();
 			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced.");
 			Assert.AreEqual (keyfileCheckBox.ToggleState, ToggleState.On);
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.7 Click the " Create..." button.
+			//101.8 Click the " Create..." button.
 			createMasterKeyWindow.Find<Button> (" Create...").Click ();
 			procedureLogger.ExpectedResult ("The \"Create a new key file\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.8  Click the "Save" button of the dialog.
+			//101.9  Click the "Save" button of the dialog.
 			var newKeyFileDialog = window.Find<Window> ("Create a new key file");
 			newKeyFileDialog.Save();
 			
@@ -145,29 +148,29 @@ namespace ClientTest
 				Thread.Sleep(Config.Instance.ShortDelay);
 			}
 
-			//101.9 Click the "OK" button of the dialog.
+			//101.10 Click the "OK" button of the dialog.
 			createMasterKeyWindow.Find<Window> ("Entropy Collection").OK ();
 			procedureLogger.ExpectedResult ("The \"Entropy Collection\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.10 Click the "OK" button on the "Create Master Key" Window
+			//101.11 Click the "OK" button on the "Create Master Key" Window
 			createMasterKeyWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Create Master Key\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.11 Select the "Compression" Tab item.
+			//101.12 Select the "Compression" Tab item.
 			var newPassDialog2 = window.Find<Window> ("Create New Password Database - Step 2");
 			var compressionTabItem = newPassDialog2.Find<TabItem> ("Compression");
 			compressionTabItem.Select ();
 			procedureLogger.ExpectedResult ("The \"Compression\" tab item opened.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.12 Check the "None" RadioButton.
+			//101.13 Check the "None" RadioButton.
 			compressionTabItem.Find<RadioButton> ("None").Select ();
 			procedureLogger.ExpectedResult ("The \"None\" radio button selected.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//101.13 Click the "OK" button to close the dialog.
+			//101.14 Click the "OK" button to close the dialog.
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
@@ -177,63 +180,63 @@ namespace ClientTest
 		[Test]
 		public void TestCase102 ()
 		{
-			//102
+			//102.1 Click the "New..." button on the toolbar.
 			var toolBar = window.Find<ToolBar> ();
 			toolBar.Find<Button> ("New...").Click ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102 Enter "TestCase101" in the "File Name" combo box of the dailog.
+			//102.2 Enter "TestCase101" in the "File Name" combo box of the dailog.
 			var newPassDialog = window.Find<Window> ("Create New Password Database");
 			var fileNameEdit = newPassDialog.Find<Edit> ("File name:");
 			fileNameEdit.SetValue ("TestCase101");
 			procedureLogger.ExpectedResult ("\"TestCase101\" entered in the \"File Name\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102 Click the "Save" button of the dialog.
+			//102.3 Click the "Save" button of the dialog.
 			newPassDialog.Save ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102 Enter "mono-a11y" into  "Master password" text box.
+			//102.4 Enter "mono-a11y" into  "Master password" text box.
 			var createMasterKeyWindow = window.Find<Window> ("Create Composite Master Key");
 			var masterPasswdEdit = createMasterKeyWindow.Finder.ByName ("Repeat password:").ByAutomationId ("m_tbPassword").Find<Edit> ();
 			masterPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102 Re-Enter "mono-a11y" into "Repeat password" text box.
+			//102.5 Re-Enter "mono-a11y" into "Repeat password" text box.
 			var repeatPasswdEdit = createMasterKeyWindow.Finder.ByName ("Repeat password:").ByAutomationId ("m_tbRepeatPassword").Find<Edit> ();
 			repeatPasswdEdit.SetValue ("mono-a11y");
 			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Repeat password\" box.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102 Click the "OK" button on the "Create Master Key" Window
+			//102.6 Click the "OK" button on the "Create Master Key" Window
 			createMasterKeyWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Create Master Key\" window disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.
+			//102.7 Click the "OK" button to close the dialog.
 			var newPassDialog2 = window.Find<Window> ("Create New Password Database - Step 2");
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("\"Create New Password Database - Step 2\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.1 Click the "Edit" menu item on the menu bar.
+			//102.8 Click the "Edit" menu item on the menu bar.
 			var menuBar = window.Find<MenuBar> ();
 			var editMenuItem = menuBar.Find<MenuItem> ("Edit");
 			editMenuItem.Find<MenuItem> ("Edit Group").Click ();
 			procedureLogger.ExpectedResult ("The \"Edit Group\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//102.2 Click the "Icon" button on the "Edit Group" dialog.
+			//102.9 Click the "Icon" button on the "Edit Group" dialog.
 			var editGroupWindow = window.Find<Window> ("Edit Group");
 			var generalTabItem = editGroupWindow.Find<TabItem> ("General");
 			generalTabItem.Find<Button> ("Icon:").Click ();
 			procedureLogger.ExpectedResult ("The \"Icon Picker\" dialog opens.");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//102.3 Select list item "30" on the "Icon Picker" dialog.
+			//102.10 Select list item "30" on the "Icon Picker" dialog.
 			var iconPickerWindow = editGroupWindow.Find<Window> ("Icon Picker");
 			var standardIconList = iconPickerWindow.Finder.ByAutomationId ("m_lvIcons").Find<MyList> ();
 			var listItem30 = standardIconList.Find<ListItem> ("30");
@@ -246,45 +249,45 @@ namespace ClientTest
 			Assert.AreEqual (standardIconList.GetSelection () [0].Current.Name, "30");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
-			//102.4 Unselect list item "30" on the "Icon Picker" dialog.
+			//102.11 Unselect list item "30" on the "Icon Picker" dialog.
 			listItem30.RemoveFromSelection ();
 			procedureLogger.ExpectedResult ("The \"30\" list item is removed from selection.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.5 Select list item "30" on the "Icon Picker" dialog again.
+			//102.12 Select list item "30" on the "Icon Picker" dialog again.
 			listItem30.AddToSelection ();
 			procedureLogger.ExpectedResult ("The \"30\" list item is added to selection.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.6 Click list item "68" on the "Icon Picker" dialog.
+			//102.13 Click list item "68" on the "Icon Picker" dialog.
 			standardIconList.Find<ListItem> ("68").Show ();
 			procedureLogger.ExpectedResult ("The \"68\" list item is showed in the view.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.7 Click the "OK" button on the "Icon Picker" dialog.
+			//102.14 Click the "OK" button on the "Icon Picker" dialog.
 			iconPickerWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Icon Picker\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.8 Select the "Behavior" Tab Item from the Tab.
+			//102.15 Select the "Behavior" Tab Item from the Tab.
 			var behaviorTabItem = editGroupWindow.Find<TabItem> ("Behavior");
 			behaviorTabItem.Select ();
 			procedureLogger.ExpectedResult ("The \"Behavior\" tab item opens.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.9 Expand the "Searching entries in this group" combo box.
+			//102.16 Expand the "Searching entries in this group" combo box.
 			var searchCombobox = behaviorTabItem.Find<ComboBox> ("Searching entries in this group:");
 			searchCombobox.Expand ();
 			procedureLogger.ExpectedResult ("\"Searching entries in this group\" combox box is expanded.");
 			Assert.AreEqual (searchCombobox.ExpandCollapseState, ExpandCollapseState.Expanded);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.10 Select the "Enabled" from the "Searching entries in this group" combo box.
+			//102.17 Select the "Enabled" from the "Searching entries in this group" combo box.
 			searchCombobox.Find<ListItem> ("Enabled").Select ();
 			procedureLogger.ExpectedResult ("The \"Enabled\" list item is selected.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//102.11 Click the "OK" button on the  "Edit Group" dialog.
+			//102.18 Click the "OK" button on the  "Edit Group" dialog.
 			editGroupWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Edit Group\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);

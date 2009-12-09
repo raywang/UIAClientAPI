@@ -36,7 +36,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		// The methods of DockPattern
+		// The methods and properties of DockPattern
 		public void SetDockPosition (DockPosition position)
 		{
 			SetDockPosition (position, true);
@@ -51,6 +51,13 @@ namespace UIAClientTestFramework
 			dp.SetDockPosition (position);
 		}
 
+		public DockPosition DockPosition {
+			get {
+				return (DockPosition) element.GetCurrentPropertyValue (DockPattern.DockPositionProperty);
+			}
+		}
+
+		// The method and properties of TransformPattern
 		public void Rotate (double degree)
 		{
 			Rotate (degree, true);
@@ -65,10 +72,9 @@ namespace UIAClientTestFramework
 			tp.Rotate (degree);
 		}
 
-		// The properties of DockPattern
-		public DockPosition DockPosition {
+		public bool CanRotate {
 			get {
-				return (DockPosition) element.GetCurrentPropertyValue (DockPattern.DockPositionProperty);
+				return (bool) element.GetCurrentPropertyValue (TransformPattern.CanRotateProperty);
 			}
 		}
 	}

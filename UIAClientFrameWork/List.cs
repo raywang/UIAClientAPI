@@ -37,10 +37,16 @@ namespace UIAClientTestFramework
 		}
 
 		// The methods of MultipleViewPattern.
-		public void GetViewName (int viewId)
+		public string GetViewName (int viewId)
 		{
 			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
-			mvp.GetViewName (viewId);
+			return mvp.GetViewName (viewId);
+		}
+
+		public int [] GetSupportedViews ()
+		{
+			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
+			return mvp.Current.GetSupportedViews ();
 		}
 
 		public void SetCurrentView (int viewId)
@@ -57,6 +63,11 @@ namespace UIAClientTestFramework
 			mvp.SetCurrentView (viewId);
 		}
 
+		public int CurrentView {
+			get {
+				return (int) element.GetCurrentPropertyValue (MultipleViewPattern.CurrentViewProperty);
+			}
+		}
 
 		// The method and properties of SelectionPattern.
 		public AutomationElement [] GetSelection ()
