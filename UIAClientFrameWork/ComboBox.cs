@@ -36,11 +36,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
-<<<<<<< HEAD
-		//expand the combobox
-=======
 		// The methods of ExpandCollapsePattern
->>>>>>> origin/master
 		public void Expand ()
 		{
 			Expand (true);
