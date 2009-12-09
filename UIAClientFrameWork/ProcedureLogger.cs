@@ -25,6 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.IO;
+using System.Diagnostics;
 
 namespace UIAClientTestFramework
 {
@@ -73,6 +74,34 @@ namespace UIAClientTestFramework
 			expectedResultBuffer.Append (" ");
 			Console.WriteLine ("Expected result: {0}", expectedResult);
 		}
+
+		//public void RunAction (Action action, string invokedAction, string expectedResult)
+		//{
+		//        FlushBuffer ();
+		//        actionBuffer.Append (invokedAction);
+		//        actionBuffer.Append (" ");
+		//        Console.WriteLine ("Action: {0}", invokedAction);
+
+		//        action.Invoke();
+
+		//        expectedResultBuffer.Append (expectedResult);
+		//        expectedResultBuffer.Append (" ");
+		//        Console.WriteLine ("Expected result: {0}", expectedResult);
+		//}
+
+		public void RunAction (Action action, string invokedAction, string expectedResult)
+		{
+			this.Action (invokedAction);
+			try {
+				action ();
+				ExpectedResult (expectedResult);
+			} catch (Exception ex){
+				ExpectedResult (ex.Message);
+				//TODO clean up
+				Process.GetCurrentProcess ().Kill ();
+			}
+		}
+
 
 		// Save logged actions and expected results to an XML file
 		public void Save ()

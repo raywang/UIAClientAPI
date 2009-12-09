@@ -58,7 +58,6 @@ namespace UIAClientTestFramework
 			var uiaType = typeof (T).GetField ("UIAType", BindingFlags.Static | BindingFlags.Public);
 			ct = uiaType.GetValue (null) as ControlType;
 			conditions.Add (new PropertyCondition (AutomationElementIdentifiers.ControlTypeProperty, ct));
-
 			return Find () as T;
 		}
 

@@ -35,7 +35,7 @@ namespace UIAClientTestFramework
 		protected AutomationElement element;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
-		// AutomationElement Name property.>
+		// AutomationElement Name property.
 		public string Name
 		{
 			get { return element.Current.Name; }

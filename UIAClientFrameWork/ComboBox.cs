@@ -36,7 +36,11 @@ namespace UIAClientTestFramework
 		{
 		}
 
+<<<<<<< HEAD
+		//expand the combobox
+=======
 		// The methods of ExpandCollapsePattern
+>>>>>>> origin/master
 		public void Expand ()
 		{
 			Expand (true);
@@ -45,12 +49,15 @@ namespace UIAClientTestFramework
 		public void Expand (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Expand the \"{0}\".", this.Name));
-
-			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
-			ecp.Expand ();
+				procedureLogger.Action (string.Format ("Expand the \"{0}\" .", this.Name));
+			try {
+				Element.GetCurrentPattern<ExpandCollapsePattern> (element).Expand ();
+			} catch (Exception ex) {
+				Console.WriteLine (ex.Message);
+			}
 		}
 
+		//Collapse the combobox
 		public void Collapse ()
 		{
 			Collapse (true);
@@ -60,9 +67,11 @@ namespace UIAClientTestFramework
 		{
 			if (log == true)
 				procedureLogger.Action (string.Format ("Collapse the \"{0}\".", this.Name));
-
-			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
-			ecp.Collapse ();
+			try {
+				Element.GetCurrentPattern<ExpandCollapsePattern> (element).Collapse ();
+			} catch (Exception ex) {
+				Console.WriteLine (ex.Message);
+			}
 		}
 
 		// The property of ExpandCollapsePattern
