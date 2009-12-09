@@ -72,10 +72,5 @@ namespace UIAClientTestFramework
 				//procedureLogger.Error (e.Message);
 			}
 		}
-		 
-
-		
-
-
 	}
 }

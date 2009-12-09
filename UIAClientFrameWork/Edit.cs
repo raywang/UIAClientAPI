@@ -31,25 +31,36 @@ namespace UIAClientTestFramework
 	{
 		public static readonly ControlType UIAType = ControlType.Edit;
 
-
 		public Edit (AutomationElement elm)
 			: base (elm)
 		{
 		}
 
-		// wrapper SetValue method as a property to set value to the Edit control.
-		public string Value
+		// The method of ValuePattern
+		public void SetValue (string value)
 		{
-			get
-			{
-				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
-				return vp.Current.Value;
-			}
-			set
-			{
+			SetValue (value, true);
+		}
+
+		public void SetValue (string value, bool log)
+		{
+			if (log == true)
 				procedureLogger.Action (string.Format ("Set \"{0}\" to the \"{1}\".", value, this.Name));
-				ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
-				vp.SetValue (value);
+
+			ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
+			vp.SetValue (value);
+		}
+
+		// The property of ValuePatter
+		public string Value {
+			get {
+				return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty);
+			}
+		}
+
+		public bool IsReadOnly {
+			get {
+				return (bool) element.GetCurrentPropertyValue (ValuePattern.IsReadOnlyProperty);
 			}
 		}
 	}

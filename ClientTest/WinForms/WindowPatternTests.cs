@@ -45,7 +45,6 @@ namespace ClientTest
 	{
 		Window window = null;
 
-		[TestFixtureSetUp]
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.WindowAndTransformPatternProviderPath);

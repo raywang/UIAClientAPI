@@ -43,8 +43,7 @@ namespace UIAClientTestFramework
 
 		public AutomationElement AutomationElement
 		{
-			get 
-			{
+			get {
 				return element;
 			}
 		}
@@ -171,9 +170,10 @@ namespace UIAClientTestFramework
 		}
 
 		//add a new Finder property
-		public Finder Finder { 
-			get { return new Finder (this.AutomationElement); 
-			}	 
+		public Finder Finder {
+			get {
+				return new Finder (this.AutomationElement);
+			}
 		}
 
 		//get the Pattern of the control
@@ -183,6 +183,5 @@ namespace UIAClientTestFramework
 			var patternObj = (AutomationPattern) patternField.GetValue (null);
 			return (T) ae.GetCurrentPattern (patternObj);
 		}
-
 	}
 }

@@ -49,7 +49,7 @@ namespace UIAClientTestFramework
 		/**
 		 * Log an action, e.g., Click Cancel
 		 *  
-		 * Multiple calls to action() (without a call to expectedResult() in between)
+		 * Multiple calls to Action() (without a call to ExpectedResult() in between)
 		 * will cause the message from each call to be concatenated to the message from
 		 * previous calls.
 		 */
@@ -64,7 +64,7 @@ namespace UIAClientTestFramework
 		/**
 		 * Log an expected result, e.g., The dialog closes
 		 * 
-		 * Multiple calls to expectedResult() (without a call to action() in between)
+		 * Multiple calls to ExpectedResult() (without a call to action() in between)
 		 * will cause the message from each call to be concatenated to the message from
 		 * previous calls.
 		 */
@@ -191,11 +191,11 @@ namespace UIAClientTestFramework
 		}
 
 		/**
-		 * flushBuffer, Add (actionBuffer, expectedResultBuffer) to the _procedures list, then reset actionBuffer and expectedResultBuffer
+		 * FlushBuffer, Add (actionBuffer, expectedResultBuffer) to the _procedures list, then reset actionBuffer and expectedResultBuffer
 		 * 
-		 * After a call to expectedResult() and before the next call to action(),
-		 * (after an action/expectedResult pair), we want to append the pair to the
-		 * _procedures list and possibly take a screenshot.
+		 * After a call to ExpectedResult() and before the next call to action(),
+		 * (after an Action/ExpectedResult pair), we want to append the pair to the
+		 * procedures list and possibly take a screenshot.
 		 */
 		private void FlushBuffer ()
 		{

@@ -31,7 +31,6 @@ namespace UIAClientTestFramework
 	{
 		public static readonly ControlType UIAType = ControlType.TabItem;
 
-
 		public TabItem (AutomationElement elm)
 			: base (elm)
 		{

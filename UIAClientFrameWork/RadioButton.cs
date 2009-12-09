@@ -31,7 +31,6 @@ namespace UIAClientTestFramework
 	{
 		public static readonly ControlType UIAType = ControlType.RadioButton;
 
-
 		public RadioButton (AutomationElement elm)
 			: base (elm)
 		{

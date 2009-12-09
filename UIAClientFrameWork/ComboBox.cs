@@ -31,13 +31,16 @@ namespace UIAClientTestFramework
 	{
 		public static readonly ControlType UIAType = ControlType.ComboBox;
 
-
 		public ComboBox (AutomationElement elm)
 			: base (elm)
 		{
 		}
 
+<<<<<<< HEAD
 		//expand the combobox
+=======
+		// The methods of ExpandCollapsePattern
+>>>>>>> origin/master
 		public void Expand ()
 		{
 			Expand (true);
@@ -68,6 +71,14 @@ namespace UIAClientTestFramework
 				Element.GetCurrentPattern<ExpandCollapsePattern> (element).Collapse ();
 			} catch (Exception ex) {
 				Console.WriteLine (ex.Message);
+			}
+		}
+
+		// The property of ExpandCollapsePattern
+		public ExpandCollapseState ExpandCollapseState
+		{
+			get {
+				return (ExpandCollapseState) element.GetCurrentPropertyValue (ExpandCollapsePattern.ExpandCollapseStateProperty);
 			}
 		}
 	}

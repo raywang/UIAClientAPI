@@ -35,5 +35,46 @@ namespace UIAClientTestFramework
 			: base (elm)
 		{
 		}
+
+		// The methods of MultipleViewPattern.
+		public void GetViewName (int viewId)
+		{
+			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
+			mvp.GetViewName (viewId);
+		}
+
+		public void SetCurrentView (int viewId)
+		{
+			SetCurrentView (viewId, true);
+		}
+
+		public void SetCurrentView (int viewId, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set current view to \"{0}\".", this.Name));
+
+			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
+			mvp.SetCurrentView (viewId);
+		}
+
+
+		// The method and properties of SelectionPattern.
+		public AutomationElement [] GetSelection ()
+		{
+			SelectionPattern sp = (SelectionPattern) element.GetCurrentPattern (SelectionPattern.Pattern);
+			return (AutomationElement []) sp.Current.GetSelection ();
+		}
+
+		public bool CanSelectMultiple {
+			get {
+				return (bool) element.GetCurrentPropertyValue (SelectionPattern.CanSelectMultipleProperty); 
+			}
+		}
+
+		public bool IsSelectionRequired {
+			get {
+				return (bool) element.GetCurrentPropertyValue (SelectionPattern.IsSelectionRequiredProperty);
+			}
+		}
 	}
 }

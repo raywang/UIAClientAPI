@@ -36,26 +36,40 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		public DockPosition DockPosition
+		// The methods of DockPattern
+		public void SetDockPosition (DockPosition position)
 		{
-			get
-			{
-				DockPattern dp = (DockPattern) element.GetCurrentPattern (DockPattern.Pattern);
-				return dp.Current.DockPosition;
-			}
-			set
-			{
-				procedureLogger.Action (string.Format ("Set \"{0}\" control to be docked to \"{1}\".", this.Name, value));
-				DockPattern dp = (DockPattern) element.GetCurrentPattern (DockPattern.Pattern);
-				dp.SetDockPosition (value);
-			}
+			SetDockPosition (position, true);
+		}
+
+		public void SetDockPosition (DockPosition position, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set \"{0}\" control to be docked to \"{1}\".", this.Name, position));
+
+			DockPattern dp = (DockPattern) element.GetCurrentPattern (DockPattern.Pattern);
+			dp.SetDockPosition (position);
 		}
 
 		public void Rotate (double degree)
 		{
-			procedureLogger.Action (string.Format ("Rotate \"{0}\" for {1} degree.", this.Name, degree));
+			Rotate (degree, true);
+		}
+
+		public void Rotate (double degree, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Rotate \"{0}\" {1} degree(s).", this.Name, degree));
+
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
 			tp.Rotate (degree);
+		}
+
+		// The properties of DockPattern
+		public DockPosition DockPosition {
+			get {
+				return (DockPosition) element.GetCurrentPropertyValue (DockPattern.DockPositionProperty);
+			}
 		}
 	}
 }
