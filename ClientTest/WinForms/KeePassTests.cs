@@ -54,9 +54,11 @@ namespace ClientTest
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
 			procedureLogger.Action ("Launch " + sample);
+			//Application.Launch ();
 
 			try {
 				application = Core.Application.Launch (sample);
+				procedureLogger.ExpectedResult ("KeePass window appears.");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -65,7 +67,6 @@ namespace ClientTest
 
 		protected override void OnSetup ()
 		{
-			procedureLogger.ExpectedResult ("KeePass window appears.");
 			WhiteWindow win = application.GetWindow ("KeePass Password Safe", InitializeOption.NoCache);
 			window = new Window (win);
 		}
@@ -295,85 +296,94 @@ namespace ClientTest
 		[Test]
 		public void TestCase103 ()
 		{
-			
+
 			//103.1 Click "new" button on the toolstripbar
 			var toolBar = window.Find<ToolBar> ();
 			toolBar.Finder.ByName ("New...").Find<Button> ().Click ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog opens");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.2 Click "Save" button on the dialog
 			procedureLogger.Action ("Click \"Save\" button of the dialog");
-			var newPassDialog = window.Find<Window> ("Create New Password Database");			
+			var newPassDialog = window.Find<Window> ("Create New Password Database");
 			newPassDialog.Save (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.3 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
 			var keyDialog = window.Find<Window> ("Create Composite Master Key");
 			keyDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.4 Click "Yes" button on the dialog
-			procedureLogger.Action ("Click \"Yes\" button on the KeePass dialog");
-			var createMasterKeyWindow = window.Find<Window> ("KeePass");
-			createMasterKeyWindow.Yes (false);
-			procedureLogger.ExpectedResult ("\"mono-a11y\" entered in the \"Master password\" box");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Action action = () => {
+				var createMasterKeyWindow = window.Find<Window> ("KeePass");
+				createMasterKeyWindow.Yes (false);
+			};
+			procedureLogger.RunAction (action, "Click \"Yes\" button on the KeePass dialog",
+				"\"mono-a11y\" entered in the \"Master password\" box"); 
+			try {
+				action ();
+			} catch (Exception ex) {
+				procedureLogger.ExpectedResult (ex.Message);
+				//TODO clean up.
+				Process.GetCurrentProcess ().Kill ();
+			}
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.5 Click "OK" button on the dialog
 			procedureLogger.Action ("Click \"OK\" button of the dialog");
 			var newPassDialog2 = window.Find<Window> ("Create New Password Database - Step 2");
 			newPassDialog2.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database\" dialog closes");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.6 Click "Add Entry" button on the toolstripbar
 			procedureLogger.Action ("Click \"Add Entry\" button on the toolstripbar");
-			toolBar.Find<Button> ("Add Entry").Click(false);
+			toolBar.Find<Button> ("Add Entry").Click (false);
 			procedureLogger.ExpectedResult ("the \"Add Entry\" window appears");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.7 Check "Add Entry" window's default WindowPattern Property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMaximizeProperty");
 			Window addEntryWindow = window.Find<Window> ("Add Entry");
 			Assert.AreEqual (false, addEntryWindow.CanMaximize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMinimizeProperty");
 			Assert.AreEqual (false, addEntryWindow.CanMinimize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's IsModalProperty");
 			Assert.AreEqual (true, addEntryWindow.IsModal);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's IsTopmostProperty");
 			Assert.AreEqual (false, addEntryWindow.IsTopmost);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's WindowInteractionStateProperty");
 			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, addEntryWindow.WindowInteractionState);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's WindowVisualStateProperty");
 			Assert.AreEqual (WindowVisualState.Minimized, addEntryWindow.WindowVisualState);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.8 move "add entry" window to (200,200 )
 			procedureLogger.Action ("move \"add entry\" window to (200,200 )");
 			var AddEntryDialog = window.Find<Window> ("Add Entry");
 			AddEntryDialog.Move (200, 200);
 			procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//check the transformpattern's property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMoveProperty");
@@ -396,13 +406,13 @@ namespace ClientTest
 			var tabItemAuto = window.Find<TabItem> ("Auto-Type");
 			tabItemAuto.Select ();
 			procedureLogger.ExpectedResult ("The \"Auto-Type\" tab item appears");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.10 Click the "Add" button on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.Find<Button> ("Add").Click(false);
+			AddEntryDialog.Find<Button> ("Add").Click (false);
 			procedureLogger.ExpectedResult ("The \"Edit Auto-Type Item\" window appears");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.11 Drag the scroll bar to the bottom on the "Edit Auto-Type Item" window
 			procedureLogger.Action ("drag the scroll bar to the 300 position");
@@ -410,7 +420,7 @@ namespace ClientTest
 			ScrollBar scrollBar = window.Find<ScrollBar> ();
 			scrollBar.SetValue (300);
 			procedureLogger.ExpectedResult ("the scroll bar is draged to the 413 position");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.12 Check the scroll bar's property
 			procedureLogger.Action ("Check scroll bar's IsReadOnlyProperty");
@@ -419,7 +429,7 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's LargeChangeProperty");
-			Assert.AreEqual (131, (int)scrollBar.LargeChange);
+			Assert.AreEqual (131, (int) scrollBar.LargeChange);
 			procedureLogger.ExpectedResult ("The scroll bar's large chaged value should be 131");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -429,17 +439,17 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's Maximum value");
-			Assert.AreEqual (362, (int)scrollBar.Maximum);
+			Assert.AreEqual (362, (int) scrollBar.Maximum);
 			procedureLogger.ExpectedResult ("The scroll bar's Maximum value shoule be 362");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's Minimum value");
-			Assert.AreEqual (0, (int)scrollBar.Minimum);
+			Assert.AreEqual (0, (int) scrollBar.Minimum);
 			procedureLogger.ExpectedResult ("The scroll bar's minimum value shoule be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check scroll bar's value whether equal to 300");
-			Assert.AreEqual (300, (int)scrollBar.Value);
+			Assert.AreEqual (300, (int) scrollBar.Value);
 			procedureLogger.ExpectedResult ("The scroll bar's value should be 300");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -447,45 +457,45 @@ namespace ClientTest
 			procedureLogger.Action ("Click \"OK\" button on the dialog");
 			autoItemDialog.OK (false);
 			procedureLogger.ExpectedResult ("\"None\" radio button selected");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.14 Click the "Advanced" tab item on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Advanced\" tab item on the \"Add Entry\" Window");
 			var tabItemAdvanced = window.Find<TabItem> ("Advanced");
 			tabItemAdvanced.Select ();
 			procedureLogger.ExpectedResult ("The \"Advanced\" tab item appears");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.15 Click the "Add" button on the "Add Entry" Window
 			var datagrid2 = addEntryWindow.Find<DataGrid> ();
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
 			AddEntryDialog.Find<Button> ("Add").Click (false);
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.16 Type the "aa" into the "Name" edit
 			procedureLogger.Action ("Type the \"aa\" into the \"Name\" edit");
 			var editEntryStringWindow = window.Find<Window> ("Edit Entry String");
 			var nameEdit = editEntryStringWindow.Find<Edit> ("Name:");
-			SWF.SendKeys.SendWait ("aa");		
-			procedureLogger.ExpectedResult("the \"name\" edit 's value is \"aa\"");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			SWF.SendKeys.SendWait ("aa");
+			procedureLogger.ExpectedResult ("the \"name\" edit 's value is \"aa\"");
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.17 Click "OK" button on the "Edit Entry String" dialog
 			procedureLogger.Action ("Click \"OK\" button on the \"Edit Entry String\" dialog");
 			editEntryStringWindow.OK (false);
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" window closes");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.18 Check the "aa" text's TableItemPattern
 			var aaText = AddEntryDialog.Find<MyText> ("aa");
-			
+
 			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's Column property");
 			Assert.AreEqual (0, aaText.Column);
 			procedureLogger.ExpectedResult ("The \"aa\" text's Colum should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-  			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ColumnSpan property");
+			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's ColumnSpan property");
 			Assert.AreEqual (1, aaText.ColumnSpan);
 			procedureLogger.ExpectedResult ("The \"aa\" text's ColumnSpan should be 1");
 			Thread.Sleep (Config.Instance.ShortDelay);
@@ -506,7 +516,7 @@ namespace ClientTest
 			Assert.AreEqual (dataGridItem, aatextItem);
 			procedureLogger.ExpectedResult ("The \"aa\" text's ContainingGrid should be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
-			
+
 			newPassDialog2.OK ();
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -514,7 +524,7 @@ namespace ClientTest
 			procedureLogger.Action ("Close the \"Add Entry\" Window");
 			AddEntryDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 
 		//TestCase104 test the "Password Generator" dialog
