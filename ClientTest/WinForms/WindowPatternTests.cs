@@ -97,30 +97,30 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.5 Check the WindowPattern's property
-			procedureLogger.Action ("Check the window can be maximize");
+			procedureLogger.Action ("Check the window can be maximized.");
 			Assert.AreEqual (true, window.CanMaximize);
-			procedureLogger.ExpectedResult ("the window can be maximize");
+			procedureLogger.ExpectedResult ("The window can be maximized.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the window can be Minimize");
+			procedureLogger.Action ("Check the window can be minimized.");
 			Assert.AreEqual (true, window.CanMinimize);
-			procedureLogger.ExpectedResult ("the window can be Minimize");
+			procedureLogger.ExpectedResult ("The window can be minimized.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the window Is Modal");
+			procedureLogger.Action ("Check the window is modal.");
 			Assert.AreEqual (false, window.IsModal);
-			procedureLogger.ExpectedResult ("the window can be maximize");
+			procedureLogger.ExpectedResult ("The window is modal.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check the window is Topmost");
+			procedureLogger.Action ("Check the window is topmost.");
 			Assert.AreEqual (false, window.IsTopmost);
-			procedureLogger.ExpectedResult ("the window is Topmost");
+			procedureLogger.ExpectedResult ("The window is topmost.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.6 Close the application
-			procedureLogger.Action ("Close the Window");
+			procedureLogger.Action ("Close the window.");
 			window.close ();
-			procedureLogger.ExpectedResult ("the window is Closed");
+			procedureLogger.ExpectedResult ("The window closes.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 		}
