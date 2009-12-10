@@ -644,7 +644,7 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check Horizontal scroll bar's HorizontalViewSize is 75.711159737417944");
-			Assert.AreEqual (75.711159737417944, dataGrid.HorizontalViewSize);
+			Assert.AreEqual (94.666666666666671d, dataGrid.HorizontalViewSize);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's HorizontalViewSize should be 75.711159737417944");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -683,7 +683,7 @@ namespace ClientTest
 
 			//104.19 Use ScrollHorizontalmethod give the horizotal Scrollbar a  SmalIDecrement
 			procedureLogger.Action ("Use Scroll method give the horizotal Scrollbar a SmalIDecrement");
-			dataGrid.Scroll (ScrollAmount.SmallDecrement, ScrollAmount.NoAmount);
+			dataGrid.ScrollHorizontal (ScrollAmount.SmallDecrement);
 			procedureLogger.ExpectedResult ("The horizotal Scrollbar decrease small");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -707,7 +707,7 @@ namespace ClientTest
 
 			//104.23 Check the horizotal scrollbar's position should be  54.054054054054056d
 			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is  54.054054054054056d");
-			Assert.AreEqual (54.054054054054056d, dataGrid.HorizontalScrollPercent);
+			Assert.AreEqual (50.0d, dataGrid.HorizontalScrollPercent);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be  54.054054054054056d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -831,9 +831,9 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The vertical scroll bar's Vertically Scrollable should be 100.0d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.35 Use ScrollVertical method give the vertical Scrollbar a SmalIDecrement
+			//104.35 Use ScrollHorizontal method give the vertical Scrollbar a SmalIDecrement
 			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
-			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.SmallDecrement);
+			passwordDocument.ScrollVertical (ScrollAmount.SmallDecrement);
 			procedureLogger.ExpectedResult ("The vertical Scrollbar increase large");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -870,7 +870,7 @@ namespace ClientTest
 			procedureLogger.Action ("Minimize \"NewDatabase.kdbx*-KeePass Password Safe\" Window to (50, 50)");
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
-			Thread.Sleep (Config.Instance.ShortDelay); 
+			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 	}
 }

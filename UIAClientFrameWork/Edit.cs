@@ -51,7 +51,7 @@ namespace UIAClientTestFramework
 			vp.SetValue (value);
 		}
 
-		// The property of ValuePatter
+		// The property of ValuePattern
 		public string Value {
 			get {
 				return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty);

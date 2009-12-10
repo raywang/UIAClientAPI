@@ -119,7 +119,7 @@ namespace ClientTest
 
 			//106.6 Close the application
 			procedureLogger.Action ("Close the window.");
-			window.close ();
+			window.Close ();
 			procedureLogger.ExpectedResult ("The window closes.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
