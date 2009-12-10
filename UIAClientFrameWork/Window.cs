@@ -85,20 +85,13 @@ namespace UIAClientTestFramework
 			wp.SetWindowVisualState (state);
 		}
 
-		public void Maximized ()
+		public void Close ()
 		{
-			SetWindowVisualState (WindowVisualState.Maximized);
+			procedureLogger.Action (string.Format ("Close the  \"{0}\" .", this.Name));
+			WindowPattern wp = (WindowPattern) element.GetCurrentPattern (WindowPattern.Pattern);
+			wp.Close();
 		}
 
-		public void Minimized ()
-		{
-			SetWindowVisualState (WindowVisualState.Minimized);
-		}
-
-		public void Normal ()
-		{
-			SetWindowVisualState (WindowVisualState.Normal);
-		}
 
 		//the WindowPattern's property
 		public bool CanMaximize

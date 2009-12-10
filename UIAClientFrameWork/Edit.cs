@@ -36,7 +36,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		// The method of ValuePattern
+		// The ValuePattern's method 
 		public void SetValue (string value)
 		{
 			SetValue (value, true);
@@ -51,17 +51,22 @@ namespace UIAClientTestFramework
 			vp.SetValue (value);
 		}
 
-		// The property of ValuePatter
-		public string Value {
-			get {
+		// The ValuePattern's property
+		public string Value
+		{
+			get
+			{
 				return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty);
 			}
 		}
 
-		public bool IsReadOnly {
-			get {
+		public bool IsReadOnly
+		{
+			get
+			{
 				return (bool) element.GetCurrentPropertyValue (ValuePattern.IsReadOnlyProperty);
 			}
 		}
 	}
+
 }
