@@ -174,6 +174,10 @@ namespace ClientTest
 			newPassDialog2.OK ();
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window disappears.");
 			Thread.Sleep(Config.Instance.ShortDelay);
+
+			// Close the application
+			window.Close ();
+			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 
 		//TestCase102 Organize the group
@@ -291,6 +295,12 @@ namespace ClientTest
 			editGroupWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Edit Group\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
+
+			// Close the application
+			window.Close ();
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+
 		}
 		
 		//TestCase103 test the "Add Entry" dialog
@@ -519,6 +529,10 @@ namespace ClientTest
 			procedureLogger.Action ("Close the \"Add Entry\" Window");
 			AddEntryDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			// Close the application
+			window.Close ();
 			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 
