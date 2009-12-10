@@ -37,6 +37,7 @@ using WhiteWindow = Core.UIItems.WindowItems.Window;
 using System.Diagnostics;
 using UIAClientTestFramework;
 using NUnit.Framework;
+using System.Windows.Automation;
 
 namespace ClientTest
 {
@@ -69,18 +70,24 @@ namespace ClientTest
 		public void TestCase106 ()
 		{
 			//106.1 Maximize the window
-			window.Maximized ();
+			window.SetWindowVisualState (WindowVisualState.Maximized);
 			procedureLogger.ExpectedResult ("The window would be Maximized.");
+			Assert.AreEqual (WindowVisualState.Minimized, window.WindowVisualState);
+			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, window.WindowInteractionState);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.2 Minimize the window
-			window.Minimized ();
+			window.SetWindowVisualState (WindowVisualState.Minimized);
 			procedureLogger.ExpectedResult ("The window would be Minimized.");
+			Assert.AreEqual (WindowVisualState.Minimized, window.WindowVisualState);
+			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, window.WindowInteractionState); 
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.3 Restore the window
-			window.Normal ();
+			window.SetWindowVisualState (WindowVisualState.Normal);
 			procedureLogger.ExpectedResult ("The window would be Restored.");
+			Assert.AreEqual (WindowVisualState.Minimized, window.WindowVisualState);
+			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, window.WindowInteractionState); 
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.4 Rotate the control for a given degree
@@ -88,6 +95,34 @@ namespace ClientTest
 			pane.Rotate (90.0);
 			procedureLogger.ExpectedResult ("The pane would be rotated for 90 degree.");
 			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//106.5 Check the WindowPattern's property
+			procedureLogger.Action ("Check the window can be maximize");
+			Assert.AreEqual (true, window.CanMaximize);
+			procedureLogger.ExpectedResult ("the window can be maximize");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the window can be Minimize");
+			Assert.AreEqual (true, window.CanMinimize);
+			procedureLogger.ExpectedResult ("the window can be Minimize");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the window Is Modal");
+			Assert.AreEqual (false, window.IsModal);
+			procedureLogger.ExpectedResult ("the window can be maximize");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			procedureLogger.Action ("Check the window is Topmost");
+			Assert.AreEqual (false, window.IsTopmost);
+			procedureLogger.ExpectedResult ("the window is Topmost");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//106.6 Close the application
+			procedureLogger.Action ("Close the Window");
+			window.close ();
+			procedureLogger.ExpectedResult ("the window is Closed");
+			Thread.Sleep (Config.Instance.ShortDelay);
+
 		}
 	}
 }
