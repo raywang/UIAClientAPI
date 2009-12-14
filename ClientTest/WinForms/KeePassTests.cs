@@ -49,10 +49,10 @@ namespace ClientTest
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
-			procedureLogger.Action ("Launch " + sample);
+			procedureLogger.Action ("The KeePass window is launched.");
 			try {
 				Process.Start (sample);
-				procedureLogger.ExpectedResult ("KeePass window appears.");
+				procedureLogger.ExpectedResult ("The KeePass window appears.");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -61,8 +61,7 @@ namespace ClientTest
 
 		protected override void OnSetup ()
 		{
-			var ae = AutomationElement.RootElement.FindFirst (TreeScope.Children,new PropertyCondition(AutomationElementIdentifiers.NameProperty, "KeePass Password Safe"));
-		        window = new Window(ae);
+			GetWindow("KeePass Password Safe");
 		}
 
 		//TestCase101 Init Sample, create a new account

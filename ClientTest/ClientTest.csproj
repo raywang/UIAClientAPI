@@ -62,6 +62,10 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAClientTestFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UIAClientTestFramework\obj\Debug\UIAClientTestFramework.dll</HintPath>
+    </Reference>
     <Reference Include="UIAutomationClient">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -75,12 +79,6 @@
     <Compile Include="WinForms\Driver.cs" />
     <Compile Include="WinForms\KeePassTests.cs" />
     <Compile Include="WinForms\WindowPatternTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UIAClientFrameWork\UIAClientTestFramework.csproj">
-      <Project>{4AACD863-5F3A-49E9-B4B5-6B011A7F2741}</Project>
-      <Name>UIAClientTestFramework</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

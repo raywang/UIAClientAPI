@@ -48,10 +48,9 @@ namespace ClientTest
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternProviderPath);
-			procedureLogger.Action ("Launch " + sample);
-
 			try {
-				//application = Application.Launch (sample);
+				Process.Start (sample);
+				procedureLogger.ExpectedResult ("DockPattern window appears.");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -60,9 +59,7 @@ namespace ClientTest
 
 		protected override void OnSetup ()
 		{
-			procedureLogger.ExpectedResult ("DockPattern Test window appears.");
-			//WhiteWindow win = application.GetWindow ("DockPattern Test", InitializeOption.NoCache);
-			//window = new Window (win);
+			GetWindow ("KeePass Password Safe");
 		}
 
 		[Test]

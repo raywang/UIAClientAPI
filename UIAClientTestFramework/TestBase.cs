@@ -29,9 +29,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core;
 using System.Threading;
 using NUnit.Framework;
+using System.Diagnostics;
+using System.Windows.Automation;
 
 namespace UIAClientTestFramework
 {
@@ -39,9 +40,8 @@ namespace UIAClientTestFramework
 	[TestFixture]
 	public class TestBase
 	{
+		Window window = null;
 		Config config = new Config ();
-		
-		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		[SetUp]
@@ -58,7 +58,7 @@ namespace UIAClientTestFramework
 		{
 			OnQuit ();
 			procedureLogger.Action ("Close the application.");
-			application.Kill ();
+			//Process.GetCurrentProcess ().Kill ();
 			procedureLogger.Save ();
 		}
 
@@ -72,6 +72,12 @@ namespace UIAClientTestFramework
 
 		protected virtual void OnQuit ()
 		{
+		}
+
+		public void GetWindow (String title)
+		{
+			var ae = AutomationElement.RootElement.FindFirst (TreeScope.Children, new PropertyCondition (AutomationElementIdentifiers.NameProperty, title));
+			window = new Window (ae);
 		}
 	}
 }
