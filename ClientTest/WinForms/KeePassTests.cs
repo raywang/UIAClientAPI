@@ -31,12 +31,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
-using Core;
-using Core.Factory;
-using WhiteWindow = Core.UIItems.WindowItems.Window;
+using System.Diagnostics;
 using NUnit.Framework;
 using System.Windows.Automation;
-using System.Diagnostics;
 using SWF = System.Windows.Forms;
 using UIAClientTestFramework;
 using MyList = UIAClientTestFramework.List;
@@ -53,9 +50,8 @@ namespace ClientTest
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
 			procedureLogger.Action ("Launch " + sample);
-			//Application.Launch () ;
 			try {
-				application = Core.Application.Launch (sample);
+				Process.Start (sample);
 				procedureLogger.ExpectedResult ("KeePass window appears.");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
@@ -65,8 +61,8 @@ namespace ClientTest
 
 		protected override void OnSetup ()
 		{
-			WhiteWindow win = application.GetWindow ("KeePass Password Safe", InitializeOption.NoCache);
-			window = new Window (win);
+			var ae = AutomationElement.RootElement.FindFirst (TreeScope.Children,new PropertyCondition(AutomationElementIdentifiers.NameProperty, "KeePass Password Safe"));
+		        window = new Window(ae);
 		}
 
 		//TestCase101 Init Sample, create a new account
