@@ -48,11 +48,6 @@ namespace UIAClientTestFramework
 			}
 		}
 
-		public Element (Core.UIItems.IUIItem item)
-			: this (item.AutomationElement)
-		{
-		}
-
 		public Element (AutomationElement element)
 		{
 			this.element = element;
