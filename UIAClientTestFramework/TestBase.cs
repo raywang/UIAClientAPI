@@ -29,9 +29,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core;
 using System.Threading;
 using NUnit.Framework;
+using System.Diagnostics;
+using System.Windows.Automation;
 
 namespace UIAClientTestFramework
 {
@@ -40,8 +41,6 @@ namespace UIAClientTestFramework
 	public class TestBase
 	{
 		Config config = new Config ();
-		
-		protected Application application = null;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		[SetUp]
@@ -57,9 +56,6 @@ namespace UIAClientTestFramework
 		public void Quit ()
 		{
 			OnQuit ();
-			procedureLogger.Action ("Close the application.");
-			application.Kill ();
-			procedureLogger.Save ();
 		}
 
 		protected virtual void LaunchSample ()
@@ -72,6 +68,28 @@ namespace UIAClientTestFramework
 
 		protected virtual void OnQuit ()
 		{
+			procedureLogger.Action ("Close the application.");
+			procedureLogger.Save ();
+		}
+
+		public Window GetWindow (String title)
+		{
+			var ae = AutomationElement.RootElement.FindFirst (TreeScope.Children, new PropertyCondition (AutomationElementIdentifiers.NameProperty, title));
+			return new Window (ae);
+		}
+
+		public void HandleException (Exception ex)
+		{
+			procedureLogger.Action ("Error: " + ex.Message);
+			procedureLogger.ExpectedResult ("A Exception has been thrown.");
+			OnQuit ();
+		}
+
+		protected void Run (System.Action action)
+		{
+			try { action (); } catch (Exception ex) {
+				HandleException (ex);
+			}
 		}
 	}
 }

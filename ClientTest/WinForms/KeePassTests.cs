@@ -42,17 +42,17 @@ using MyText = UIAClientTestFramework.Text;
 namespace ClientTest 
 {
 	[TestFixture]
-	class KeePassTests : TestBase, IExpectException
+	class KeePassTests : TestBase
 	{
 		Window window = null;
 
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
-			procedureLogger.Action ("Launch " + sample);
+			procedureLogger.Action ("The KeePass window is launched.");
 			try {
 				Process.Start (sample);
-				procedureLogger.ExpectedResult ("KeePass window appears.");
+				procedureLogger.ExpectedResult ("The KeePass window appears.");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -61,14 +61,25 @@ namespace ClientTest
 
 		protected override void OnSetup ()
 		{
-			var ae = AutomationElement.RootElement.FindFirst (TreeScope.Children,new PropertyCondition(AutomationElementIdentifiers.NameProperty, "KeePass Password Safe"));
-		        window = new Window(ae);
+			base.OnSetup ();
+			window = GetWindow("KeePass Password Safe");
+		}
+
+		protected override void OnQuit ()
+		{
+			base.OnQuit ();
+			int pid = (int) window.AutomationElement.GetCurrentPropertyValue (AutomationElementIdentifiers.ProcessIdProperty);
+			Process.GetProcessById (pid).Kill ();
 		}
 
 		//TestCase101 Init Sample, create a new account
 		[Test]
-		[ExpectedException ()]
-		public void TestCase101 ()
+		public void RunTestCase101 ()
+		{
+			Run (TestCase101);
+		}
+
+		private void TestCase101 ()
 		{
 			//101.1 Click the "New..." button on the toolbar.
 			var toolBar = window.Find<ToolBar> ();
@@ -179,8 +190,12 @@ namespace ClientTest
 
 		//TestCase102 Organize the group
 		[Test]
-		[ExpectedException ()]
-		public void TestCase102 ()
+		public void RunTestCase102 ()
+		{
+			Run (TestCase102);
+		}
+
+		private void TestCase102 ()
 		{
 			//102.1 Click the "New..." button on the toolbar.
 			var toolBar = window.Find<ToolBar> ();
@@ -303,8 +318,12 @@ namespace ClientTest
 		
 		//TestCase103 test the "Add Entry" dialog
 		[Test]
-		[ExpectedException ()]
-		public void TestCase103 ()
+		public void RunTestCase103 ()
+		{
+			Run (TestCase103);
+		}
+
+		private void TestCase103 ()
 		{
 
 			//103.1 Click "new" button on the toolstripbar
@@ -328,13 +347,9 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.4 Click "Yes" button on the dialog
-			Action action = () => {
-				var createMasterKeyWindow = window.Find<Window> ("KeePass");
-				createMasterKeyWindow.Yes (false);
-			};
-			procedureLogger.RunAction (action, "Click \"Yes\" button on the KeePass dialog",
-				"\"mono-a11y\" entered in the \"Master password\" box"); 
-
+			var createMasterKeyWindow = window.Find<Window> ("KeePass");
+			createMasterKeyWindow.Yes (false);
+			procedureLogger.ExpectedResult("\"mono-a11y\" entered in the \"Master password\" box");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.5 Click "OK" button on the dialog
@@ -537,8 +552,12 @@ namespace ClientTest
 
 		//TestCase104 test the "Password Generator" dialog
 		[Test]
-		[ExpectedException ()]
-		public void TestCase104 ()
+		public void RunTestCase104 ()
+		{
+			Run (TestCase104);
+		}
+
+		private void TestCase104 ()
 		{
 			//104.1 Click "new" button on the toolstripbar
 			procedureLogger.Action ("Click \"New...\" button on the toolbar");
@@ -885,14 +904,6 @@ namespace ClientTest
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay);
-		}
-
-		public void HandleException (Exception ex)
-		{
-			procedureLogger.Action ("Error: " + ex.Message);
-			procedureLogger.ExpectedResult ("A Exception has been thrown.");
-			procedureLogger.Save ();
-			application.Kill ();
 		}
 	}
 }

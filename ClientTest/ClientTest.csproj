@@ -72,7 +72,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinForms\DockPatternTests.cs" />
-    <Compile Include="WinForms\Driver.cs" />
     <Compile Include="WinForms\KeePassTests.cs" />
     <Compile Include="WinForms\WindowPatternTests.cs" />
   </ItemGroup>

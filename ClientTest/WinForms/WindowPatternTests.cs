@@ -39,17 +39,16 @@ using System.Windows.Automation;
 namespace ClientTest
 {
 	[TestFixture]
-	class WindowPatternTests : TestBase, IExpectException
+	class WindowPatternTests : TestBase
 	{
 		Window window = null;
 
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.WindowAndTransformPatternProviderPath);
-			procedureLogger.Action ("Launch " + sample);
-
 			try {
-				//application = Application.Launch (sample);
+				Process.Start (sample);
+				procedureLogger.ExpectedResult ("WindowAndTransformPattern window appears.");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -58,14 +57,22 @@ namespace ClientTest
 
 		protected override void OnSetup ()
 		{
-			procedureLogger.ExpectedResult ("WindowPattern & TransformPattern Test window appears.");
-			//WhiteWindow win = application.GetWindow ("WindowPattern & TransformPattern Test", InitializeOption.NoCache);
-			//window = new Window (win);
+			base.OnSetup ();
+			window = GetWindow ("WindowPattern and TransformPattern Test");
+		}
+
+		protected override void OnQuit ()
+		{
+			base.OnQuit ();
 		}
 
 		[Test]
-		[ExpectedException()]
-		public void TestCase106 ()
+		public void RunTestCase106 ()
+		{
+			Run (TestCase106);
+		}
+
+		private void TestCase106 ()
 		{
 			//106.1 Maximize the window
 			window.SetWindowVisualState (WindowVisualState.Maximized);
@@ -116,18 +123,9 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.6 Close the application
-			procedureLogger.Action ("Close the window.");
 			window.Close ();
 			procedureLogger.ExpectedResult ("The window closes.");
 			Thread.Sleep (Config.Instance.ShortDelay);
-		}
-
-		public void HandleException (Exception ex)
-		{
-			procedureLogger.Action ("Error: " + ex.Message);
-			procedureLogger.ExpectedResult ("A Exception has been thrown.");
-			procedureLogger.Save ();
-			application.Kill ();
 		}
 	}
 }

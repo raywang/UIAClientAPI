@@ -41,17 +41,16 @@ using NUnit.Framework;
 namespace ClientTest
 {
 	[TestFixture]
-	class DockPatternTests : TestBase, IExpectException
+	class DockPatternTests : TestBase
 	{
 		Window window = null;
 
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternProviderPath);
-			procedureLogger.Action ("Launch " + sample);
-
 			try {
-				//application = Application.Launch (sample);
+				Process.Start (sample);
+				procedureLogger.ExpectedResult ("DockPattern window appears.");
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -60,14 +59,24 @@ namespace ClientTest
 
 		protected override void OnSetup ()
 		{
-			procedureLogger.ExpectedResult ("DockPattern Test window appears.");
-			//WhiteWindow win = application.GetWindow ("DockPattern Test", InitializeOption.NoCache);
-			//window = new Window (win);
+			base.OnSetup ();
+			window = GetWindow ("DockPattern Test");
+		}
+
+		protected override void OnQuit ()
+		{
+			base.OnQuit ();
+			int pid = (int) window.AutomationElement.GetCurrentPropertyValue (AutomationElementIdentifiers.ProcessIdProperty);
+			Process.GetProcessById (pid).Kill ();
 		}
 
 		[Test]
-		[ExpectedException ()]
-		public void TestCase105 ()
+		public void RunTestCase105 ()
+		{
+			Run (TestCase105);
+		}
+
+		private void TestCase105 ()
 		{
 			//105.1 Move the dock to the Left
 			var dock = window.Find<Pane> ("Top");
@@ -105,14 +114,6 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The Dock control is docked to none.");
 			Assert.AreEqual (dock.DockPosition, DockPosition.None);
 			Thread.Sleep (Config.Instance.ShortDelay);
-		}
-
-		public void HandleException (Exception ex)
-		{
-			procedureLogger.Action ("Error: " + ex.Message);
-			procedureLogger.ExpectedResult ("A Exception has been thrown.");
-			procedureLogger.Save ();
-			application.Kill ();
 		}
 	}
 }
