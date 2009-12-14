@@ -881,10 +881,6 @@ namespace ClientTest
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay);
-
-			// Close the application
-			window.Close ();
-			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 	}
 }

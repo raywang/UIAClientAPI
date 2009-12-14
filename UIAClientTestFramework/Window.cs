@@ -62,18 +62,15 @@ namespace UIAClientTestFramework
 		}
 
 		//the TransformPattern's property
-		public bool CanMove
-		{
+		public bool CanMove {
 			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanMoveProperty); }
 		}
 
-		public bool CanResize
-		{
+		public bool CanResize {
 			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanResizeProperty); }
 		}
 
-		public bool CanRotate
-		{
+		public bool CanRotate {
 			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanRotateProperty); }
 		}
 
@@ -87,40 +84,34 @@ namespace UIAClientTestFramework
 
 		public void Close ()
 		{
-			procedureLogger.Action (string.Format ("Close the  \"{0}\" .", this.Name));
+			procedureLogger.Action (string.Format ("Close the \"{0}\".", this.Name));
 			WindowPattern wp = (WindowPattern) element.GetCurrentPattern (WindowPattern.Pattern);
 			wp.Close();
 		}
 
 
 		//the WindowPattern's property
-		public bool CanMaximize
-		{
+		public bool CanMaximize {
 			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.CanMaximizeProperty); }
 		}
 
-		public bool CanMinimize
-		{
+		public bool CanMinimize {
 			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.CanMinimizeProperty); }
 		}
 
-		public bool IsModal
-		{
+		public bool IsModal {
 			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsModalProperty); }
 		}
 
-		public bool IsTopmost
-		{
+		public bool IsTopmost {
 			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.IsTopmostProperty); }
 		}
 
-		public WindowVisualState WindowVisualState
-		{
+		public WindowVisualState WindowVisualState {
 			get { return (WindowVisualState) element.GetCurrentPropertyValue (WindowPattern.WindowInteractionStateProperty); }
 		}
 
-		public WindowInteractionState WindowInteractionState
-		{
+		public WindowInteractionState WindowInteractionState {
 			get { return (WindowInteractionState) element.GetCurrentPropertyValue (WindowPattern.WindowInteractionStateProperty); }
 		}
 
