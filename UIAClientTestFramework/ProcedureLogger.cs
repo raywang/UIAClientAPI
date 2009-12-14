@@ -48,7 +48,7 @@ namespace UIAClientTestFramework
 
 		/**
 		 * Log an action, e.g., Click Cancel
-		 *  
+		 *
 		 * Multiple calls to Action() (without a call to ExpectedResult() in between)
 		 * will cause the message from each call to be concatenated to the message from
 		 * previous calls.
@@ -63,7 +63,7 @@ namespace UIAClientTestFramework
 
 		/**
 		 * Log an expected result, e.g., The dialog closes
-		 * 
+		 *
 		 * Multiple calls to ExpectedResult() (without a call to action() in between)
 		 * will cause the message from each call to be concatenated to the message from
 		 * previous calls.
@@ -115,7 +115,7 @@ namespace UIAClientTestFramework
 			rootElm.AppendChild (paraElm);
 
 			//add <procedures> element
-			XmlElement procElm = xmlDoc.CreateElement ("procedures");		
+			XmlElement procElm = xmlDoc.CreateElement ("procedures");
 
 			foreach (List<string> p in procedures) {
 				//add <action> element in <step> element
@@ -145,7 +145,7 @@ namespace UIAClientTestFramework
 				procElm.AppendChild (stepElm);
 			}
 
-			
+
 			rootElm.AppendChild (procElm);
 
 			//add <time> element
@@ -164,7 +164,7 @@ namespace UIAClientTestFramework
 
 		/**
 		 * FlushBuffer, Add (actionBuffer, expectedResultBuffer) to the _procedures list, then reset actionBuffer and expectedResultBuffer
-		 * 
+		 *
 		 * After a call to ExpectedResult() and before the next call to action(),
 		 * (after an Action/ExpectedResult pair), we want to append the pair to the
 		 * procedures list and possibly take a screenshot.
@@ -187,7 +187,7 @@ namespace UIAClientTestFramework
 				actionBuffer.Remove (0, actionBuffer.Length);
 				expectedResultBuffer.Remove (0, expectedResultBuffer.Length);
 				Console.WriteLine ();
-			}			
+			}
 		}
 	}
 }

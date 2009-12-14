@@ -78,7 +78,7 @@ namespace UIAClientTestFramework
 
 		public bool CanSelectMultiple {
 			get {
-				return (bool) element.GetCurrentPropertyValue (SelectionPattern.CanSelectMultipleProperty); 
+				return (bool) element.GetCurrentPropertyValue (SelectionPattern.CanSelectMultipleProperty);
 			}
 		}
 

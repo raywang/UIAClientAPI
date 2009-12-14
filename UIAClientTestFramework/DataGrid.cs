@@ -48,7 +48,7 @@ namespace UIAClientTestFramework
 				procedureLogger.Action (string.Format ("Get the \"{0}\" Item.", this.Name));
 			AutomationElement item;
 			try {
-				item = Element.GetCurrentPattern<GridPattern> 
+				item = Element.GetCurrentPattern<GridPattern>
 					(element).GetItem (row, column);
 				return item;
 			} catch (Exception ex) {

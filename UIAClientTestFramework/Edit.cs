@@ -36,7 +36,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		// The ValuePattern's method 
+		// The ValuePattern's method
 		public void SetValue (string value)
 		{
 			SetValue (value, true);

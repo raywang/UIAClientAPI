@@ -53,9 +53,7 @@ namespace UIAClientTestFramework
 			ip.Invoke ();
 		}
 		*/
-		 
 
-		
 		// Perform "Click" action.
 		public void Click ()
 		{

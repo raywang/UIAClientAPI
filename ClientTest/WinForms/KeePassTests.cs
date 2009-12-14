@@ -1,27 +1,27 @@
 ﻿// KeePassTests.cs: Tests for KeePass
 //
-// Permission is hereby granted, free of charge, to any person obtaining 
-// a copy of this software and associated documentation files (the 
-// "Software"), to deal in the Software without restriction, including 
-// without limitation the rights to use, copy, modify, merge, publish, 
-// distribute, sublicense, and/or sell copies of the Software, and to 
-// permit persons to whom the Software is furnished to do so, subject to 
-// the following conditions: 
-//  
-// The above copyright notice and this permission notice shall be 
-// included in all copies or substantial portions of the Software. 
-//  
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-// 
-// Copyright (c) 2009 Novell, Inc. (http://www.novell.com) 
-// 
-// Authors: 
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+// Copyright (c) 2009 Novell, Inc. (http://www.novell.com)
+//
+// Authors:
 //      Ray Wang <rawang@novell.com>
 //	Felicia Mu <fxmu@novell.com>
 
@@ -39,7 +39,7 @@ using UIAClientTestFramework;
 using MyList = UIAClientTestFramework.List;
 using MyText = UIAClientTestFramework.Text;
 
-namespace ClientTest 
+namespace ClientTest
 {
 	[TestFixture]
 	class KeePassTests : TestBase
@@ -49,7 +49,8 @@ namespace ClientTest
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
-			procedureLogger.Action ("The KeePass window is launched.");
+			procedureLogger.Action ("Launch " + sample);
+
 			try {
 				Process.Start (sample);
 				procedureLogger.ExpectedResult ("The KeePass window appears.");
@@ -93,7 +94,7 @@ namespace ClientTest
 			fileNameEdit.SetValue ("TestCase101");
 			Thread.Sleep (Config.Instance.ShortDelay);
 			procedureLogger.ExpectedResult ("\"TestCase101\" entered in the \"File Name\" box.");
-			Assert.AreEqual (fileNameEdit.Value, "TestCase101"); 
+			Assert.AreEqual (fileNameEdit.Value, "TestCase101");
 			Thread.Sleep(Config.Instance.ShortDelay);
 
 			//101.3 Change the view of list to "Extra Large Icons"
@@ -141,7 +142,7 @@ namespace ClientTest
 			//101.9  Click the "Save" button of the dialog.
 			var newKeyFileDialog = window.Find<Window> ("Create a new key file");
 			newKeyFileDialog.Save();
-			
+
 			//in case there is a TestCase101 key exist.
 			var comfirmDialog = newKeyFileDialog.Find<Window> ("Confirm Save As");
 			if (comfirmDialog != null) {
@@ -315,7 +316,7 @@ namespace ClientTest
 
 
 		}
-		
+
 		//TestCase103 test the "Add Entry" dialog
 		[Test]
 		public void RunTestCase103 ()
@@ -600,7 +601,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The \"Add Entry\" dialog appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.7  Input the "email" into the title  edit 
+			//104.7  Input the "email" into the title  edit
 			procedureLogger.Action ("Input the \"email\" into the title  edit ");
 			var notesEdit = newPassDialog.Find<Edit> ("Notes:");
 			SWF.SendKeys.SendWait ("email");
@@ -631,7 +632,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The \"Add Entry\" dialog appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.11 Input the "shopping" into the title edit 
+			//104.11 Input the "shopping" into the title edit
 			procedureLogger.Action ("Input the \"shopping\" into the title edit");
 			SWF.SendKeys.SendWait ("shopping");
 			procedureLogger.ExpectedResult ("The \"shopping\" field is inputted into the \"Notes\" edit");
@@ -654,7 +655,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("the data grid 's RowCount should be 3");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.14 Get the (0,0) element of the datagrid , check if it is "Sample Entry" 
+			//104.14 Get the (0,0) element of the datagrid , check if it is "Sample Entry"
 			procedureLogger.Action ("Get the (0,0) element of the datagrid , check if it is \"Sample Entry\"");
 			AutomationElement dataGridItem = dataGrid.GetItem (0, 0);
 			AutomationElement textItem = window.Find<MyText> ("Sample Entry").AutomationElement;
@@ -702,7 +703,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The horizotal Scrollbar increase large");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.17 Use Scroll method give the horizotal Scrollbar a SmallIncrement 
+			//104.17 Use Scroll method give the horizotal Scrollbar a SmallIncrement
 			procedureLogger.Action ("Use Scroll method give the horizotal Scrollbar a SmallIncrement");
 			dataGrid.Scroll (ScrollAmount.SmallIncrement, ScrollAmount.NoAmount);
 			procedureLogger.ExpectedResult ("The horizotal Scrollbar increase small");
@@ -832,7 +833,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The sub menu of \"Tools\" appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.30 Click "Generate Password.." menu item on the sub menu 
+			//104.30 Click "Generate Password.." menu item on the sub menu
 			procedureLogger.Action ("Click \"Generate Password..\" menu item on the sub menu");
 			window.Find<MenuItem> ("Generate Password...").Click (false);
 			procedureLogger.ExpectedResult ("The Password Generator dialog appears");
@@ -843,7 +844,7 @@ namespace ClientTest
 			var tabItemPreview = window.Find<TabItem> ("Preview");
 			tabItemPreview.Select ();
 			procedureLogger.ExpectedResult ("The \"Preview\" tab item appears");
-			Thread.Sleep (Config.Instance.ShortDelay); 
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.32 Use Scroll method give the vertical Scrollbar a LargeIncrement
 			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
@@ -851,8 +852,8 @@ namespace ClientTest
 			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.LargeIncrement);
 			procedureLogger.ExpectedResult ("The vertical Scrollbar increase large");
 			Thread.Sleep (Config.Instance.ShortDelay);
- 
-			//104.33 Use Scroll method give the vertical Scrollbar a SmallIncrement 
+
+			//104.33 Use Scroll method give the vertical Scrollbar a SmallIncrement
 			procedureLogger.Action ("Use Scroll method give the vertical Scrollbar a LargeIncrement");
 			passwordDocument.Scroll (ScrollAmount.NoAmount, ScrollAmount.SmallIncrement);
 			procedureLogger.ExpectedResult ("The vertical Scrollbar increase large");
@@ -882,7 +883,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The vertical scroll bar's VerticallyScrollable should be 0.0d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			//104.38 Use SetScrollPercent method make the vertical scrollbar move to (-1, 50) 
+			//104.38 Use SetScrollPercent method make the vertical scrollbar move to (-1, 50)
 			procedureLogger.Action ("Use SetScrollPercent method make the horizotal scrollbar move to (-1, 50)");
 			passwordDocument.SetScrollPercent (-1, 50);
 			procedureLogger.ExpectedResult ("The horizotal Scrollbar move to (-1, 50)");

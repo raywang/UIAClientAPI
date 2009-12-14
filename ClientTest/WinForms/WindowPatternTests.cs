@@ -1,27 +1,27 @@
 ﻿// WindowPatternTests.cs: Tests for Window and Dock Patterns.
 //
-// Permission is hereby granted, free of charge, to any person obtaining 
-// a copy of this software and associated documentation files (the 
-// "Software"), to deal in the Software without restriction, including 
-// without limitation the rights to use, copy, modify, merge, publish, 
-// distribute, sublicense, and/or sell copies of the Software, and to 
-// permit persons to whom the Software is furnished to do so, subject to 
-// the following conditions: 
-//  
-// The above copyright notice and this permission notice shall be 
-// included in all copies or substantial portions of the Software. 
-//  
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-// 
-// Copyright (c) 2009 Novell, Inc. (http://www.novell.com) 
-// 
-// Authors: 
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+// Copyright (c) 2009 Novell, Inc. (http://www.novell.com)
+//
+// Authors:
 //      Ray Wang <rawang@novell.com>
 //	Felicia Mu <fxmu@novell.com>
 
@@ -46,6 +46,8 @@ namespace ClientTest
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.WindowAndTransformPatternProviderPath);
+			procedureLogger.Action ("Launch " + sample);
+
 			try {
 				Process.Start (sample);
 				procedureLogger.ExpectedResult ("WindowAndTransformPattern window appears.");
@@ -64,6 +66,8 @@ namespace ClientTest
 		protected override void OnQuit ()
 		{
 			base.OnQuit ();
+			int pid = (int) window.AutomationElement.GetCurrentPropertyValue (AutomationElementIdentifiers.ProcessIdProperty);
+			Process.GetProcessById (pid).Kill ();
 		}
 
 		[Test]
@@ -85,14 +89,14 @@ namespace ClientTest
 			window.SetWindowVisualState (WindowVisualState.Minimized);
 			procedureLogger.ExpectedResult ("The window would be Minimized.");
 			Assert.AreEqual (WindowVisualState.Minimized, window.WindowVisualState);
-			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, window.WindowInteractionState); 
+			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, window.WindowInteractionState);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.3 Restore the window
 			window.SetWindowVisualState (WindowVisualState.Normal);
 			procedureLogger.ExpectedResult ("The window would be Restored.");
 			Assert.AreEqual (WindowVisualState.Minimized, window.WindowVisualState);
-			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, window.WindowInteractionState); 
+			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, window.WindowInteractionState);
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//106.4 Rotate the control for a given degree
@@ -126,6 +130,11 @@ namespace ClientTest
 			window.Close ();
 			procedureLogger.ExpectedResult ("The window closes.");
 			Thread.Sleep (Config.Instance.ShortDelay);
+
+			//Launch sample for the sake that NUnit could close the sample application.
+			LaunchSample ();
+			Thread.Sleep (Config.Instance.MediumDelay);
+			OnSetup ();
 		}
 	}
 }
