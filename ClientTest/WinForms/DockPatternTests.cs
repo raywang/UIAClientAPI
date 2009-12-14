@@ -33,10 +33,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
-using Core;
-using Core.Factory;
 using System.Windows.Automation;
-using WhiteWindow = Core.UIItems.WindowItems.Window;
 using System.Diagnostics;
 using UIAClientTestFramework;
 using NUnit.Framework;
@@ -54,7 +51,7 @@ namespace ClientTest
 			procedureLogger.Action ("Launch " + sample);
 
 			try {
-				application = Application.Launch (sample);
+				//application = Application.Launch (sample);
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 				Process.GetCurrentProcess ().Kill ();
@@ -64,8 +61,8 @@ namespace ClientTest
 		protected override void OnSetup ()
 		{
 			procedureLogger.ExpectedResult ("DockPattern Test window appears.");
-			WhiteWindow win = application.GetWindow ("DockPattern Test", InitializeOption.NoCache);
-			window = new Window (win);
+			//WhiteWindow win = application.GetWindow ("DockPattern Test", InitializeOption.NoCache);
+			//window = new Window (win);
 		}
 
 		[Test]
