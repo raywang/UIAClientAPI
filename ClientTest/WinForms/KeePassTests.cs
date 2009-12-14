@@ -45,7 +45,7 @@ using MyText = UIAClientTestFramework.Text;
 namespace ClientTest 
 {
 	[TestFixture]
-	class KeePassTests : TestBase 
+	class KeePassTests : TestBase, IExpectException
 	{
 		Window window = null;
 
@@ -71,6 +71,7 @@ namespace ClientTest
 
 		//TestCase101 Init Sample, create a new account
 		[Test]
+		[ExpectedException ()]
 		public void TestCase101 ()
 		{
 			//101.1 Click the "New..." button on the toolbar.
@@ -182,6 +183,7 @@ namespace ClientTest
 
 		//TestCase102 Organize the group
 		[Test]
+		[ExpectedException ()]
 		public void TestCase102 ()
 		{
 			//102.1 Click the "New..." button on the toolbar.
@@ -305,6 +307,7 @@ namespace ClientTest
 		
 		//TestCase103 test the "Add Entry" dialog
 		[Test]
+		[ExpectedException ()]
 		public void TestCase103 ()
 		{
 
@@ -538,6 +541,7 @@ namespace ClientTest
 
 		//TestCase104 test the "Password Generator" dialog
 		[Test]
+		[ExpectedException ()]
 		public void TestCase104 ()
 		{
 			//104.1 Click "new" button on the toolstripbar
@@ -885,6 +889,14 @@ namespace ClientTest
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay);
+		}
+
+		public void HandleException (Exception ex)
+		{
+			procedureLogger.Action ("Error: " + ex.Message);
+			procedureLogger.ExpectedResult ("A Exception has been thrown.");
+			procedureLogger.Save ();
+			application.Kill ();
 		}
 	}
 }

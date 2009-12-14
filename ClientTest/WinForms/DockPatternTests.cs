@@ -44,7 +44,7 @@ using NUnit.Framework;
 namespace ClientTest
 {
 	[TestFixture]
-	class DockPatternTests : TestBase
+	class DockPatternTests : TestBase, IExpectException
 	{
 		Window window = null;
 
@@ -69,6 +69,7 @@ namespace ClientTest
 		}
 
 		[Test]
+		[ExpectedException ()]
 		public void TestCase105 ()
 		{
 			//105.1 Move the dock to the Left
@@ -109,5 +110,12 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 		}
 
+		public void HandleException (Exception ex)
+		{
+			procedureLogger.Action ("Error: " + ex.Message);
+			procedureLogger.ExpectedResult ("A Exception has been thrown.");
+			procedureLogger.Save ();
+			application.Kill ();
+		}
 	}
 }

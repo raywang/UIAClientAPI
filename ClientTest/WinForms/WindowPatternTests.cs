@@ -42,7 +42,7 @@ using System.Windows.Automation;
 namespace ClientTest
 {
 	[TestFixture]
-	class WindowPatternTests : TestBase
+	class WindowPatternTests : TestBase, IExpectException
 	{
 		Window window = null;
 
@@ -67,6 +67,7 @@ namespace ClientTest
 		}
 
 		[Test]
+		[ExpectedException()]
 		public void TestCase106 ()
 		{
 			//106.1 Maximize the window
@@ -122,7 +123,14 @@ namespace ClientTest
 			window.Close ();
 			procedureLogger.ExpectedResult ("The window closes.");
 			Thread.Sleep (Config.Instance.ShortDelay);
+		}
 
+		public void HandleException (Exception ex)
+		{
+			procedureLogger.Action ("Error: " + ex.Message);
+			procedureLogger.ExpectedResult ("A Exception has been thrown.");
+			procedureLogger.Save ();
+			application.Kill ();
 		}
 	}
 }
