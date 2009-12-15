@@ -35,41 +35,34 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		//the RangeValuePattern's method
+		// The methods and properties of RangeValuePattern
 		public void SetValue (double value)
 		{
 			RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
 			rp.SetValue (value);
 		}
 
-		//the RangeValuePattern's property
-		public bool IsReadOnly
-		{
+		public bool IsReadOnly {
 			get { return (bool) element.GetCurrentPropertyValue (RangeValuePattern.IsReadOnlyProperty); }
 		}
 
-		public double LargeChange
-		{
+		public double LargeChange {
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.LargeChangeProperty); }
 		}
 
-		public double SmallChange
-		{
+		public double SmallChange {
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.SmallChangeProperty); }
 		}
 
-		public double Maximum
-		{
+		public double Maximum {
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.MaximumProperty); }
 		}
 
-		public double Minimum
-		{
+		public double Minimum {
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.MinimumProperty); }
 		}
 
-		public double Value
-		{
+		public double Value {
 			get { return (double) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
 		}
 	}

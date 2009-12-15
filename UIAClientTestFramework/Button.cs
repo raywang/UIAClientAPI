@@ -64,11 +64,8 @@ namespace UIAClientTestFramework
 		{
 			if (log == true)
 				procedureLogger.Action (string.Format ("Click the \"{0}\" button.", this.Name));
-			try {
-				Element.GetCurrentPattern<InvokePattern> (element).Invoke ();
-			} catch (Exception ex) {
-				//procedureLogger.Error (e.Message);
-			}
+
+			Element.GetCurrentPattern<InvokePattern> (element).Invoke ();
 		}
 	}
 }

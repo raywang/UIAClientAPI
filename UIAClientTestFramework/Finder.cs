@@ -80,6 +80,5 @@ namespace UIAClientTestFramework
 
 			return null;
 		}
-
 	}
 }

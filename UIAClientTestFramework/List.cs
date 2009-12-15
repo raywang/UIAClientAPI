@@ -64,9 +64,7 @@ namespace UIAClientTestFramework
 		}
 
 		public int CurrentView {
-			get {
-				return (int) element.GetCurrentPropertyValue (MultipleViewPattern.CurrentViewProperty);
-			}
+			get { return (int) element.GetCurrentPropertyValue (MultipleViewPattern.CurrentViewProperty); }
 		}
 
 		// The method and properties of SelectionPattern.
@@ -77,15 +75,11 @@ namespace UIAClientTestFramework
 		}
 
 		public bool CanSelectMultiple {
-			get {
-				return (bool) element.GetCurrentPropertyValue (SelectionPattern.CanSelectMultipleProperty);
-			}
+			get { return (bool) element.GetCurrentPropertyValue (SelectionPattern.CanSelectMultipleProperty); }
 		}
 
 		public bool IsSelectionRequired {
-			get {
-				return (bool) element.GetCurrentPropertyValue (SelectionPattern.IsSelectionRequiredProperty);
-			}
+			get { return (bool) element.GetCurrentPropertyValue (SelectionPattern.IsSelectionRequiredProperty); }
 		}
 	}
 }

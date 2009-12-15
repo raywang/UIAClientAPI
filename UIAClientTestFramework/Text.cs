@@ -36,65 +36,52 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		//the RangeValuePattern's property
-		public int Column
-		{
+		// The properties of TableItemPattern
+		public int Column {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnProperty); }
 		}
 
-		public int ColumnSpan
-		{
+		public int ColumnSpan {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnSpanProperty); }
 		}
 
-		public AutomationElement ContainingGrid
-		{
+		public AutomationElement ContainingGrid {
 			get { return (AutomationElement) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
 		}
 
-		public int Row
-		{
+		public int Row {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowProperty); }
 		}
 
-		public int RowSpan
-		{
+		public int RowSpan {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowSpanProperty); }
 		}
 
-		//the TableItem's property
-		public AutomationElement[] TableItemColumnHeaderItems
-		{
+		public AutomationElement[] TableItemColumnHeaderItems {
 			get { return (AutomationElement[]) element.GetCurrentPropertyValue (TableItemPattern.ColumnHeaderItemsProperty); }
 		}
 
-		public int TableItemColumn
-		{
+		public int TableItemColumn {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnProperty); }
 		}
 
-		public int TableItemColumnSpan
-		{
+		public int TableItemColumnSpan {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.ColumnSpanProperty); }
 		}
 
-		public AutomationElement TableItemContainingGrid
-		{
+		public AutomationElement TableItemContainingGrid {
 			get { return (AutomationElement) element.GetCurrentPropertyValue (TableItemPattern.ContainingGridProperty); }
 		}
 
-		public AutomationElement[] TableItemRowHeaderItems
-		{
+		public AutomationElement[] TableItemRowHeaderItems {
 			get { return (AutomationElement[]) element.GetCurrentPropertyValue (TableItemPattern.RowHeaderItemsProperty); }
 		}
 
-		public int TableItemRow
-		{
+		public int TableItemRow {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowProperty); }
 		}
 
-		public int TableItemRowSpan
-		{
+		public int TableItemRowSpan {
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowSpanProperty); }
 		}
 	}

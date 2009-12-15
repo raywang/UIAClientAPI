@@ -37,7 +37,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		//the TransformPattern's method
+		// The methods and properties of TransformPattern
 		public void Move (double x, double y)
 		{
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
@@ -56,7 +56,6 @@ namespace UIAClientTestFramework
 			tp.Rotate (degrees);
 		}
 
-		//the TransformPattern's property
 		public bool CanMove {
 			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanMoveProperty); }
 		}
@@ -69,7 +68,7 @@ namespace UIAClientTestFramework
 			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanRotateProperty); }
 		}
 
-		//the WindowPattern's method
+		// The methods and properties of WindowPattern
 		public void SetWindowVisualState (WindowVisualState state)
 		{
 			procedureLogger.Action (string.Format ("Set \"{0}\" to be \"{1}\".", this.Name, state));
@@ -84,8 +83,6 @@ namespace UIAClientTestFramework
 			wp.Close();
 		}
 
-
-		//the WindowPattern's property
 		public bool CanMaximize {
 			get { return (bool) element.GetCurrentPropertyValue (WindowPattern.CanMaximizeProperty); }
 		}

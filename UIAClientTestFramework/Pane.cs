@@ -52,9 +52,7 @@ namespace UIAClientTestFramework
 		}
 
 		public DockPosition DockPosition {
-			get {
-				return (DockPosition) element.GetCurrentPropertyValue (DockPattern.DockPositionProperty);
-			}
+			get { return (DockPosition) element.GetCurrentPropertyValue (DockPattern.DockPositionProperty); }
 		}
 
 		// The method and properties of TransformPattern
@@ -73,9 +71,7 @@ namespace UIAClientTestFramework
 		}
 
 		public bool CanRotate {
-			get {
-				return (bool) element.GetCurrentPropertyValue (TransformPattern.CanRotateProperty);
-			}
+			get { return (bool) element.GetCurrentPropertyValue (TransformPattern.CanRotateProperty); }
 		}
 	}
 }

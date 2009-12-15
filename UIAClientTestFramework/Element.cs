@@ -35,22 +35,18 @@ namespace UIAClientTestFramework
 		protected AutomationElement element;
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
-		// AutomationElement Name property.
-		public string Name
-		{
-			get { return element.Current.Name; }
-		}
-
-		public AutomationElement AutomationElement
-		{
-			get {
-				return element;
-			}
-		}
-
 		public Element (AutomationElement element)
 		{
 			this.element = element;
+		}
+
+		// AutomationElement Name property.
+		public string Name {
+			get { return element.Current.Name; }
+		}
+
+		public AutomationElement AutomationElement {
+			get { return element; }
 		}
 
 		public T Find<T> () where T : Element
@@ -166,9 +162,7 @@ namespace UIAClientTestFramework
 
 		//add a new Finder property
 		public Finder Finder {
-			get {
-				return new Finder (this.AutomationElement);
-			}
+			get { return new Finder (this.AutomationElement); }
 		}
 
 		//get the Pattern of the control

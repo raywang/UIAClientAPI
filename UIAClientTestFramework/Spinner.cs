@@ -35,18 +35,23 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		public double Value
+		// The method and property of ValuePattern
+		public void SetValue (double value)
 		{
-			get
-			{
-				RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
-				return rp.Current.Value;
-			}
-			set
-			{
-				RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
-				rp.SetValue (value);
-			}
+			SetValue (value, true);
+		}
+
+		public void SetValue (double value, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set \"{0}\" to the \"{1}\".", value, this.Name));
+
+			RangeValuePattern rvp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
+			rvp.SetValue (value);
+		}
+
+		public string Value {
+			get { return (string) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
 		}
 	}
 }

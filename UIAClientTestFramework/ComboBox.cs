@@ -63,19 +63,13 @@ namespace UIAClientTestFramework
 		{
 			if (log == true)
 				procedureLogger.Action (string.Format ("Collapse the \"{0}\".", this.Name));
-			try {
-				Element.GetCurrentPattern<ExpandCollapsePattern> (element).Collapse ();
-			} catch (Exception ex) {
-				Console.WriteLine (ex.Message);
-			}
+
+			Element.GetCurrentPattern<ExpandCollapsePattern> (element).Collapse ();
 		}
 
 		// The property of ExpandCollapsePattern
-		public ExpandCollapseState ExpandCollapseState
-		{
-			get {
-				return (ExpandCollapseState) element.GetCurrentPropertyValue (ExpandCollapsePattern.ExpandCollapseStateProperty);
-			}
+		public ExpandCollapseState ExpandCollapseState {
+			get { return (ExpandCollapseState) element.GetCurrentPropertyValue (ExpandCollapsePattern.ExpandCollapseStateProperty);	}
 		}
 	}
 }

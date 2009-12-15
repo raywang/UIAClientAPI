@@ -46,18 +46,13 @@ namespace UIAClientTestFramework
 		{
 			if (log == true)
 				procedureLogger.Action (string.Format ("Toggle {0}.", this.Name));
-			try {
-				Element.GetCurrentPattern<TogglePattern> (element).Toggle ();
-			} catch (Exception ex) {
-				Console.WriteLine (ex.Message);
-			}
+
+			Element.GetCurrentPattern<TogglePattern> (element).Toggle ();
 		}
 
 		// The property of TogglePattern
 		public ToggleState ToggleState {
-			get {
-				return (ToggleState) element.GetCurrentPropertyValue (TogglePattern.ToggleStateProperty);
-			}
+			get { return (ToggleState) element.GetCurrentPropertyValue (TogglePattern.ToggleStateProperty); }
 		}
 	}
 }

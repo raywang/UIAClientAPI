@@ -53,18 +53,11 @@ namespace UIAClientTestFramework
 
 		// The property of ValuePattern
 		public string Value {
-			get {
-				return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty);
-			}
+			get { return (string) element.GetCurrentPropertyValue (ValuePattern.ValueProperty); }
 		}
 
-		public bool IsReadOnly
-		{
-			get
-			{
-				return (bool) element.GetCurrentPropertyValue (ValuePattern.IsReadOnlyProperty);
-			}
+		public bool IsReadOnly {
+			get { return (bool) element.GetCurrentPropertyValue (ValuePattern.IsReadOnlyProperty); }
 		}
 	}
-
 }

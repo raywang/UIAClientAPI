@@ -274,7 +274,7 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//102.13 Click list item "68" on the "Icon Picker" dialog.
-			standardIconList.Find<ListItem> ("68").Show ();
+			standardIconList.Find<ListItem> ("68").ScrollIntoView ();
 			procedureLogger.ExpectedResult ("The \"68\" list item is showed in the view.");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -305,7 +305,6 @@ namespace ClientTest
 			editGroupWindow.OK ();
 			procedureLogger.ExpectedResult ("The \"Edit Group\" dialog disappears.");
 			Thread.Sleep (Config.Instance.ShortDelay);
-
 		}
 
 		//TestCase103 test the "Add Entry" dialog
@@ -391,7 +390,6 @@ namespace ClientTest
 
 			//103.8 move "add entry" window to (200,200 )
 			procedureLogger.Action ("move \"add entry\" window to (200,200 )");
-			//var addEntryDialog = window.Find<Window> ("Add Entry");
 			addEntryDialog.Move (200, 200);
 			procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
 			Thread.Sleep (Config.Instance.ShortDelay);

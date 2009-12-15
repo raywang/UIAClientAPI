@@ -37,10 +37,8 @@ namespace UIAClientTestFramework
 	public class Config
 	{
 		private static Config instance = null;
-		public static Config Instance
-		{
-			get
-			{
+		public static Config Instance {
+			get {
 				if (instance == null)
 					ReadFromConfigureFile ();
 				return instance;

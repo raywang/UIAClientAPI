@@ -36,12 +36,12 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		public void Show ()
+		public void ScrollIntoView ()
 		{
-			Show (true);
+			ScrollIntoView (true);
 		}
 
-		public void Show (bool log)
+		public void ScrollIntoView (bool log)
 		{
 			if (log == true)
 				procedureLogger.Action (string.Format ("Scroll {0} into view.", this.Name));

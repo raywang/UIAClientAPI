@@ -36,7 +36,7 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		//the ScrollPattern's method
+		// The methods and properties of ScrollPattern
 		public void Scroll (ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
 		{
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
@@ -61,34 +61,27 @@ namespace UIAClientTestFramework
 			sp.SetScrollPercent (horizontalPercent, verticalPercent);
 		}
 
-		//the ScrollPattern's property
-		public bool HorizontallyScrollable
-		{
+		public bool HorizontallyScrollable {
 			get { return (bool) element.GetCurrentPropertyValue (ScrollPattern.HorizontallyScrollableProperty); }
 		}
 
-		public double HorizontalScrollPercent
-		{
+		public double HorizontalScrollPercent {
 			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.HorizontalScrollPercentProperty); }
 		}
 
-		public double HorizontalViewSize
-		{
+		public double HorizontalViewSize {
 			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.HorizontalViewSizeProperty); }
 		}
 
-		public bool VerticallyScrollable
-		{
+		public bool VerticallyScrollable {
 			get { return (bool) element.GetCurrentPropertyValue (ScrollPattern.VerticallyScrollableProperty); }
 		}
 
-		public double VerticalScrollPercent
-		{
+		public double VerticalScrollPercent {
 			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalScrollPercentProperty); }
 		}
 
-		public double VerticalViewSize
-		{
+		public double VerticalViewSize {
 			get { return (double) element.GetCurrentPropertyValue (ScrollPattern.VerticalViewSizeProperty); }
 		}
 	}
