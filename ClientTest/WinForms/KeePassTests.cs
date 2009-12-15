@@ -359,56 +359,56 @@ namespace ClientTest
 
 			//103.7 Check "Add Entry" window's default WindowPattern Property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMaximizeProperty");
-			Window AddEntryDialog = window.Find<Window> ("Add Entry");
-			Assert.AreEqual (false, AddEntryDialog.CanMaximize);
+			Window addEntryDialog = window.Find<Window> ("Add Entry");
+			Assert.AreEqual (false, addEntryDialog.CanMaximize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMinimizeProperty");
-			Assert.AreEqual (false, AddEntryDialog.CanMinimize);
+			Assert.AreEqual (false, addEntryDialog.CanMinimize);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's IsModalProperty");
-			Assert.AreEqual (true, AddEntryDialog.IsModal);
+			Assert.AreEqual (true, addEntryDialog.IsModal);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's IsTopmostProperty");
-			Assert.AreEqual (false, AddEntryDialog.IsTopmost);
+			Assert.AreEqual (false, addEntryDialog.IsTopmost);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's WindowInteractionStateProperty");
-			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, AddEntryDialog.WindowInteractionState);
+			Assert.AreEqual (WindowInteractionState.ReadyForUserInteraction, addEntryDialog.WindowInteractionState);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's WindowVisualStateProperty");
-			Assert.AreEqual (WindowVisualState.Minimized, AddEntryDialog.WindowVisualState);
+			Assert.AreEqual (WindowVisualState.Minimized, addEntryDialog.WindowVisualState);
 			procedureLogger.ExpectedResult ("The window's CanMaximizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.8 move "add entry" window to (200,200 )
 			procedureLogger.Action ("move \"add entry\" window to (200,200 )");
-			//var AddEntryDialog = window.Find<Window> ("Add Entry");
-			AddEntryDialog.Move (200, 200);
+			//var addEntryDialog = window.Find<Window> ("Add Entry");
+			addEntryDialog.Move (200, 200);
 			procedureLogger.ExpectedResult ("the \"add entry\" window is moved to (200,200 )");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//check the transformpattern's property
 			procedureLogger.Action ("Check \"Add Entry\" window's CanMoveProperty");
-			Assert.AreEqual (true, AddEntryDialog.CanMove);
+			Assert.AreEqual (true, addEntryDialog.CanMove);
 			procedureLogger.ExpectedResult ("The window's CanMoveProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanSizeProperty");
-			Assert.AreEqual (false, AddEntryDialog.CanResize);
+			Assert.AreEqual (false, addEntryDialog.CanResize);
 			procedureLogger.ExpectedResult ("The window's CanSizeProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check \"Add Entry\" window's CanRotateProperty");
-			Assert.AreEqual (false, AddEntryDialog.CanRotate);
+			Assert.AreEqual (false, addEntryDialog.CanRotate);
 			procedureLogger.ExpectedResult ("The window's CanRotateProperty should be False");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -421,7 +421,7 @@ namespace ClientTest
 
 			//103.10 Click the "Add" button on the "Add Entry" Window
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.Find<Button> ("Add").Click (false);
+			addEntryDialog.Find<Button> ("Add").Click (false);
 			procedureLogger.ExpectedResult ("The \"Edit Auto-Type Item\" window appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -478,9 +478,9 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.15 Click the "Add" button on the "Add Entry" Window
-			var notesDatagrid = AddEntryDialog.Find<DataGrid> ("Notes:");
+			var notesDatagrid = addEntryDialog.Find<DataGrid> ("Notes:");
 			procedureLogger.Action ("Click the \"Add\" button on the \"Add Entry\" Window");
-			AddEntryDialog.Find<Button> ("Add").Click (false);
+			addEntryDialog.Find<Button> ("Add").Click (false);
 			procedureLogger.ExpectedResult ("The \"Edit Entry String\" dialog appears");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -499,7 +499,7 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//103.18 Check the "aa" text's TableItemPattern
-			var aaText = AddEntryDialog.Find<MyText> ("aa");
+			var aaText = addEntryDialog.Find<MyText> ("aa");
 
 			procedureLogger.Action ("Check \"aa\" text's TableItemPattern's Column property");
 			Assert.AreEqual (0, aaText.Column);
@@ -533,7 +533,7 @@ namespace ClientTest
 
 			//103.19 Close the "Add Entry" Window
 			procedureLogger.Action ("Close the \"Add Entry\" Window");
-			AddEntryDialog.OK (false);
+			addEntryDialog.OK (false);
 			procedureLogger.ExpectedResult ("The \"Create New Password Database - Step 2\" window closes");
 			Thread.Sleep (Config.Instance.ShortDelay);
 		}
