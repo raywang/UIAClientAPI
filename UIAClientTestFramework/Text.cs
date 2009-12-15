@@ -62,11 +62,6 @@ namespace UIAClientTestFramework
 			get { return (int) element.GetCurrentPropertyValue (TableItemPattern.RowSpanProperty); }
 		}
 
-		public int Value
-		{
-			get { return (int) element.GetCurrentPropertyValue (RangeValuePattern.ValueProperty); }
-		}
-
 		//the TableItem's property
 		public AutomationElement[] TableItemColumnHeaderItems
 		{
