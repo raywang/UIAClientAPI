@@ -45,12 +45,9 @@ namespace UIAClientTestFramework
 		public void Expand (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Expand the \"{0}\" .", this.Name));
-			try {
-				Element.GetCurrentPattern<ExpandCollapsePattern> (element).Expand ();
-			} catch (Exception ex) {
-				Console.WriteLine (ex.Message);
-			}
+				procedureLogger.Action (string.Format ("Expand {0}.", this.Name));
+
+			Element.GetCurrentPattern<ExpandCollapsePattern> (element).Expand ();
 		}
 
 		//Collapse the combobox
@@ -62,7 +59,7 @@ namespace UIAClientTestFramework
 		public void Collapse (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Collapse the \"{0}\".", this.Name));
+				procedureLogger.Action (string.Format ("Collapse {0}.", this.Name));
 
 			Element.GetCurrentPattern<ExpandCollapsePattern> (element).Collapse ();
 		}

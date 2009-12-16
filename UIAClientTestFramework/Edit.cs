@@ -45,7 +45,7 @@ namespace UIAClientTestFramework
 		public void SetValue (string value, bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Set \"{0}\" to the \"{1}\".", value, this.Name));
+				procedureLogger.Action (string.Format ("Set {0} to {1}.", value, this.Name));
 
 			ValuePattern vp = (ValuePattern) element.GetCurrentPattern (ValuePattern.Pattern);
 			vp.SetValue (value);

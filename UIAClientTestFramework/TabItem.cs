@@ -44,7 +44,7 @@ namespace UIAClientTestFramework
 		public void Select (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Select the \"{0}\" tab item.", this.Name));
+				procedureLogger.Action (string.Format ("Select {0}.", this.Name));
 
 			SelectionItemPattern sp = (SelectionItemPattern) element.GetCurrentPattern (SelectionItemPattern.Pattern);
 			sp.Select ();

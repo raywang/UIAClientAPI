@@ -40,20 +40,44 @@ namespace UIAClientTestFramework
 		// The methods and properties of TransformPattern
 		public void Move (double x, double y)
 		{
+			Move (x, y, true);
+		}
+
+		public void Move (double x, double y, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Move window to ({0}, {1}).", x, y));
+
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
 			tp.Move (x, y);
 		}
 
 		public void Resize (double width, double height)
 		{
+			Resize (width, height, true);
+		}
+
+		public void Resize (double width, double height, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Resize window to {0} width, {1} height.", width, height));
+
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
 			tp.Resize (width, height);
 		}
 
-		public void Rotate (double degrees)
+		public void Rotate (double degree)
 		{
+			Rotate (degree, true);
+		}
+
+		public void Rotate (double degree, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Rotate {0} {1} degree(s).", this.Name, degree));
+
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
-			tp.Rotate (degrees);
+			tp.Rotate (degree);
 		}
 
 		public bool CanMove {
@@ -71,16 +95,30 @@ namespace UIAClientTestFramework
 		// The methods and properties of WindowPattern
 		public void SetWindowVisualState (WindowVisualState state)
 		{
-			procedureLogger.Action (string.Format ("Set \"{0}\" to be \"{1}\".", this.Name, state));
+			SetWindowVisualState (state, true);
+		}
+
+		public void SetWindowVisualState (WindowVisualState state, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set {0} to be {1}.", this.Name, state));
+
 			WindowPattern wp = (WindowPattern) element.GetCurrentPattern (WindowPattern.Pattern);
 			wp.SetWindowVisualState (state);
 		}
 
 		public void Close ()
 		{
-			procedureLogger.Action (string.Format ("Close the \"{0}\".", this.Name));
+			Close (true);
+		}
+
+		public void Close (bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Close {0}.", this.Name));
+
 			WindowPattern wp = (WindowPattern) element.GetCurrentPattern (WindowPattern.Pattern);
-			wp.Close();
+			wp.Close ();
 		}
 
 		public bool CanMaximize {

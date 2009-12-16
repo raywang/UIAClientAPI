@@ -45,16 +45,9 @@ namespace UIAClientTestFramework
 		public AutomationElement GetItem (int row, int column, bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Get the \"{0}\" Item.", this.Name));
-			AutomationElement item;
-			try {
-				item = Element.GetCurrentPattern<GridPattern>
-					(element).GetItem (row, column);
-				return item;
-			} catch (Exception ex) {
-				Console.WriteLine (ex.Message);
-			}
-			return null;
+				procedureLogger.Action (string.Format ("Get item {0}.", this.Name));
+
+			return Element.GetCurrentPattern<GridPattern> (element).GetItem (row, column);;
 		}
 
 		public int RowCount {
@@ -87,14 +80,22 @@ namespace UIAClientTestFramework
 		}
 
 		// The methods and properties of MultipleViewPattern
-		public void GetViewName (int viewId)
+		public string GetViewName (int viewId)
 		{
 			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
-			mvp.GetViewName (viewId);
+			return mvp.GetViewName (viewId);
 		}
 
 		public void SetCurrentView (int viewId)
 		{
+			SetCurrentView (viewId, true);
+		}
+
+		public void SetCurrentView (int viewId, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set current view to {0}.", GetViewName(viewId)));
+
 			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
 			mvp.SetCurrentView (viewId);
 		}
@@ -110,24 +111,56 @@ namespace UIAClientTestFramework
 		// The methods and properties of ScrollPattern
 		public void Scroll (ScrollAmount horizontalAmount, ScrollAmount verticalAmount)
 		{
+			Scroll (horizontalAmount, verticalAmount, true);
+		}
+
+		public void Scroll (ScrollAmount horizontalAmount, ScrollAmount verticalAmount, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format("Scroll {0} horizontally and {1} vertically.", horizontalAmount.ToString(), verticalAmount.ToString()));
+
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
 			sp.Scroll (horizontalAmount, verticalAmount);
 		}
 
 		public void ScrollHorizontal (ScrollAmount amount)
 		{
+			ScrollHorizontal (amount, true);
+		}
+
+		public void ScrollHorizontal (ScrollAmount amount, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Scroll {0} horizontally.", amount.ToString ()));
+
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
 			sp.ScrollHorizontal (amount);
 		}
 
 		public void ScrollVertical (ScrollAmount amount)
 		{
+			ScrollVertical (amount, true);
+		}
+
+		public void ScrollVertical (ScrollAmount amount, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Scroll {0} vertically..", amount.ToString ()));
+
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
 			sp.ScrollVertical (amount);
 		}
 
 		public void SetScrollPercent (double horizontalPercent, double verticalPercent)
 		{
+			SetScrollPercent (horizontalPercent, verticalPercent, true);
+		}
+
+		public void SetScrollPercent (double horizontalPercent, double verticalPercent, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set scroll {0} percent horizontally and {1} percent vertically.", horizontalPercent, verticalPercent));
+
 			ScrollPattern sp = (ScrollPattern) element.GetCurrentPattern (ScrollPattern.Pattern);
 			sp.SetScrollPercent (horizontalPercent, verticalPercent);
 		}

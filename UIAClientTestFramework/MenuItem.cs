@@ -44,7 +44,7 @@ namespace UIAClientTestFramework
 		public void Click (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Click the \"{0}\".", this.Name));
+				procedureLogger.Action (string.Format ("Click {0}.", this.Name));
 
 			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
 			ip.Invoke ();

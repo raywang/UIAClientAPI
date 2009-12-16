@@ -45,7 +45,7 @@ namespace UIAClientTestFramework
 		public void SetDockPosition (DockPosition position, bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Set \"{0}\" control to be docked to \"{1}\".", this.Name, position));
+				procedureLogger.Action (string.Format ("Dock {0} to {1}.", this.Name, position));
 
 			DockPattern dp = (DockPattern) element.GetCurrentPattern (DockPattern.Pattern);
 			dp.SetDockPosition (position);
@@ -64,7 +64,7 @@ namespace UIAClientTestFramework
 		public void Rotate (double degree, bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Rotate \"{0}\" {1} degree(s).", this.Name, degree));
+				procedureLogger.Action (string.Format ("Rotate {0} {1} degree(s).", this.Name, degree));
 
 			TransformPattern tp = (TransformPattern) element.GetCurrentPattern (TransformPattern.Pattern);
 			tp.Rotate (degree);

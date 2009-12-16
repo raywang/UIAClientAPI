@@ -30,6 +30,7 @@ namespace UIAClientTestFramework
 	public class ScrollBar : Element
 	{
 		public static readonly ControlType UIAType = ControlType.ScrollBar;
+
 		public ScrollBar (AutomationElement elm)
 			: base (elm)
 		{
@@ -38,8 +39,16 @@ namespace UIAClientTestFramework
 		// The methods and properties of RangeValuePattern
 		public void SetValue (double value)
 		{
-			RangeValuePattern rp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
-			rp.SetValue (value);
+			SetValue (value, true);
+		}
+
+		public void SetValue (double value, bool log)
+		{
+			if (log == true)
+				procedureLogger.Action (string.Format ("Set {0} to {1}.", value, this.Name));
+
+			RangeValuePattern rvp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
+			rvp.SetValue (value);
 		}
 
 		public bool IsReadOnly {

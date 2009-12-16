@@ -57,7 +57,7 @@ namespace UIAClientTestFramework
 		public void SetCurrentView (int viewId, bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Set current view to \"{0}\".", this.Name));
+				procedureLogger.Action (string.Format ("Set current view to {0}.", GetViewName (viewId)));
 
 			MultipleViewPattern mvp = (MultipleViewPattern) element.GetCurrentPattern (MultipleViewPattern.Pattern);
 			mvp.SetCurrentView (viewId);

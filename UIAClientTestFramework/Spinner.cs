@@ -30,6 +30,7 @@ namespace UIAClientTestFramework
 	public class Spinner : Element
 	{
 		public static readonly ControlType UIAType = ControlType.Spinner;
+
 		public Spinner (AutomationElement elm)
 			: base (elm)
 		{
@@ -44,7 +45,7 @@ namespace UIAClientTestFramework
 		public void SetValue (double value, bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Set \"{0}\" to the \"{1}\".", value, this.Name));
+				procedureLogger.Action (string.Format ("Set {0} to {1}.", value, this.Name));
 
 			RangeValuePattern rvp = (RangeValuePattern) element.GetCurrentPattern (RangeValuePattern.Pattern);
 			rvp.SetValue (value);

@@ -63,7 +63,7 @@ namespace UIAClientTestFramework
 		public void Click (bool log)
 		{
 			if (log == true)
-				procedureLogger.Action (string.Format ("Click the \"{0}\" button.", this.Name));
+				procedureLogger.Action (string.Format ("Click {0}.", this.Name));
 
 			Element.GetCurrentPattern<InvokePattern> (element).Invoke ();
 		}
