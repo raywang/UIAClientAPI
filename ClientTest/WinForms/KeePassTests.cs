@@ -663,7 +663,7 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			procedureLogger.Action ("Check Horizontal scroll bar's HorizontalViewSize is 75.711159737417944");
-			Assert.AreEqual (94.666666666666671d, dataGrid.HorizontalViewSize);
+			Assert.AreEqual (92.266666666666666d, dataGrid.HorizontalViewSize);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's HorizontalViewSize should be 75.711159737417944");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -726,7 +726,7 @@ namespace ClientTest
 
 			//104.23 Check the horizotal scrollbar's position should be  54.054054054054056d
 			procedureLogger.Action ("after the SetScrollPercent action the scroll's position is  54.054054054054056d");
-			Assert.AreEqual (50.0d, dataGrid.HorizontalScrollPercent);
+			Assert.AreEqual (51.724137931034484d, dataGrid.HorizontalScrollPercent);
 			procedureLogger.ExpectedResult ("The Horizontal scroll bar's VerticallyScrollable should be  54.054054054054056d");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
@@ -890,6 +890,7 @@ namespace ClientTest
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay);
+
 		}
 	}
 }
