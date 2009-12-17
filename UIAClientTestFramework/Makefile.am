@@ -111,8 +111,7 @@ REFERENCES =  \
 	System.Data \
 	System.Xml \
 	UIAutomationClient \
-	UIAutomationTypes \
-	White.Core
+	UIAutomationTypes
 
 DLL_REFERENCES = 
 
