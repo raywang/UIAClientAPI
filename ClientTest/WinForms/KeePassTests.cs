@@ -132,7 +132,7 @@ namespace ClientTest
 			keyfileCheckBox.Toggle();
 			procedureLogger.ExpectedResult ("\"Key file/option\" CheckBox chekced.");
 			Assert.AreEqual (keyfileCheckBox.ToggleState, ToggleState.On);
-			Thread.Sleep(Config.Instance.ShortDelay);
+			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//101.8 Click the " Create..." button.
 			createMasterKeyWindow.Find<Button> (" Create...").Click ();
@@ -457,7 +457,7 @@ namespace ClientTest
 			procedureLogger.ExpectedResult ("The scroll bar's minimum value shoule be 0");
 			Thread.Sleep (Config.Instance.ShortDelay);
 
-			procedureLogger.Action ("Check scroll bar's value whether equal to 300");
+			procedureLogger.Action ("Check scroll bar's value whether equals to 300");
 			Assert.AreEqual (300, (int) scrollBar.Value);
 			procedureLogger.ExpectedResult ("The scroll bar's value should be 300");
 			Thread.Sleep (Config.Instance.ShortDelay);
@@ -587,7 +587,7 @@ namespace ClientTest
 			Thread.Sleep (Config.Instance.ShortDelay);
 
 			//104.7  Input the "email" into the title  edit
-			procedureLogger.Action ("Input the \"email\" into the title  edit ");
+			procedureLogger.Action ("Input the \"email\" into the title edit ");
 			var notesEdit = newPassDialog.Find<Edit> ("Notes:");
 			SWF.SendKeys.SendWait ("email");
 			procedureLogger.ExpectedResult ("The \"email\" field is inputted into the \"Notes\" edit");
