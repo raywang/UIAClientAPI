@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "ClientTest\Tests.csproj", "{1361ECD8-5FD6-4EF9-8386-04FB30DC7AFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{1361ECD8-5FD6-4EF9-8386-04FB30DC7AFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIAClientTestFramework", "UIAClientTestFramework\UIAClientTestFramework.csproj", "{4AACD863-5F3A-49E9-B4B5-6B011A7F2741}"
 EndProject
