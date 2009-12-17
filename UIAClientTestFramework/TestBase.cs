@@ -82,12 +82,15 @@ namespace UIAClientTestFramework
 		{
 			procedureLogger.Action ("Error: " + ex.Message);
 			procedureLogger.ExpectedResult ("A Exception has been thrown.");
-			OnQuit ();
+			procedureLogger.Save ();
+			throw ( ex );
 		}
 
 		protected void Run (System.Action action)
 		{
-			try { action (); } catch (Exception ex) {
+			try {
+				action ();
+			} catch (Exception ex) {
 				HandleException (ex);
 			}
 		}

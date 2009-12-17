@@ -36,7 +36,7 @@ using UIAClientTestFramework;
 using NUnit.Framework;
 using System.Windows.Automation;
 
-namespace ClientTest
+namespace Tests
 {
 	[TestFixture]
 	class WindowPatternTests : TestBase
