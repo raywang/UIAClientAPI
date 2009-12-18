@@ -36,7 +36,6 @@ namespace UIAClientTestFramework
 		static StringBuilder expectedResultBuffer;
 		private static List<List<string>> procedures;
 		private static DateTime startTime;
-		Config config = new Config ();
 
 		public static void Init()
 		{
@@ -171,8 +170,6 @@ namespace UIAClientTestFramework
 		 */
 		private void FlushBuffer ()
 		{
-			Config config = new Config ();
-
 			if (actionBuffer.Length != 0  && expectedResultBuffer.Length != 0) {
 				if (Config.Instance.TakeScreenShots) {
 					string filename = string.Format ("screen{0:00}.png", procedures.Count + 1);

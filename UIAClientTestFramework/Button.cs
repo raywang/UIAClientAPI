@@ -37,23 +37,6 @@ namespace UIAClientTestFramework
 		{
 		}
 
-		/*
-		// Perform "Click" action.
-		public void Click ()
-		{
-			Click (true);
-		}
-
-		public void Click (bool log)
-		{
-			if (log == true)
-				procedureLogger.Action (string.Format ("Click the \"{0}\" button.", this.Name));
-
-			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
-			ip.Invoke ();
-		}
-		*/
-
 		// Perform "Click" action.
 		public void Click ()
 		{
@@ -65,7 +48,8 @@ namespace UIAClientTestFramework
 			if (log == true)
 				procedureLogger.Action (string.Format ("Click {0}.", this.Name));
 
-			Element.GetCurrentPattern<InvokePattern> (element).Invoke ();
+			InvokePattern ip = (InvokePattern) element.GetCurrentPattern (InvokePattern.Pattern);
+			ip.Invoke ();
 		}
 	}
 }

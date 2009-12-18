@@ -47,7 +47,8 @@ namespace UIAClientTestFramework
 			if (log == true)
 				procedureLogger.Action (string.Format ("Toggle {0}.", this.Name));
 
-			Element.GetCurrentPattern<TogglePattern> (element).Toggle ();
+			TogglePattern tp = (TogglePattern) element.GetCurrentPattern (TogglePattern.Pattern);
+			tp.Toggle ();
 		}
 
 		// The property of TogglePattern

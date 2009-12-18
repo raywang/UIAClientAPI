@@ -164,13 +164,5 @@ namespace UIAClientTestFramework
 		public Finder Finder {
 			get { return new Finder (this.AutomationElement); }
 		}
-
-		//get the Pattern of the control
-		public static T GetCurrentPattern<T> (AutomationElement ae) where T : BasePattern
-		{
-			var patternField = typeof (T).GetField ("Pattern", BindingFlags.Public | BindingFlags.Static);
-			var patternObj = (AutomationPattern) patternField.GetValue (null);
-			return (T) ae.GetCurrentPattern (patternObj);
-		}
 	}
 }

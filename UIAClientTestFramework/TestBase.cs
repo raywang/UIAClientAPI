@@ -40,7 +40,6 @@ namespace UIAClientTestFramework
 	[TestFixture]
 	public class TestBase
 	{
-		Config config = new Config ();
 		protected ProcedureLogger procedureLogger = new ProcedureLogger ();
 
 		[SetUp]

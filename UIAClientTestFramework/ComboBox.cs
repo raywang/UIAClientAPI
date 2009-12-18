@@ -47,7 +47,8 @@ namespace UIAClientTestFramework
 			if (log == true)
 				procedureLogger.Action (string.Format ("Expand {0}.", this.Name));
 
-			Element.GetCurrentPattern<ExpandCollapsePattern> (element).Expand ();
+			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
+			ecp.Expand ();
 		}
 
 		//Collapse the combobox
@@ -61,7 +62,8 @@ namespace UIAClientTestFramework
 			if (log == true)
 				procedureLogger.Action (string.Format ("Collapse {0}.", this.Name));
 
-			Element.GetCurrentPattern<ExpandCollapsePattern> (element).Collapse ();
+			ExpandCollapsePattern ecp = (ExpandCollapsePattern) element.GetCurrentPattern (ExpandCollapsePattern.Pattern);
+			ecp.Collapse ();
 		}
 
 		// The property of ExpandCollapsePattern
