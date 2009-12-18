@@ -1,4 +1,4 @@
-﻿// WindowPatternTests.cs: Tests for Window and Dock Patterns.
+// WindowPatternTests.cs: Tests for Window and Dock Patterns.
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@
 // Copyright (c) 2009 Novell, Inc. (http://www.novell.com)
 //
 // Authors:
-//      Ray Wang <rawang@novell.com>
+//	Ray Wang <rawang@novell.com>
 //	Felicia Mu <fxmu@novell.com>
 
 using System;
@@ -39,7 +39,7 @@ using System.Windows.Automation;
 namespace Tests
 {
 	[TestFixture]
-	class WindowPatternTests : TestBase
+	public class WindowPatternTests : TestBase
 	{
 		Window window = null;
 

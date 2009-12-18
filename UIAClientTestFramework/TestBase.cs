@@ -22,7 +22,7 @@
 // Copyright (c) 2009 Novell, Inc. (http://www.novell.com)
 //
 // Authors:
-//      Ray Wang <rawang@novell.com>
+//	Ray Wang <rawang@novell.com>
 //	Felicia Mu <fxmu@novell.com>
 
 using System;
@@ -80,10 +80,9 @@ namespace UIAClientTestFramework
 
 		public void HandleException (Exception ex)
 		{
-			procedureLogger.Action ("Error: " + ex.Message);
+			procedureLogger.Action ("Error: " + ex.ToString());
 			procedureLogger.ExpectedResult ("A Exception has been thrown.");
 			procedureLogger.Save ();
-			throw ( ex );
 		}
 
 		protected void Run (System.Action action)
@@ -92,6 +91,7 @@ namespace UIAClientTestFramework
 				action ();
 			} catch (Exception ex) {
 				HandleException (ex);
+				throw;
 			}
 		}
 	}
