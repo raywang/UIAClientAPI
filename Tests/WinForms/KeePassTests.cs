@@ -39,7 +39,7 @@ using UIAClientTestFramework;
 using MyList = UIAClientTestFramework.List;
 using MyText = UIAClientTestFramework.Text;
 
-namespace ClientTest
+namespace Tests
 {
 	[TestFixture]
 	class KeePassTests : TestBase
@@ -890,7 +890,6 @@ namespace ClientTest
 			window.Resize (50, 50);
 			procedureLogger.ExpectedResult ("NewDatabase.kdbx*-KeePass Password Safe\" Window is minimize to (50, 50)");
 			Thread.Sleep (Config.Instance.ShortDelay);
-
 		}
 	}
 }

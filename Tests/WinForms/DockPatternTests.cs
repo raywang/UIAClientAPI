@@ -36,7 +36,7 @@ using System.Diagnostics;
 using UIAClientTestFramework;
 using NUnit.Framework;
 
-namespace ClientTest
+namespace Tests
 {
 	[TestFixture]
 	class DockPatternTests : TestBase
