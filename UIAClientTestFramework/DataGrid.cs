@@ -47,7 +47,8 @@ namespace UIAClientTestFramework
 			if (log == true)
 				procedureLogger.Action (string.Format ("Get item {0}.", this.Name));
 
-			return Element.GetCurrentPattern<GridPattern> (element).GetItem (row, column);;
+			GridPattern gp = (GridPattern) element.GetCurrentPattern (GridPattern.Pattern);
+			return gp.GetItem (row, column);
 		}
 
 		public int RowCount {

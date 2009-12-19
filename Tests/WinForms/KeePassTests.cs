@@ -1,4 +1,4 @@
-﻿// KeePassTests.cs: Tests for KeePass
+// KeePassTests.cs: Tests for KeePass
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@
 // Copyright (c) 2009 Novell, Inc. (http://www.novell.com)
 //
 // Authors:
-//      Ray Wang <rawang@novell.com>
+//	Ray Wang <rawang@novell.com>
 //	Felicia Mu <fxmu@novell.com>
 
 using System;
@@ -42,7 +42,7 @@ using MyText = UIAClientTestFramework.Text;
 namespace Tests
 {
 	[TestFixture]
-	class KeePassTests : TestBase
+	public class KeePassTests : TestBase
 	{
 		Window window = null;
 

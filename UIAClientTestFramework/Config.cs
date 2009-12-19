@@ -22,7 +22,7 @@
 // Copyright (c) 2009 Novell, Inc. (http://www.novell.com)
 //
 // Authors:
-//      Ray Wang <rawang@novell.com>
+//	Ray Wang <rawang@novell.com>
 //	Felicia Mu <fxmu@novell.com>
 
 using System;
