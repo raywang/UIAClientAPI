@@ -37,6 +37,8 @@ namespace UIAClientTestFramework
 
 		public Element (AutomationElement element)
 		{
+			if (element == null)
+				throw new ArgumentException("element cannot be null");
 			this.element = element;
 		}
 
