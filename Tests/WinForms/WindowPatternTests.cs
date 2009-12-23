@@ -32,7 +32,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
-using UIAClientTestFramework;
+using Mono.UIAutomation.TestFramework;
 using NUnit.Framework;
 using System.Windows.Automation;
 

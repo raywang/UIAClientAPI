@@ -33,7 +33,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Automation;
 using System.Diagnostics;
-using UIAClientTestFramework;
+using Mono.UIAutomation.TestFramework;
 using NUnit.Framework;
 
 namespace Tests

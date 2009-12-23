@@ -35,29 +35,23 @@ using System.Diagnostics;
 using NUnit.Framework;
 using System.Windows.Automation;
 using SWF = System.Windows.Forms;
-using UIAClientTestFramework;
-using MyList = UIAClientTestFramework.List;
-using MyText = UIAClientTestFramework.Text;
+using Mono.UIAutomation.TestFramework;
+using MyList = Mono.UIAutomation.TestFramework.List;
+using MyText = Mono.UIAutomation.TestFramework.Text;
 
 namespace Tests
 {
 	[TestFixture]
-	public class KeePassTests : TestBase
+	public class KeePassTests : TestBase 
 	{
 		Window window = null;
 
 		protected override void LaunchSample ()
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
-			procedureLogger.Action ("Launch " + sample);
+			Application app = new Application (sample);
+			app.Launch (sample);
 
-			try {
-				Process.Start (sample);
-				procedureLogger.ExpectedResult ("The KeePass window appears.");
-			} catch (Exception e) {
-				Console.WriteLine (e.Message);
-				Process.GetCurrentProcess ().Kill ();
-			}
 		}
 
 		protected override void OnSetup ()
