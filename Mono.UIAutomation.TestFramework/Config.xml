@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <KeePassPath>KeePass.exe</KeePassPath>
-  <DockPatternProviderPath>DockPatternProvider.exe</DockPatternProviderPath>
-  <WindowAndTransformPatternProviderPath>WindowAndTransformPatternProvider.exe</WindowAndTransformPatternProviderPath>
   <RetryTimes>20</RetryTimes>
   <RetryInterval>500</RetryInterval>
   <TakeScreenShots>true</TakeScreenShots>
