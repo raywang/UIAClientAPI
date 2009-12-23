@@ -58,9 +58,6 @@ namespace Mono.UIAutomation.TestFramework
 		public bool TakeScreenShots { get; set; }
 		// where to write procedure logger output, screenshots, etc
 		public string OutputDir { get; set; }
-		public string KeePassPath { get; set; }
-		public string DockPatternProviderPath { get; set; }
-		public string WindowAndTransformPatternProviderPath { get; set; }
 		public int ShortDelay { get; set; }
 		public int MediumDelay { get; set; }
 		public int LongDelay { get; set; }
