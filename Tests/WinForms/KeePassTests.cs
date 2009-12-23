@@ -48,7 +48,7 @@ namespace Tests
 
 		protected override void LaunchSample ()
 		{
-			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.KeePassPath);
+			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "KeePass.exe");
 			Application app = new Application (sample);
 			app.Launch (sample);
 

@@ -45,16 +45,9 @@ namespace Tests
 
 		protected override void LaunchSample ()
 		{
-			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.WindowAndTransformPatternProviderPath);
-			procedureLogger.Action ("Launch " + sample);
-
-			try {
-				Process.Start (sample);
-				procedureLogger.ExpectedResult ("WindowAndTransformPattern window appears.");
-			} catch (Exception e) {
-				Console.WriteLine (e.Message);
-				Process.GetCurrentProcess ().Kill ();
-			}
+			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "WindowAndTransformPatternProvider.exe");
+			Application app = new Application (sample);
+			app.Launch (sample);
 		}
 
 		protected override void OnSetup ()

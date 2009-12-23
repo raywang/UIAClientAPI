@@ -45,16 +45,9 @@ namespace Tests
 
 		protected override void LaunchSample ()
 		{
-			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, Config.Instance.DockPatternProviderPath);
-			procedureLogger.Action ("Launch " + sample);
-
-			try {
-				Process.Start (sample);
-				procedureLogger.ExpectedResult ("DockPattern window appears.");
-			} catch (Exception e) {
-				Console.WriteLine (e.Message);
-				Process.GetCurrentProcess ().Kill ();
-			}
+			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "DockPatternProvider.exe");
+			Application app = new Application (sample);
+			app.Launch (sample);
 		}
 
 		protected override void OnSetup ()
