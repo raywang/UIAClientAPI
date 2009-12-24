@@ -53,7 +53,7 @@
     <Reference Include="UIAutomationTypes, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application .cs" />
+    <Compile Include="Application.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="CheckBox.cs" />
     <Compile Include="ComboBox.cs" />

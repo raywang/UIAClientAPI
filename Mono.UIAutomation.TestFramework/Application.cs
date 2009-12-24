@@ -52,6 +52,5 @@ namespace Mono.UIAutomation.TestFramework
 				Process.GetCurrentProcess ().Kill ();
 			}
 		}
-		
 	}
 }
