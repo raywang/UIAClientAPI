@@ -35,17 +35,17 @@ namespace Mono.UIAutomation.TestFramework
 		public Application (String sample)
 		{
 			if (sample == null)
-				throw new ArgumentException ("sample cannot be null");
+				throw new ArgumentException ("Sample cannot be null.");
 			this.sample = sample;
 		}
 
-		public void Launch (String sample)
+		public void Launch ()
 		{
-			procedureLogger.Action ("Launch " + sample);
+			procedureLogger.Action ("Launch " + this.sample);
 			try {
 				Process.Start (sample);
 				String ExpectResult = null;
-				ExpectResult = string.Format ("The {0} window appears.", sample);
+				ExpectResult = string.Format ("{0} launched.", sample);
 				procedureLogger.ExpectedResult (ExpectResult);
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);

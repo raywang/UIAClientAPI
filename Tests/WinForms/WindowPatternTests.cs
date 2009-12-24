@@ -47,7 +47,7 @@ namespace Tests
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "WindowAndTransformPatternProvider.exe");
 			Application app = new Application (sample);
-			app.Launch (sample);
+			app.Launch ();
 		}
 
 		protected override void OnSetup ()

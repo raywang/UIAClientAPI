@@ -42,7 +42,7 @@ using MyText = Mono.UIAutomation.TestFramework.Text;
 namespace Tests
 {
 	[TestFixture]
-	public class KeePassTests : TestBase 
+	public class KeePassTests : TestBase
 	{
 		Window window = null;
 
@@ -50,8 +50,7 @@ namespace Tests
 		{
 			string sample = Path.Combine (System.AppDomain.CurrentDomain.BaseDirectory, "KeePass.exe");
 			Application app = new Application (sample);
-			app.Launch (sample);
-
+			app.Launch ();
 		}
 
 		protected override void OnSetup ()
