@@ -59,8 +59,8 @@ namespace Tests
 		protected override void OnQuit ()
 		{
 			base.OnQuit ();
-			int pid = (int) window.AutomationElement.GetCurrentPropertyValue (AutomationElementIdentifiers.ProcessIdProperty);
-			Process.GetProcessById (pid).Kill ();
+			window.Close ();
+			window.Find<Button> ("Discard changes").Click ();
 		}
 
 		[Test]
